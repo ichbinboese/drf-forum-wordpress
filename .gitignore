@@ -1,0 +1,19 @@
+# Operating System
+.DS_Store
+Thumbs.db
+*.log
+
+# Docker Volumes & Persistent Data (if mounted locally)
+/data/
+/wp_core/
+/flarum_data/
+/db_data/
+
+# Composer / NPM (in subfolders if generated)
+vendor/
+node_modules/
+.phpunit.result.cache
+
+# Environment
+.env.local
+.env.*.local

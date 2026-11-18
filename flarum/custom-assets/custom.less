@@ -1,0 +1,176 @@
+// ==========================================================================
+// DRF Augenblicke - Flarum Custom Design & Branding
+// ==========================================================================
+
+// Color Palette
+@primary-color: #f5b301;
+@primary-hover: #e0a300;
+@body-bg: #f3f4f6;
+@text-color: #1a1d20;
+@muted-color: #6b7280;
+@header-bg: #141518;
+@header-control-color: #ffffff;
+@control-color: #f5b301;
+
+// Global Typography & Body
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+  background-color: @body-bg !important;
+  color: @text-color !important;
+}
+
+// 1. Shared Global Top Navigation Bar
+.drf-flarum-topbar {
+  background-color: @header-bg;
+  border-bottom: 1px solid #2a2d34;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+
+  .drf-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+
+    .drf-logo-icon {
+      width: 28px;
+      height: 24px;
+    }
+
+    .drf-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: 0.5px;
+    }
+
+    .drf-sep {
+      color: #6b7280;
+      font-weight: 300;
+    }
+
+    .drf-short {
+      color: @primary-color;
+      font-weight: 700;
+      font-size: 1.05rem;
+    }
+
+    .drf-tagline {
+      color: #9ca3af;
+      font-size: 0.82rem;
+    }
+  }
+
+  .drf-nav-links {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    .drf-btn-back {
+      background-color: @primary-color;
+      color: #111417;
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 7px 16px;
+      border-radius: 9999px;
+      text-decoration: none;
+      transition: all 0.18s ease;
+
+      &:hover {
+        background-color: @primary-hover;
+        transform: translateY(-1px);
+      }
+    }
+
+    .drf-btn-subnav {
+      color: #e5e7eb;
+      font-size: 0.88rem;
+      font-weight: 500;
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: background 0.15s ease;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: @primary-color;
+      }
+    }
+  }
+}
+
+// 2. Flarum Header Adaptation
+.App-header {
+  background: #1a1c20 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+
+  .Header-title {
+    color: #ffffff !important;
+    font-weight: 700 !important;
+  }
+
+  .Button--link {
+    color: #e5e7eb !important;
+
+    &:hover, &:focus {
+      color: @primary-color !important;
+    }
+  }
+}
+
+// 3. Discussion List Cards
+.DiscussionListItem {
+  background: #ffffff !important;
+  border-radius: 12px !important;
+  margin-bottom: 12px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
+  border: 1px solid rgba(0, 0, 0, 0.03) !important;
+  transition: transform 0.18s ease, box-shadow 0.18s ease !important;
+
+  &:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.09) !important;
+  }
+
+  .DiscussionListItem-title {
+    font-weight: 600 !important;
+    color: #1f2937 !important;
+
+    &:hover {
+      color: @primary-hover !important;
+    }
+  }
+}
+
+// 4. Primary Buttons in Flarum (New Discussion, Reply)
+.Button--primary {
+  background-color: @primary-color !important;
+  color: #111417 !important;
+  border-color: @primary-color !important;
+  font-weight: 700 !important;
+  border-radius: 8px !important;
+
+  &:hover, &:focus, &:active {
+    background-color: @primary-hover !important;
+    border-color: @primary-hover !important;
+    color: #000000 !important;
+  }
+}
+
+// 5. Badges & Tags
+.Badge--primary {
+  background-color: @primary-color !important;
+  color: #111417 !important;
+}
+
+.TagLabel {
+  border-radius: 4px !important;
+  font-weight: 600 !important;
+}
