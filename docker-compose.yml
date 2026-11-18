@@ -81,6 +81,11 @@ services:
     image: wordpress:cli
     container_name: drf_wpcli
     user: "33:33"
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DB_USER: drf_user
+      WORDPRESS_DB_PASSWORD: drf_pass_secret
     depends_on:
       db:
         condition: service_healthy
