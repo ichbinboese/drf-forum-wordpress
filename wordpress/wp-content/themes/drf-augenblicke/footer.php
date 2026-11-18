@@ -14,10 +14,10 @@
                     <?php echo drf_get_icon('camera'); ?>
                 </span>
                 <div class="brand-text-group">
-                    <span class="brand-title">AUGENBLICKE</span>
+                    <span class="brand-title"><?php echo esc_html(drf_get_theme_option('logo_text', 'AUGENBLICKE')); ?></span>
                     <span class="brand-divider">|</span>
-                    <span class="brand-short">d.r.f</span>
-                    <span class="brand-sub">de.rec.fotografie</span>
+                    <span class="brand-short"><?php echo esc_html(drf_get_theme_option('logo_short', 'd.r.f')); ?></span>
+                    <span class="brand-sub"><?php echo esc_html(drf_get_theme_option('logo_sub', 'de.rec.fotografie')); ?></span>
                 </div>
             </a>
 
@@ -34,8 +34,8 @@
         </div>
 
         <div class="footer-bottom">
-            <div>&copy; <?php echo date('Y'); ?> de.rec.fotografie e.V. &ndash; Jahrestreffen &raquo;AUGENBLICKE&laquo;.</div>
-            <div>WordPress 6.7 &amp; Flarum Community Platform</div>
+            <div>&copy; <?php echo date('Y'); ?> <?php echo esc_html(drf_get_theme_option('footer_copyright', 'de.rec.fotografie e.V. – Jahrestreffen »AUGENBLICKE«')); ?></div>
+            <div><?php echo esc_html(drf_get_theme_option('footer_subline', 'WordPress & Flarum Community Platform')); ?></div>
         </div>
     </div>
 </footer>

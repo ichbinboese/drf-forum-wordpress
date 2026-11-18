@@ -25,10 +25,10 @@
                 <?php echo drf_get_icon('camera'); ?>
             </span>
             <div class="brand-text-group">
-                <span class="brand-title">AUGENBLICKE</span>
+                <span class="brand-title"><?php echo esc_html(drf_get_theme_option('logo_text', 'AUGENBLICKE')); ?></span>
                 <span class="brand-divider">|</span>
-                <span class="brand-short">d.r.f</span>
-                <span class="brand-sub">de.rec.fotografie</span>
+                <span class="brand-short"><?php echo esc_html(drf_get_theme_option('logo_short', 'd.r.f')); ?></span>
+                <span class="brand-sub"><?php echo esc_html(drf_get_theme_option('logo_sub', 'de.rec.fotografie')); ?></span>
             </div>
         </a>
 
@@ -36,11 +36,11 @@
         <div class="topbar-actions">
             <a href="<?php echo esc_url(home_url('/')); ?>" class="pill-btn pill-btn-home">
                 <?php echo drf_get_icon('home'); ?>
-                <span>Homepage</span>
+                <span><?php echo esc_html(drf_get_theme_option('header_btn_home', 'Homepage')); ?></span>
             </a>
             <a href="<?php echo esc_url(drf_get_forum_url()); ?>" class="pill-btn pill-btn-forum">
                 <?php echo drf_get_icon('lock'); ?>
-                <span>Forum &ndash; mit Zugang</span>
+                <span><?php echo esc_html(drf_get_theme_option('header_btn_forum', 'Forum – mit Zugang')); ?></span>
             </a>
         </div>
 

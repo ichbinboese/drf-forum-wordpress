@@ -4,14 +4,14 @@ Theme URI: https://github.com/ichbinboese/drf-forum-wordpress
 Author: de.rec.fotografie e.V. / Benjamin Böse
 Author URI: https://www.d-r-f.de/augenblicke/
 Description: Offizielles WordPress Theme für de.rec.fotografie und das Jahrestreffen »AUGENBLICKE«. Modernes, responsives Design mit integrierter Flarum-Forum Anbindung.
-Version: 1.0.0
+Version: 1.1.0
 Requires at least: 6.0
 Tested up to: 6.7
 Requires PHP: 8.0
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: drf-augenblicke
-Tags: photography, community, forum, responsive-layout, custom-menu, featured-images, full-site-editing
+Tags: photography, community, forum, responsive-layout, custom-menu, featured-images, theme-options
 */
 
 /* Core styles loaded from assets/css/theme.css */

@@ -9,9 +9,13 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-define('DRF_THEME_VERSION', '1.0.0');
+define('DRF_THEME_VERSION', '1.1.0');
 define('DRF_THEME_DIR', get_template_directory());
 define('DRF_THEME_URI', get_template_directory_uri());
+
+// Include Theme Helpers & Administration
+require_once DRF_THEME_DIR . '/inc/helpers.php';
+require_once DRF_THEME_DIR . '/inc/admin-options.php';
 
 /**
  * 1. Theme Setup
@@ -60,6 +64,13 @@ function drf_enqueue_assets() {
         DRF_THEME_VERSION
     );
 
+    // Dynamic accent color support
+    $accent = drf_get_theme_option('accent_color', '#f5b301');
+    if ($accent && $accent !== '#f5b301') {
+        $custom_css = ":root { --color-primary: {$accent}; --color-primary-hover: {$accent}; }";
+        wp_add_inline_style('drf-theme-styles', $custom_css);
+    }
+
     // Main JavaScript
     wp_enqueue_script(
         'drf-theme-script',
@@ -68,6 +79,14 @@ function drf_enqueue_assets() {
         DRF_THEME_VERSION,
         true
     );
+
+    // Pass countdown target date to JavaScript
+    $target_date = drf_get_theme_option('event_target_date', '2026-05-28T09:00');
+    wp_localize_script('drf-theme-script', 'drfThemeData', [
+        'targetDate' => $target_date,
+        'homeUrl'    => home_url('/'),
+        'forumUrl'   => drf_get_forum_url(),
+    ]);
 }
 add_action('wp_enqueue_scripts', 'drf_enqueue_assets');
 
@@ -75,11 +94,10 @@ add_action('wp_enqueue_scripts', 'drf_enqueue_assets');
  * 3. Helper: Get Flarum Forum URL
  */
 function drf_get_forum_url() {
-    $forum_url = get_option('drf_flarum_url');
+    $forum_url = drf_get_theme_option('flarum_url');
     if (!empty($forum_url)) {
         return esc_url($forum_url);
     }
-    // Default relative URL for reverse-proxy setup, or fallback port 8088
     return home_url('/forum/');
 }
 
