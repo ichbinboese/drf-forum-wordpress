@@ -23,24 +23,37 @@ chmod -R 775 /var/www/html/storage /var/www/html/public/assets 2>/dev/null || tr
 
 # Wait for database
 echo "[Flarum] Warte auf MariaDB Verbindung..."
-until mariadb -h db -u drf_user -pdrf_pass_secret -e "SELECT 1;" >/dev/null 2>&1; do
+until mariadb --skip-ssl -h db -u drf_user -pdrf_pass_secret -e "SELECT 1;" >/dev/null 2>&1; do
     sleep 2
 done
 
 # If config.php doesn't exist, run automated flarum install CLI
 if [ ! -f /var/www/html/config.php ]; then
     echo "[Flarum] Führe automatische Flarum-Installation via CLI aus..."
-    php /var/www/html/flarum install \
-        --db-host=db \
-        --db-name=flarum \
-        --db-user=drf_user \
-        --db-pass=drf_pass_secret \
-        --db-prefix="" \
-        --forum-title="de.rec.fotografie Community Forum" \
-        --admin-user=admin \
-        --admin-pass=password123 \
-        --admin-email=tagungsbuero2026@d-r-f.de \
-        --base-url="http://localhost:8088" || true
+    cat << "EOF" > /tmp/flarum-install-config.json
+{
+  "baseUrl": "http://localhost:8080/forum",
+  "databaseConfiguration": {
+    "driver": "mysql",
+    "host": "db",
+    "database": "flarum",
+    "username": "drf_user",
+    "password": "drf_pass_secret",
+    "prefix": "",
+    "port": 3306
+  },
+  "adminUser": {
+    "username": "admin",
+    "password": "password123",
+    "email": "tagungsbuero2026@d-r-f.de"
+  },
+  "settings": {
+    "forum_title": "de.rec.fotografie Community Forum"
+  }
+}
+EOF
+    php /var/www/html/flarum install -f /tmp/flarum-install-config.json || true
+    rm -f /tmp/flarum-install-config.json
 fi
 
 # Copy custom assets if present
