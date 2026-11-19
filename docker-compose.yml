@@ -41,6 +41,7 @@ services:
       - wp_core:/var/www/html
       - ./wordpress/wp-content/themes/drf-augenblicke:/var/www/html/wp-content/themes/drf-augenblicke
       - ./wordpress/wp-content/plugins/drf-flarum-bridge:/var/www/html/wp-content/plugins/drf-flarum-bridge
+      - ./wordpress/wp-content/plugins/drf-anmeldung:/var/www/html/wp-content/plugins/drf-anmeldung
 
   # 3. Flarum Community Forum Container
   flarum:
@@ -95,6 +96,7 @@ services:
       - wp_core:/var/www/html
       - ./wordpress/wp-content/themes/drf-augenblicke:/var/www/html/wp-content/themes/drf-augenblicke
       - ./wordpress/wp-content/plugins/drf-flarum-bridge:/var/www/html/wp-content/plugins/drf-flarum-bridge
+      - ./wordpress/wp-content/plugins/drf-anmeldung:/var/www/html/wp-content/plugins/drf-anmeldung
       - ./scripts:/scripts
     entrypoint: ["wp"]
 

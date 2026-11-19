@@ -7,97 +7,90 @@
  */
 
 get_header();
-
-$submitted = false;
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['drf_anmeldung_nonce'])) {
-    if (wp_verify_nonce($_POST['drf_anmeldung_nonce'], 'drf_anmeldung_action')) {
-        $submitted = true;
-    }
-}
 ?>
 
 <div class="page-hero">
     <div class="container">
-        <h1 class="page-title">Tagungsb&uuml;ro</h1>
+        <div class="hero-tag">
+            <span class="hero-tag-bar"></span>
+            <span>de.rec.fotografie e.V. &bull; Tagungsb&uuml;ro</span>
+        </div>
+        <h1 class="page-title">Tagungsb&uuml;ro &amp; Anmeldung</h1>
         <p class="page-lead">
-            Dein Ansprechpartner vor Ort und online &ndash; f&uuml;r Fragen, Zimmerreservierungen, Anmeldung und organisatorischen Ablauf.
+            Dein Ansprechpartner vor Ort und online &ndash; f&uuml;r Vorbereitung, Zimmerreservierungen, Anmeldung und den organisatorischen Ablauf der Treffen.
         </p>
     </div>
 </div>
 
 <div class="page-content-area">
     <div class="container">
-        <div class="page-card-container">
-            <?php if ($submitted) : ?>
-                <div style="background: #e6f4ea; border-left: 4px solid #137333; padding: 20px 24px; border-radius: 8px; margin-bottom: 28px;">
-                    <h3 style="color: #137333; margin-top: 0;">Vielen Dank für deine Anmeldung!</h3>
-                    <p style="margin-bottom: 0;">
-                        Deine Anmeldung für AUGENBLICKE XXVI ist erfolgreich beim Tagungsbüro eingegangen. Wir prüfen die Zimmerkontingente im Haus Lutherrose und senden dir in Kürze eine Bestätigung an <strong><?php echo esc_html($_POST['email'] ?? ''); ?></strong>.
+        <!-- 1. Interaktives Anmelde-Plugin Formular -->
+        <section class="anmeldung-section">
+            <?php
+            // Render the DRF Registration Plugin Form
+            if (shortcode_exists('drf_anmeldung')) {
+                echo do_shortcode('[drf_anmeldung]');
+            } else {
+                echo '<p>Anmeldeformular wird geladen...</p>';
+            }
+            ?>
+        </section>
+
+        <!-- 2. Tagungsbüro Infoboxen & Mitglieder -->
+        <div class="page-card-container" style="margin-top: 40px;">
+            <h2>Über das Tagungsb&uuml;ro</h2>
+            <p>
+                Das Tagungsb&uuml;ro (TB) sind die in der Newsgroup <code>de.rec.fotografie</code> gew&auml;hlten Menschen, die die Vorbereitung des Treffens organisieren und das Programm koordinieren &ndash; ehrenamtlich und als treuh&auml;nderische Verwalter des eingezahlten Geldes.
+            </p>
+            <p>
+                Das TB ist weder kommerzieller Veranstalter noch gewinnorientierter Anbieter der Workshops, sondern sorgt f&uuml;r den reibungslosen Ablauf im Tagungshaus, verwaltet die Zimmerkontingente und koordiniert den Shuttleservice.
+            </p>
+
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 24px; margin: 24px 0;">
+                <h3 style="margin-top: 0; color: #1e293b; display: flex; align-items: center; gap: 8px;">
+                    <span>👥</span> Mitglieder des Tagungsb&uuml;ros
+                </h3>
+                <p style="color: #64748b; font-size: 0.95rem;">Gewählt ab August 2025 zur Organisation von AUGENBLICKE XXVI (2026) und Folgejahren:</p>
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin-top: 14px;">
+                    <div style="background:#ffffff; padding:10px 14px; border-radius:8px; border:1px solid #cbd5e1; font-weight:600;">Bernd Franzen</div>
+                    <div style="background:#ffffff; padding:10px 14px; border-radius:8px; border:1px solid #cbd5e1; font-weight:600;">Burkhard Gudd</div>
+                    <div style="background:#ffffff; padding:10px 14px; border-radius:8px; border:1px solid #cbd5e1; font-weight:600;">Christian Kolinski</div>
+                    <div style="background:#ffffff; padding:10px 14px; border-radius:8px; border:1px solid #cbd5e1; font-weight:600;">Hans-J&ouml;rg Schlaberg</div>
+                    <div style="background:#ffffff; padding:10px 14px; border-radius:8px; border:1px solid #cbd5e1; font-weight:600;">Holger Quattelbaum</div>
+                    <div style="background:#ffffff; padding:10px 14px; border-radius:8px; border:1px solid #cbd5e1; font-weight:600;">Jochen Petry</div>
+                    <div style="background:#ffffff; padding:10px 14px; border-radius:8px; border:1px solid #cbd5e1; font-weight:600;">Leoni Schlaberg</div>
+                    <div style="background:#ffffff; padding:10px 14px; border-radius:8px; border:1px solid #cbd5e1; font-weight:600;">Luigi Rotta</div>
+                    <div style="background:#ffffff; padding:10px 14px; border-radius:8px; border:1px solid #cbd5e1; font-weight:600;">Oliver Jennrich</div>
+                    <div style="background:#ffffff; padding:10px 14px; border-radius:8px; border:1px solid #cbd5e1; font-weight:600;">Robert M. Klenk</div>
+                    <div style="background:#ffffff; padding:10px 14px; border-radius:8px; border:1px solid #cbd5e1; font-weight:600;">Robert Steiger</div>
+                    <div style="background:#ffffff; padding:10px 14px; border-radius:8px; border:1px solid #cbd5e1; font-weight:600;">Sebastian Z&uuml;ndorf</div>
+                    <div style="background:#ffffff; padding:10px 14px; border-radius:8px; border:1px solid #cbd5e1; font-weight:600;">Wolfgang Paul</div>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 28px;">
+                <div style="background: #141518; color: #ffffff; padding: 22px; border-radius: 12px; border-left: 4px solid #f5b301;">
+                    <h4 style="color: #f5b301; margin-top: 0;">Kontakt zum Tagungsb&uuml;ro</h4>
+                    <p style="color: #e2e8f0; font-size: 0.95rem;">
+                        Allgemeine Fragen zum Ablauf, zu Zimmerw&uuml;nschen oder Vorbereitungen bitte per E-Mail an:
+                    </p>
+                    <p style="font-size: 1.05rem; font-weight: 700;">
+                        <a href="mailto:tagungsbuero2026@d-r-f.de" style="color: #f5b301;">tagungsbuero2026@d-r-f.de</a>
+                    </p>
+                    <small style="color: #94a3b8;">Fragen allgemeiner Natur k&ouml;nnen auch jederzeit im Flarum Forum oder in der Newsgroup gestellt werden.</small>
+                </div>
+
+                <div style="background: #f1f5f9; padding: 22px; border-radius: 12px; border-left: 4px solid #0284c7;">
+                    <h4 style="color: #0369a1; margin-top: 0;">Tagungsort: Haus Lutherrose</h4>
+                    <p style="color: #334155; font-size: 0.95rem;">
+                        Haus Lutherrose, Wilhelm-L&ouml;he-Str. 20, 91564 Neuendettelsau<br>
+                        Mit gro&szlig;en Seminarr&auml;umen, Fotostudios, Gr&uuml;nanlagen f&uuml;r Portr&auml;t- und Naturfotografie sowie Gastronomie vor Ort.
+                    </p>
+                    <p>
+                        <a href="https://haus-lutherrose.de/" target="_blank" rel="noopener" style="color: #0284c7; font-weight: 700;">&rarr; Zur Website von Haus Lutherrose</a>
                     </p>
                 </div>
-            <?php endif; ?>
-
-            <h2>Anmeldung zu AUGENBLICKE XXVI (28. &ndash; 31. Mai 2026)</h2>
-            <p>
-                Bitte f&uuml;lle das folgende Formular aus, um dir deinen Platz und dein Zimmer im Tagungshaus Lutherrose (Neuendettelsau) zu sichern. Das Kontingent ist auf 55 Pl&auml;tze begrenzt.
-            </p>
-
-            <form method="post" action="" style="margin-top: 24px; max-width: 680px;">
-                <?php wp_nonce_field('drf_anmeldung_action', 'drf_anmeldung_nonce'); ?>
-
-                <div class="drf-form-group">
-                    <label class="drf-label" for="full_name">Vor- und Nachname *</label>
-                    <input type="text" id="full_name" name="full_name" class="drf-input" required placeholder="z.B. Max Mustermann">
-                </div>
-
-                <div class="drf-form-group">
-                    <label class="drf-label" for="nickname">Spitzname / Nick im Usenet oder Forum</label>
-                    <input type="text" id="nickname" name="nickname" class="drf-input" placeholder="z.B. Frank_S oder SilberKorn">
-                </div>
-
-                <div class="drf-form-group">
-                    <label class="drf-label" for="email">E-Mail-Adresse *</label>
-                    <input type="email" id="email" name="email" class="drf-input" required placeholder="name@beispiel.de">
-                </div>
-
-                <div class="drf-form-group">
-                    <label class="drf-label" for="room_type">Unterkunftswunsch (Vollpension) *</label>
-                    <select id="room_type" name="room_type" class="drf-select" required>
-                        <option value="ez">Einzelzimmer mit Dusche/WC</option>
-                        <option value="dz">Doppelzimmer (Partner/Freund bitte im Kommentar angeben)</option>
-                        <option value="tagesgast">Tagesgast (inkl. Mahlzeiten, ohne &Uuml;bernachtung)</option>
-                    </select>
-                </div>
-
-                <div class="drf-form-group">
-                    <label class="drf-label" for="shuttle_needed">Shuttleservice ben&ouml;tigt?</label>
-                    <select id="shuttle_needed" name="shuttle_needed" class="drf-select">
-                        <option value="nein">Nein, reise mit dem eigenen PKW an</option>
-                        <option value="wicklesgreuth">Ja, Abholung Bahnhof Wicklesgreuth</option>
-                        <option value="ansbach">Ja, Abholung Bahnhof Ansbach</option>
-                    </select>
-                </div>
-
-                <div class="drf-form-group">
-                    <label class="drf-label" for="message">Anmerkungen, Di&auml;tw&uuml;nsche (vegetarisch/vegan) oder Workshop-Ideen</label>
-                    <textarea id="message" name="message" class="drf-textarea" rows="4" placeholder="Deine Nachricht an das Tagungsbüro..."></textarea>
-                </div>
-
-                <button type="submit" class="pill-btn pill-btn-home" style="font-size: 1rem; padding: 12px 28px; cursor: pointer;">
-                    <span>Verbindlich anmelden</span>
-                    <span>&rarr;</span>
-                </button>
-            </form>
-
-            <hr style="margin: 40px 0; border: none; border-top: 1px solid var(--color-border-subtle);">
-
-            <h2>Direkter Kontakt zum Tagungsb&uuml;ro</h2>
-            <p>
-                Du hast Fragen vorab oder m&ouml;chtest eine bestehende Buchung anpassen? Schreib unserem Orga-Team jederzeit direkt:
-            </p>
-            <p style="font-size: 1.1rem; font-weight: 600;">
-                E-Mail: <a href="mailto:tagungsbuero2026@d-r-f.de" style="color: #b78103;">tagungsbuero2026@d-r-f.de</a>
-            </p>
+            </div>
         </div>
     </div>
 </div>

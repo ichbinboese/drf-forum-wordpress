@@ -28,12 +28,25 @@ get_header();
 
             <h2>Wie funktioniert die Unterst&uuml;tzung?</h2>
             <p>
-                Der Verein unterh&auml;lt einen zweckgebundenen Solidarfonds, der aus freiwilligen Spenden von Vereinsmitgliedern und Tagungsteilnehmern gespeist wird. Aus diesem Fonds k&ouml;nnen Zusch&uuml;sse zu den &Uuml;bernachtungskosten im Tagungshaus, Fahrtkosten oder zum Tagungsbeitrag gew&auml;hrt werden.
+                Der Verein unterh&auml;lt einen zweckgebundenen Solidarfonds, der aus freiwilligen Spenden von Vereinsmitgliedern und Tagungsteilnehmern (traditionell &uuml;ber das Anmeldeformular der Augenblicke-Treffen) gespeist wird. Aus diesem Fonds k&ouml;nnen unb&uuml;rokratisch Zusch&uuml;sse zu den &Uuml;bernachtungskosten im Tagungshaus, Fahrtkosten oder zum Tagungsbeitrag gew&auml;hrt werden.
             </p>
 
             <h2>Absolute Vertraulichkeit garantiert</h2>
             <p>
-                Das Sozialgremium besteht aus drei vom Verein gew&auml;hlten, unabh&auml;ngigen Vertrauenspersonen. Alle Anfragen werden streng vertraulich behandelt &ndash; weder der Vorstand noch andere Teilnehmer erfahren jemals, wer Unterst&uuml;tzung in Anspruch nimmt.
+                Das Sozialgremium (oft liebevoll nach Usenet-Tradition &raquo;Sozialsowjet&laquo; genannt) besteht aus unabh&auml;ngigen Vertrauenspersonen unserer Gemeinschaft:
+            </p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin: 18px 0 24px 0;">
+                <div style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: 8px; padding: 14px 18px;">
+                    <div style="font-weight: 700; color: #1e293b; font-size: 1.05rem;">Wolfgang Exler</div>
+                    <div style="font-size: 0.85rem; color: #64748b;">Vertrauensperson &bull; Sozialgremium</div>
+                </div>
+                <div style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: 8px; padding: 14px 18px;">
+                    <div style="font-weight: 700; color: #1e293b; font-size: 1.05rem;">Dietmar Belloff</div>
+                    <div style="font-size: 0.85rem; color: #64748b;">Vertrauensperson &bull; Sozialgremium</div>
+                </div>
+            </div>
+            <p>
+                Alle Anfragen werden streng vertraulich behandelt &ndash; weder das Tagungsb&uuml;ro noch der Vereinsvorstand oder andere Tagungsteilnehmer erfahren jemals, wer Unterst&uuml;tzung beantragt oder in Anspruch genommen hat.
             </p>
 
             <h2>Kontakt aufnehmen</h2>

@@ -50,11 +50,11 @@ Dieses Projekt implementiert das vollständige, pixelgenaue Design aus den Scree
 
 ## 🚀 Lokalen Server starten
 
-Das Projekt bietet zwei bequeme Startmöglichkeiten:
+Das Projekt ist für maximale Entwicklungsgeschwindigkeit und **100% kühlen, geräuschlosen Betrieb auf dem Mac** optimiert (ohne ressourcenhungrige Docker-VMs):
 
-### Option A: Vollständiger Docker Compose Stack (Empfohlen für Produktion)
+### Option A: Nativer Mac PHP Server (Empfohlen – 0% CPU & kein Lüfterlärm)
 
-Startet WordPress, Flarum, MariaDB und Nginx Reverse-Proxy mit einem einzigen Befehl:
+WordPress und Flarum laufen nativ über den integrierten PHP-Router und SQLite – blitzschnell, leise und sofort einsatzbereit:
 
 ```bash
 ./start.sh
@@ -62,9 +62,15 @@ Startet WordPress, Flarum, MariaDB und Nginx Reverse-Proxy mit einem einzigen Be
 
 Nach dem Start erreichbar unter:
 - 🌐 **Hauptseite (WordPress):** [http://localhost:8080/](http://localhost:8080/)
-- 💬 **Forum (Flarum):** [http://localhost:8080/forum/](http://localhost:8080/forum/) (oder direkt [http://localhost:8088/](http://localhost:8088/))
-- ⚙️ **WordPress Admin:** [http://localhost:8080/wp-admin/](http://localhost:8080/wp-admin/)  
-  *(Benutzer: `admin` | Passwort: `password123`)*
+- 💬 **Forum (Flarum):** [http://localhost:8080/forum/](http://localhost:8080/forum/)
+- 🏢 **Tagungsbüro & Anmeldung (2026 & 2027):** [http://localhost:8080/tagungsbuero/](http://localhost:8080/tagungsbuero/)
+- 👥 **Verein:** [http://localhost:8080/verein/](http://localhost:8080/verein/)
+- 📷 **Augenblicke Chronik:** [http://localhost:8080/augenblicke/](http://localhost:8080/augenblicke/)
+- 🛠️ **Workshops:** [http://localhost:8080/workshops/](http://localhost:8080/workshops/)
+- 🚐 **Shuttleservice:** [http://localhost:8080/shuttleservice/](http://localhost:8080/shuttleservice/)
+- 🤝 **Sozialgremium:** [http://localhost:8080/sozialgremium/](http://localhost:8080/sozialgremium/)
+- ⚙️ **WordPress Admin:** [http://localhost:8080/wp-admin/](http://localhost:8080/wp-admin/) *(Benutzer: `admin` | Passwort: `password123`)*
+- 🔧 **Flarum Admin:** [http://localhost:8080/forum/admin](http://localhost:8080/forum/admin) *(Benutzer: `admin` | Passwort: `password123`)*
 
 Beenden:
 ```bash
@@ -73,21 +79,13 @@ Beenden:
 
 ---
 
-### Option B: Blitzschneller Standalone PHP Server (Ohne Docker)
+### Option B: Docker Compose (Optional für Linux Server)
 
-Ideal für sofortige Entwicklung, Layout-Prüfung und CSS-Anpassungen ohne Wartezeit:
+Für klassische Linux-Server oder CI/CD-Umgebungen steht weiterhin die Docker-Konfiguration zur Verfügung:
 
 ```bash
-./start-standalone.sh
+docker compose up -d
 ```
-
-- 🌐 **Startseite:** [http://localhost:8080/](http://localhost:8080/)
-- 👥 **Verein:** [http://localhost:8080/verein/](http://localhost:8080/verein/)
-- 📷 **Augenblicke:** [http://localhost:8080/augenblicke/](http://localhost:8080/augenblicke/)
-- 🛠️ **Workshops:** [http://localhost:8080/workshops/](http://localhost:8080/workshops/)
-- 🚐 **Shuttleservice:** [http://localhost:8080/shuttleservice/](http://localhost:8080/shuttleservice/)
-- 🏢 **Tagungsbüro & Anmeldung:** [http://localhost:8080/tagungsbuero/](http://localhost:8080/tagungsbuero/)
-- 💬 **Flarum Forum:** [http://localhost:8080/forum/](http://localhost:8080/forum/)
 
 ---
 
