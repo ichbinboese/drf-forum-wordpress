@@ -17,6 +17,11 @@ define('DRF_THEME_URI', get_template_directory_uri());
 require_once DRF_THEME_DIR . '/inc/helpers.php';
 require_once DRF_THEME_DIR . '/inc/admin-options.php';
 
+// Include Elementor Integration & Custom Widgets
+if (file_exists(DRF_THEME_DIR . '/inc/elementor/class-drf-elementor.php')) {
+    require_once DRF_THEME_DIR . '/inc/elementor/class-drf-elementor.php';
+}
+
 /**
  * 1. Theme Setup
  */
@@ -32,6 +37,9 @@ function drf_theme_setup() {
 
     // Enable support for Post Thumbnails on posts and pages.
     add_theme_support('post-thumbnails');
+
+    // Enable support for Elementor Page Builder
+    add_theme_support('elementor');
 
     // Register primary navigation menu
     register_nav_menus([

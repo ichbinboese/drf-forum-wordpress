@@ -34,7 +34,29 @@ Dieses Projekt implementiert das vollständige, pixelgenaue Design aus den Scree
   - Auf Tablets: 2 Spalten.
   - Auf Smartphones: Kompakte horizontale Karten mit Thumbnail links und Inhalten rechts, exakt wie im mobilen Mockup!
 
-### 2. Flarum Forum Integration
+### 2. Elementor Page Builder & Reusable Snippets
+- **Elementor 4.4.1 Native Integration:** Alle Seiten (Startseite, Tagungsbüro, Verein, Augenblicke Chronik, Workshops, Shuttleservice, Sozialgremium) sind als vollwertige Elementor-Seiten aufgebaut und können visuell im Elementor Editor bearbeitet werden.
+- **Eigene Elementor Kategorie:** `d.r.f Augenblicke Snippets & Widgets` mit 12 modularen Widgets:
+  1. `drf_hero`: Hero Section mit Polaroid-Collage, Badge-Sticker und CTAs.
+  2. `drf_cards`: 4 Feature Cards Grid (Verein, Workshops, Shuttle, Tagungsbüro).
+  3. `drf_event_banner`: Ankündigungsbanner für Neuendettelsau 2026 & 2027.
+  4. `drf_anmeldung`: Interaktives Treffen-Anmeldeformular mit Treffen-Auswahl.
+  5. `drf_chronik`: Treffen-Chronik (1999–2027) mit Usenet-Kürzeln.
+  6. `drf_tagungsbuero`: Tagungsbüro Team & Haus Lutherrose Venue-Box.
+  7. `drf_shuttle`: Shuttleservice Fahrplan & Reservierungsformular.
+  8. `drf_sozial`: Sozialgremium & Solidarfonds ("Sozialsowjet").
+  9. `drf_workshops`: Praxis-Workshops & Sessions Grid.
+  10. `drf_verein`: Usenet-Wurzeln, Vorstand & Gemeinnützigkeit.
+  11. `drf_flarum_feed`: Flarum Forum Teaser & Usenet Tags.
+  12. `drf_template_embed`: 1-Klick-Einbettung beliebiger Elementor Snippets.
+- **Wiederverwendbare Elementor Snippets (Library Templates):**
+  Unter `WP-Admin -> Templates -> Saved Templates` sind alle Sektionen als wiederverwendbare Vorlagen gespeichert.
+  Einbettbar überall mit:
+  - `[elementor-template id="14"]`
+  - `[drf_snippet slug="snippet-hero"]`
+  - `[drf_snippet slug="snippet-anmeldung"]`
+
+### 3. Flarum Forum Integration
 - **Nahtloses Design:** Flarum übernimmt das d.r.f.-Farbschema (Gold/Dunkel) und den gemeinsamen Header mit direkter Verlinkung zurück zur WordPress-Startseite.
 - **Themenbereiche (Tags):**
   - 🏷️ `Augenblicke 2026 (Neuendettelsau)`

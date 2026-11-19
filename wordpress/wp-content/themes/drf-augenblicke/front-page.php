@@ -5,6 +5,24 @@
  * @package DRF_Augenblicke
  */
 
+// If page is built with Elementor, render Elementor content directly
+if (class_exists('\Elementor\Plugin')) {
+    $doc = \Elementor\Plugin::$instance->documents->get(get_the_ID());
+    if ($doc && $doc->is_built_with_elementor()) {
+        get_header();
+        while (have_posts()) :
+            the_post();
+            ?>
+            <main id="primary" class="site-main drf-elementor-front-page">
+                <?php the_content(); ?>
+            </main>
+            <?php
+        endwhile;
+        get_footer();
+        return;
+    }
+}
+
 get_header();
 
 // Fetch options with fallbacks
