@@ -108,7 +108,8 @@ class DRF_Countdown_Widget extends Widget_Base {
         $target = !empty($settings['target_date']) ? $settings['target_date'] : '2026-05-28T09:00:00';
         $timer_id = 'countdown_' . substr(md5(uniqid('cd', true)), 0, 8);
         ?>
-        <div class="drf-countdown-card" style="background: linear-gradient(135deg, #141518 0%, #1e2025 100%); color: #ffffff; border-radius: 14px; padding: 32px 28px; border: 1px solid rgba(245, 179, 1, 0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.25); margin: 30px 0; position: relative; overflow: hidden;">
+        <div class="container drf-elementor-countdown-wrap">
+            <div class="drf-countdown-card" style="background: linear-gradient(135deg, #141518 0%, #1e2025 100%); color: #ffffff; border-radius: 14px; padding: 32px 28px; border: 1px solid rgba(245, 179, 1, 0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.25); margin: 30px 0; position: relative; overflow: hidden;">
             <div style="position: absolute; right: -20px; bottom: -20px; font-size: 140px; color: rgba(255,255,255,0.02); font-weight: 900; line-height: 1; pointer-events: none; user-select: none;">2026</div>
 
             <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 24px; position: relative; z-index: 2;">
@@ -181,6 +182,7 @@ class DRF_Countdown_Widget extends Widget_Base {
             })();
             </script>
         </div>
-        <?php
-    }
+    </div>
+    <?php
+}
 }

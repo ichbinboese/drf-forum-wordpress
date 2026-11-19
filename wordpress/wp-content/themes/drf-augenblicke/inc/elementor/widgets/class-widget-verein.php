@@ -60,7 +60,8 @@ class DRF_Verein_Widget extends Widget_Base {
     protected function render() {
         $settings = $this->get_settings_for_display();
         ?>
-        <div class="drf-elementor-verein" style="margin: 28px 0;">
+        <div class="container drf-elementor-verein-wrap">
+            <div class="drf-elementor-verein" style="margin: 28px 0;">
             <h2><?php echo esc_html($settings['title']); ?></h2>
             <p>
                 Der Verein <strong>de.rec.fotografie e.V.</strong> entstand aus der traditionsreichen Usenet-Newsgruppe <code>de.rec.fotografie</code> (d.r.f), die seit 1999 eine der lebendigsten Plattformen für ambitionierte Fotografie im deutschsprachigen Raum ist.
@@ -92,6 +93,7 @@ class DRF_Verein_Widget extends Widget_Base {
                 </a>
             </div>
         </div>
-        <?php
-    }
+    </div>
+    <?php
+}
 }

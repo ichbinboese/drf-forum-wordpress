@@ -81,7 +81,8 @@ class DRF_Chronik_Widget extends Widget_Base {
             ['title' => 'd.r.f Urtreffen', 'code' => '[OR]', 'year' => '1999', 'venue' => 'Burg Rieneck, Spessart', 'focus' => 'Erstes legendäres Treffen der Newsgroup'],
         ];
         ?>
-        <div class="drf-elementor-chronik" style="margin: 28px 0;">
+        <div class="container drf-elementor-chronik-wrap">
+            <div class="drf-elementor-chronik" style="margin: 28px 0;">
             <?php if (!empty($settings['title'])) : ?>
                 <h2 style="margin-bottom: 8px;"><?php echo esc_html($settings['title']); ?></h2>
             <?php endif; ?>
@@ -114,6 +115,7 @@ class DRF_Chronik_Widget extends Widget_Base {
                 </table>
             </div>
         </div>
-        <?php
-    }
+    </div>
+    <?php
+}
 }

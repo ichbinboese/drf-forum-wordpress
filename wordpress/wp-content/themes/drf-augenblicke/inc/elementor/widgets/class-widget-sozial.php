@@ -69,7 +69,8 @@ class DRF_Sozial_Widget extends Widget_Base {
     protected function render() {
         $settings = $this->get_settings_for_display();
         ?>
-        <div class="drf-elementor-sozial" style="margin: 28px 0;">
+        <div class="container drf-elementor-sozial-wrap">
+            <div class="drf-elementor-sozial" style="margin: 28px 0;">
             <h2><?php echo esc_html($settings['title']); ?></h2>
             <p>
                 Seit den Anf&auml;ngen von de.rec.fotografie und den ersten Treffen 1999 gilt ein fester Grundsatz: <strong>Wir halten als Gemeinschaft zusammen.</strong> Niemand soll aus finanziellen Gr&uuml;nden auf die Teilnahme an &raquo;Augenblicke&laquo; verzichten m&uuml;ssen.
@@ -96,6 +97,7 @@ class DRF_Sozial_Widget extends Widget_Base {
                 <small style="color: #64748b;">Alle Anfragen werden streng vertraulich behandelt &ndash; weder Tagungsbüro noch Vorstand erfahren Namen.</small>
             </div>
         </div>
-        <?php
-    }
+    </div>
+    <?php
+}
 }

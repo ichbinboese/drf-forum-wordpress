@@ -145,7 +145,8 @@ class DRF_Timeline_Widget extends Widget_Base {
             ],
         ];
         ?>
-        <div class="drf-timeline-section" style="margin: 40px 0;">
+        <div class="container drf-elementor-timeline-wrap">
+            <div class="drf-timeline-section" style="margin: 40px 0;">
             <?php if (!empty($settings['title'])) : ?>
                 <h2 style="font-size: 1.8rem; font-weight: 800; color: #1e293b; margin-bottom: 6px;"><?php echo esc_html($settings['title']); ?></h2>
             <?php endif; ?>
@@ -185,6 +186,7 @@ class DRF_Timeline_Widget extends Widget_Base {
                 <?php endforeach; ?>
             </div>
         </div>
-        <?php
-    }
+    </div>
+    <?php
+}
 }

@@ -13,14 +13,14 @@ echo "========================================================\n";
 echo "  d.r.f Augenblicke - Elementor Snippets & Pages Setup  \n";
 echo "========================================================\n";
 
-// Helper: Create an Elementor Section Data Structure
+// Helper: Create an Elementor Section Data Structure (Boxed / Contained, kein Full-Width Bleed)
 function drf_make_elementor_section($widget_type, $settings = []) {
     return [
         'id'       => substr(md5(uniqid($widget_type, true)), 0, 7),
         'elType'   => 'section',
         'isInner'  => false,
         'settings' => [
-            'layout' => 'full_width',
+            'layout' => 'boxed',
         ],
         'elements' => [
             [

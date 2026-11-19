@@ -69,7 +69,8 @@ class DRF_Shuttle_Widget extends Widget_Base {
     protected function render() {
         $settings = $this->get_settings_for_display();
         ?>
-        <div class="drf-elementor-shuttle" style="margin: 28px 0;">
+        <div class="container drf-elementor-shuttle-wrap">
+            <div class="drf-elementor-shuttle" style="margin: 28px 0;">
             <h2><?php echo esc_html($settings['title']); ?></h2>
             <p>
                 Damit alle Bahnreisenden auch mit schwerem Fotogepäck, Stativen und Studioequipment entspannt im <strong>Haus Lutherrose</strong> ankommen, bieten wir einen kostenlosen ehrenamtlichen Shuttleservice an.
@@ -127,6 +128,7 @@ class DRF_Shuttle_Widget extends Widget_Base {
                 </div>
             <?php endif; ?>
         </div>
-        <?php
-    }
+    </div>
+    <?php
+}
 }

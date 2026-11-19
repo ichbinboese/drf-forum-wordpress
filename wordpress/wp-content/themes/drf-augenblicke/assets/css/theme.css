@@ -84,6 +84,36 @@ img {
   padding-right: var(--container-pad);
 }
 
+/* Contained Layout Controls (Keine unkontrollierte Full-Width Streckung) */
+.drf-elementor-page,
+.drf-elementor-front-page,
+.site-main {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Ensure all Elementor containers stay within the 1200px max-width */
+.elementor-section > .elementor-container,
+.elementor-section.elementor-section-boxed > .elementor-container,
+.elementor-section.elementor-section-full_width > .elementor-container {
+  max-width: var(--container-max) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: var(--container-pad) !important;
+  padding-right: var(--container-pad) !important;
+}
+
+.elementor-widget-container > .drf-anmeldung-wrapper,
+.elementor-widget-container > .drf-countdown-card,
+.elementor-widget-container > .drf-timeline-section,
+.elementor-widget-container > .drf-gallery-section,
+.elementor-widget-container > .drf-shuttle-route-card {
+  max-width: var(--container-max);
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* ==========================================================================
    2. Top Bar (Dark Header)
    ========================================================================== */

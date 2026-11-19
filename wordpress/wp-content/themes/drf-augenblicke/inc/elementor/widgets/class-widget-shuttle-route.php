@@ -60,7 +60,8 @@ class DRF_Shuttle_Route_Widget extends Widget_Base {
     protected function render() {
         $settings = $this->get_settings_for_display();
         ?>
-        <div class="drf-shuttle-route-card" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 28px; box-shadow: 0 4px 16px rgba(0,0,0,0.05); margin: 32px 0;">
+        <div class="container drf-elementor-shuttle-route-wrap">
+            <div class="drf-shuttle-route-card" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 28px; box-shadow: 0 4px 16px rgba(0,0,0,0.05); margin: 32px 0;">
             <div style="border-bottom: 1px solid #e2e8f0; padding-bottom: 16px; margin-bottom: 24px;">
                 <span style="background: #f5b301; color: #141518; font-weight: 800; font-size: 0.75rem; padding: 3px 8px; border-radius: 4px; text-transform: uppercase;">Kostenloser Service</span>
                 <h3 style="font-size: 1.5rem; font-weight: 800; color: #1e293b; margin: 8px 0 4px 0;"><?php echo esc_html($settings['title']); ?></h3>
@@ -101,6 +102,7 @@ class DRF_Shuttle_Route_Widget extends Widget_Base {
                 </div>
             </div>
         </div>
-        <?php
-    }
+    </div>
+    <?php
+}
 }

@@ -84,6 +84,8 @@ class DRF_Anmeldung_Widget extends Widget_Base {
         $settings = $this->get_settings_for_display();
         $slug = $settings['meeting_slug'];
 
+        echo '<div class="container drf-elementor-anmeldung-wrap">';
+
         if (!empty($settings['custom_intro'])) {
             echo '<div class="drf-anmeldung-intro" style="margin-bottom: 24px; font-size: 1.05rem; color: #475569;">' . wp_kses_post(wpautop($settings['custom_intro'])) . '</div>';
         }
@@ -94,5 +96,7 @@ class DRF_Anmeldung_Widget extends Widget_Base {
         } else {
             echo '<div class="drf-notice drf-notice-warning">' . esc_html__('Das Plugin drf-anmeldung ist nicht aktiv.', 'drf-augenblicke') . '</div>';
         }
+
+        echo '</div>';
     }
 }

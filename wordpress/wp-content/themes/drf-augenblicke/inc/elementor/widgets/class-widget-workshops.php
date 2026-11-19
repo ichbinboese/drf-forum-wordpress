@@ -115,7 +115,8 @@ class DRF_Workshops_Widget extends Widget_Base {
             ],
         ];
         ?>
-        <div class="drf-elementor-workshops" style="margin: 28px 0;">
+        <div class="container drf-elementor-workshops-wrap">
+            <div class="drf-elementor-workshops" style="margin: 28px 0;">
             <h2><?php echo esc_html($settings['title']); ?></h2>
             <p style="color: #64748b; font-size: 1.05rem;"><?php echo esc_html($settings['desc']); ?></p>
 
@@ -139,6 +140,7 @@ class DRF_Workshops_Widget extends Widget_Base {
                 </a>
             </div>
         </div>
-        <?php
-    }
+    </div>
+    <?php
+}
 }

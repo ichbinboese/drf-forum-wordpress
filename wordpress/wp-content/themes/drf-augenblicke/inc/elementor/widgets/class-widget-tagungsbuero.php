@@ -85,7 +85,8 @@ class DRF_Tagungsbuero_Widget extends Widget_Base {
             'Wolfgang Paul'
         ];
         ?>
-        <div class="drf-elementor-tagungsbuero" style="margin: 28px 0;">
+        <div class="container drf-elementor-tagungsbuero-wrap">
+            <div class="drf-elementor-tagungsbuero" style="margin: 28px 0;">
             <h2><?php echo esc_html($settings['title']); ?></h2>
             <p>
                 Das Tagungsb&uuml;ro (TB) sind die in der Newsgroup <code>de.rec.fotografie</code> gew&auml;hlten Menschen, die die Vorbereitung des Treffens organisieren und das Programm koordinieren &ndash; ehrenamtlich und als treuh&auml;nderische Verwalter des eingezahlten Geldes.
@@ -130,6 +131,7 @@ class DRF_Tagungsbuero_Widget extends Widget_Base {
                 </div>
             </div>
         </div>
-        <?php
-    }
+    </div>
+    <?php
+}
 }
