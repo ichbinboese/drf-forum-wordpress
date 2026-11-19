@@ -10,6 +10,13 @@ use Flarum\Frontend\Document;
 return [
     (new Extend\Frontend('forum'))
         ->content(function (Document $document) {
+            $document->head[] = '<link rel="icon" type="image/svg+xml" href="/favicon.svg">';
+            $document->head[] = '<link rel="alternate icon" type="image/x-icon" href="/favicon.ico">';
+            $document->head[] = '<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">';
+            $document->head[] = '<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">';
+            $document->head[] = '<link rel="manifest" href="/site.webmanifest">';
+            $document->head[] = '<meta name="theme-color" content="#141518">';
+
             $css = <<<CSS
 /* DRF Shared Navigation Header */
 .drf-flarum-header-wrap {

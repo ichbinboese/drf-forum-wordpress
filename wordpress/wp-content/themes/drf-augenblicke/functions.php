@@ -231,3 +231,25 @@ function drf_create_default_pages() {
     }
 }
 add_action('after_switch_theme', 'drf_create_default_pages');
+
+/**
+ * Modern Favicon & App Icon Integration
+ */
+function drf_add_favicons() {
+    $home_url = home_url('/');
+    ?>
+    <!-- DRF Favicon & App Icons -->
+    <link rel="icon" type="image/svg+xml" href="<?php echo esc_url($home_url . 'favicon.svg'); ?>">
+    <link rel="alternate icon" type="image/x-icon" href="<?php echo esc_url($home_url . 'favicon.ico'); ?>">
+    <link rel="icon" type="image/png" sizes="32x32" href="<?php echo esc_url($home_url . 'favicon-32x32.png'); ?>">
+    <link rel="icon" type="image/png" sizes="16x16" href="<?php echo esc_url($home_url . 'favicon-16x16.png'); ?>">
+    <link rel="apple-touch-icon" sizes="180x180" href="<?php echo esc_url($home_url . 'apple-touch-icon.png'); ?>">
+    <link rel="manifest" href="<?php echo esc_url($home_url . 'site.webmanifest'); ?>">
+    <meta name="theme-color" content="#141518">
+    <meta name="msapplication-TileColor" content="#141518">
+    <?php
+}
+add_action('wp_head', 'drf_add_favicons', 1);
+add_action('admin_head', 'drf_add_favicons', 1);
+add_action('login_head', 'drf_add_favicons', 1);
+
