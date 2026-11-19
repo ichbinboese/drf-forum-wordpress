@@ -1,8 +1,7 @@
 // ==========================================================================
-// DRF Augenblicke - Flarum Custom Design & Branding
+// DRF Augenblicke - Flarum Custom Design & Shared Navigation
 // ==========================================================================
 
-// Color Palette
 @primary-color: #f5b301;
 @primary-hover: #e0a300;
 @body-bg: #f3f4f6;
@@ -12,102 +11,233 @@
 @header-control-color: #ffffff;
 @control-color: #f5b301;
 
-// Global Typography & Body
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
   background-color: @body-bg !important;
   color: @text-color !important;
 }
 
-// 1. Shared Global Top Navigation Bar
-.drf-flarum-topbar {
+// 1. Shared Global Dual Navigation Header
+.drf-flarum-header-wrap {
+  position: sticky;
+  top: 0;
+  z-index: 1100;
+  width: 100%;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
+}
+
+.drf-site-topbar {
   background-color: @header-bg;
   border-bottom: 1px solid #2a2d34;
-  height: 58px;
+  height: 60px;
+}
+
+.drf-topbar-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 24px;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+}
 
-  .drf-brand {
+.drf-brand-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: #ffffff;
+
+  .drf-brand-icon {
+    width: 30px;
+    height: 24px;
     display: flex;
     align-items: center;
-    gap: 12px;
-    text-decoration: none;
+    justify-content: center;
 
-    .drf-logo-icon {
-      width: 28px;
-      height: 24px;
-    }
-
-    .drf-title {
-      font-size: 1.15rem;
-      font-weight: 800;
-      color: #ffffff;
-      letter-spacing: 0.5px;
-    }
-
-    .drf-sep {
-      color: #6b7280;
-      font-weight: 300;
-    }
-
-    .drf-short {
-      color: @primary-color;
-      font-weight: 700;
-      font-size: 1.05rem;
-    }
-
-    .drf-tagline {
-      color: #9ca3af;
-      font-size: 0.82rem;
+    svg {
+      width: 100%;
+      height: 100%;
     }
   }
 
-  .drf-nav-links {
+  .drf-brand-text {
     display: flex;
-    align-items: center;
-    gap: 12px;
+    align-items: baseline;
+    gap: 8px;
+    white-space: nowrap;
 
-    .drf-btn-back {
-      background-color: @primary-color;
-      color: #111417;
-      font-weight: 700;
-      font-size: 0.85rem;
-      padding: 7px 16px;
-      border-radius: 9999px;
-      text-decoration: none;
-      transition: all 0.18s ease;
-
-      &:hover {
-        background-color: @primary-hover;
-        transform: translateY(-1px);
-      }
+    .drf-brand-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
     }
 
-    .drf-btn-subnav {
-      color: #e5e7eb;
-      font-size: 0.88rem;
-      font-weight: 500;
-      text-decoration: none;
-      padding: 6px 12px;
-      border-radius: 6px;
-      transition: background 0.15s ease;
+    .drf-brand-sep {
+      color: #6b7280;
+      font-size: 1.1rem;
+      font-weight: 300;
+    }
 
-      &:hover {
-        background: rgba(255, 255, 255, 0.1);
-        color: @primary-color;
-      }
+    .drf-brand-short {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: @primary-color;
+    }
+
+    .drf-brand-sub {
+      font-size: 0.82rem;
+      color: #9ca3af;
     }
   }
 }
 
-// 2. Flarum Header Adaptation
+.drf-topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.drf-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  border-radius: 9999px;
+  padding: 7px 16px;
+  text-decoration: none;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+  border: 1px solid transparent;
+}
+
+.drf-pill-home {
+  background-color: @primary-color;
+  color: #111417;
+  font-weight: 700;
+
+  &:hover {
+    background-color: @primary-hover;
+    transform: translateY(-1px);
+    color: #111417;
+    text-decoration: none;
+  }
+}
+
+.drf-pill-forum {
+  background-color: #212328;
+  border-color: @primary-color;
+  color: @primary-color;
+}
+
+.drf-mobile-toggle {
+  display: none;
+  background: #212328;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  color: #ffffff;
+  padding: 6px 10px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+}
+
+.drf-mobile-panel {
+  display: none;
+  position: absolute;
+  top: 60px;
+  right: 16px;
+  width: 240px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  padding: 8px 0;
+  z-index: 1200;
+
+  &.is-open {
+    display: block;
+  }
+
+  a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 18px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: #1f2937;
+    text-decoration: none;
+    border-bottom: 1px solid #f3f4f6;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background-color: #fffdf5;
+      color: #b45309;
+    }
+  }
+}
+
+// 2. White Subnav Bar
+.drf-site-subnav {
+  background-color: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.drf-subnav-menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  list-style: none;
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 0;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.drf-subnav-item {
+  display: flex;
+  align-items: center;
+}
+
+.drf-subnav-link {
+  display: inline-block;
+  padding: 10px 16px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #4b5563;
+  text-decoration: none;
+  transition: color 0.15s ease;
+
+  &:hover {
+    color: #000000;
+    text-decoration: none;
+  }
+}
+
+.drf-subnav-sep {
+  color: #d1d5db;
+  font-size: 0.85rem;
+  user-select: none;
+}
+
+// 3. Flarum Header Adaptation
+.App {
+  margin-top: 0 !important;
+}
+
 .App-header {
+  position: static !important;
   background: #1a1c20 !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
 
@@ -125,7 +255,7 @@ body {
   }
 }
 
-// 3. Discussion List Cards
+// 4. Discussion List Cards
 .DiscussionListItem {
   background: #ffffff !important;
   border-radius: 12px !important;
@@ -149,28 +279,17 @@ body {
   }
 }
 
-// 4. Primary Buttons in Flarum (New Discussion, Reply)
-.Button--primary {
-  background-color: @primary-color !important;
-  color: #111417 !important;
-  border-color: @primary-color !important;
-  font-weight: 700 !important;
-  border-radius: 8px !important;
-
-  &:hover, &:focus, &:active {
-    background-color: @primary-hover !important;
-    border-color: @primary-hover !important;
-    color: #000000 !important;
+@media (max-width: 768px) {
+  .drf-site-subnav {
+    display: none;
   }
-}
-
-// 5. Badges & Tags
-.Badge--primary {
-  background-color: @primary-color !important;
-  color: #111417 !important;
-}
-
-.TagLabel {
-  border-radius: 4px !important;
-  font-weight: 600 !important;
+  .drf-topbar-actions {
+    display: none;
+  }
+  .drf-brand-sub {
+    display: none;
+  }
+  .drf-mobile-toggle {
+    display: flex;
+  }
 }

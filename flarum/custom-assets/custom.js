@@ -1,36 +1,98 @@
 /**
- * DRF Augenblicke - Shared Flarum Header Injection
+ * DRF Augenblicke - Shared Flarum Header Navigation
  */
 (function () {
   function injectDrfHeader() {
-    if (document.getElementById('drfSharedTopbar')) return;
+    if (document.getElementById('drfGlobalNav')) return;
 
     var header = document.createElement('div');
-    header.id = 'drfSharedTopbar';
-    header.className = 'drf-flarum-topbar';
+    header.id = 'drfGlobalNav';
+    header.className = 'drf-flarum-header-wrap';
     header.innerHTML = `
-      <a href="/" class="drf-brand">
-        <svg class="drf-logo-icon" viewBox="0 0 48 38" fill="none" stroke="#f5b301" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M14 6L17 2H31L34 6H42C44.2091 6 46 7.79086 46 10V32C46 34.2091 44.2091 36 42 36H6C3.79086 36 2 34.2091 2 32V10C2 7.79086 3.79086 6 6 6H14Z" />
-          <circle cx="24" cy="20" r="8" />
-          <circle cx="24" cy="20" r="3" fill="#f5b301" />
-        </svg>
-        <span class="drf-title">AUGENBLICKE</span>
-        <span class="drf-sep">|</span>
-        <span class="drf-short">d.r.f</span>
-        <span class="drf-tagline">de.rec.fotografie</span>
-      </a>
+      <header class="drf-site-topbar">
+        <div class="drf-topbar-inner">
+          <a href="/" class="drf-brand-link" title="Zurück zur Homepage">
+            <span class="drf-brand-icon">
+              <svg viewBox="0 0 48 38" fill="none" stroke="#f5b301" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 6L17 2H31L34 6H42C44.2091 6 46 7.79086 46 10V32C46 34.2091 44.2091 36 42 36H6C3.79086 36 2 34.2091 2 32V10C2 7.79086 3.79086 6 6 6H14Z"></path>
+                <circle cx="24" cy="20" r="8"></circle>
+                <circle cx="24" cy="20" r="3" fill="#f5b301"></circle>
+              </svg>
+            </span>
+            <div class="drf-brand-text">
+              <span class="drf-brand-title">AUGENBLICKE</span>
+              <span class="drf-brand-sep">|</span>
+              <span class="drf-brand-short">d.r.f</span>
+              <span class="drf-brand-sub">de.rec.fotografie</span>
+            </div>
+          </a>
 
-      <div class="drf-nav-links">
-        <a href="/" class="drf-btn-back">&larr; Zur&uuml;ck zur Homepage</a>
-        <a href="/verein/" class="drf-btn-subnav">Verein</a>
-        <a href="/workshops/" class="drf-btn-subnav">Workshops</a>
-        <a href="/tagungsbuero/" class="drf-btn-subnav">Tagungsb&uuml;ro</a>
-        <a href="/shuttleservice/" class="drf-btn-subnav">Shuttle</a>
-      </div>
+          <div class="drf-topbar-actions">
+            <a href="/" class="drf-pill-btn drf-pill-home">
+              <span>&larr; Zurück zur Homepage</span>
+            </a>
+            <a href="/forum/" class="drf-pill-btn drf-pill-forum">
+              <span>Forum &bull; Aktiv</span>
+            </a>
+          </div>
+
+          <button class="drf-mobile-toggle" id="drfMobileToggle" aria-label="Navigation öffnen">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+          </button>
+
+          <div class="drf-mobile-panel" id="drfMobilePanel">
+            <a href="/">🏠 Zurück zur Homepage</a>
+            <a href="/verein/">👥 Verein</a>
+            <a href="/augenblicke/">📷 Augenblicke Treffen</a>
+            <a href="/tagungsbuero/">📅 Tagungsbüro &amp; Anmeldung</a>
+            <a href="/sozialgremium/">🤝 Sozialgremium</a>
+            <a href="/shuttleservice/">🚐 Shuttleservice</a>
+            <a href="/workshops/">💡 Workshops</a>
+            <a href="/impressum/">📄 Impressum</a>
+            <a href="/datenschutz/">🔒 Datenschutz</a>
+          </div>
+        </div>
+      </header>
+
+      <nav class="drf-site-subnav" aria-label="Hauptnavigation">
+        <ul class="drf-subnav-menu">
+          <li class="drf-subnav-item"><a href="/" class="drf-subnav-link">Startseite</a></li>
+          <li class="drf-subnav-sep">|</li>
+          <li class="drf-subnav-item"><a href="/verein/" class="drf-subnav-link">Verein</a></li>
+          <li class="drf-subnav-sep">|</li>
+          <li class="drf-subnav-item"><a href="/augenblicke/" class="drf-subnav-link">Augenblicke</a></li>
+          <li class="drf-subnav-sep">|</li>
+          <li class="drf-subnav-item"><a href="/tagungsbuero/" class="drf-subnav-link">Tagungsbüro</a></li>
+          <li class="drf-subnav-sep">|</li>
+          <li class="drf-subnav-item"><a href="/sozialgremium/" class="drf-subnav-link">Sozialgremium</a></li>
+          <li class="drf-subnav-sep">|</li>
+          <li class="drf-subnav-item"><a href="/shuttleservice/" class="drf-subnav-link">Shuttleservice</a></li>
+          <li class="drf-subnav-sep">|</li>
+          <li class="drf-subnav-item"><a href="/workshops/" class="drf-subnav-link">Workshops</a></li>
+          <li class="drf-subnav-sep">|</li>
+          <li class="drf-subnav-item"><a href="/impressum/" class="drf-subnav-link">Impressum</a></li>
+          <li class="drf-subnav-sep">|</li>
+          <li class="drf-subnav-item"><a href="/datenschutz/" class="drf-subnav-link">Datenschutz</a></li>
+        </ul>
+      </nav>
     `;
 
-    document.body.insertBefore(header, document.body.firstChild);
+    var app = document.getElementById('app') || document.body;
+    app.parentNode.insertBefore(header, app);
+
+    var toggle = document.getElementById('drfMobileToggle');
+    var panel = document.getElementById('drfMobilePanel');
+    if (toggle && panel) {
+      toggle.addEventListener('click', function (e) {
+        e.stopPropagation();
+        panel.classList.toggle('is-open');
+      });
+      document.addEventListener('click', function (e) {
+        if (!panel.contains(e.target) && !toggle.contains(e.target)) {
+          panel.classList.remove('is-open');
+        }
+      });
+    }
   }
 
   if (document.readyState === 'loading') {
@@ -38,4 +100,5 @@
   } else {
     injectDrfHeader();
   }
+  setTimeout(injectDrfHeader, 300);
 })();
