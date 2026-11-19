@@ -1,0 +1,298 @@
+/**
+ * DRF Treffen-Anmeldung - Modern Admin Dashboard Stylesheet
+ */
+
+.drf-admin-wrap {
+  margin-top: 20px;
+  max-width: 1380px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Header */
+.drf-admin-header {
+  background: linear-gradient(135deg, #141518 0%, #1e2229 100%);
+  color: #ffffff;
+  padding: 24px 30px;
+  border-radius: 12px;
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-left: 6px solid #f5b301;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.drf-admin-header-brand {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.drf-admin-logo-icon {
+  font-size: 32px;
+  width: 32px;
+  height: 32px;
+  color: #f5b301;
+}
+
+.drf-admin-title {
+  color: #ffffff !important;
+  font-size: 1.6rem !important;
+  font-weight: 800 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1.2;
+}
+
+.drf-admin-subtitle {
+  color: #94a3b8;
+  font-size: 0.92rem;
+  margin: 4px 0 0 0;
+}
+
+/* KPI Cards */
+.drf-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+.drf-stat-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.drf-stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.drf-stat-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+}
+
+.drf-stat-card.card-blue::before { background: #3b82f6; }
+.drf-stat-card.card-gold::before { background: #f5b301; }
+.drf-stat-card.card-green::before { background: #10b981; }
+.drf-stat-card.card-purple::before { background: #8b5cf6; }
+
+.drf-stat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.drf-stat-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #64748b;
+}
+
+.drf-stat-icon {
+  font-size: 1.25rem;
+  opacity: 0.8;
+}
+
+.drf-stat-value {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.1;
+}
+
+.drf-stat-sub {
+  font-size: 0.82rem;
+  color: #94a3b8;
+  margin-top: 6px;
+}
+
+/* Filter Box */
+.drf-filter-box {
+  background: #ffffff;
+  padding: 16px 20px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.drf-filter-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.drf-filter-label {
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: #475569;
+}
+
+.drf-select-styled {
+  background: #f8fafc;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  color: #1e293b;
+  font-weight: 600;
+}
+
+.drf-select-styled:focus {
+  border-color: #f5b301;
+  box-shadow: 0 0 0 3px rgba(245, 179, 1, 0.2);
+  outline: none;
+}
+
+/* Modern Data Table */
+.drf-table-container {
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+}
+
+.drf-table-container table.widefat {
+  border: none;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.drf-table-container thead th {
+  background: #f8fafc;
+  color: #475569;
+  font-weight: 700;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 14px 16px;
+  border-bottom: 1.5px solid #e2e8f0;
+}
+
+.drf-table-container tbody td {
+  padding: 14px 16px;
+  font-size: 0.92rem;
+  color: #334155;
+  border-bottom: 1px solid #f1f5f9;
+  vertical-align: middle;
+}
+
+.drf-table-container tbody tr:hover td {
+  background-color: #fcfcfc;
+}
+
+/* Badges */
+.drf-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.drf-badge-room {
+  background: #f1f5f9;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+}
+
+.drf-badge-status-new {
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fde68a;
+}
+
+.drf-badge-status-confirmed {
+  background: #dbeafe;
+  color: #1e40af;
+  border: 1px solid #bfdbfe;
+}
+
+.drf-badge-status-paid {
+  background: #d1fae5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+
+.drf-badge-status-cancelled {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+/* Action Buttons */
+.drf-action-group {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.drf-btn-action {
+  padding: 5px 10px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  border-radius: 6px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.15s ease;
+  border: 1px solid transparent;
+}
+
+.drf-btn-confirm {
+  background: #eff6ff;
+  color: #1d4ed8;
+  border-color: #bfdbfe;
+}
+.drf-btn-confirm:hover {
+  background: #1d4ed8;
+  color: #ffffff;
+}
+
+.drf-btn-paid {
+  background: #ecfdf5;
+  color: #047857;
+  border-color: #a7f3d0;
+}
+.drf-btn-paid:hover {
+  background: #047857;
+  color: #ffffff;
+}
+
+.drf-btn-cancel {
+  background: #fef2f2;
+  color: #b91c1c;
+  border-color: #fecaca;
+}
+.drf-btn-cancel:hover {
+  background: #b91c1c;
+  color: #ffffff;
+}

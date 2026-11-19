@@ -1,6 +1,6 @@
 <?php
 /**
- * DRF Treffen-Anmeldung - Admin Dashboard
+ * DRF Treffen-Anmeldung - Modern Admin Dashboard
  *
  * @package DRF_Anmeldung
  */
@@ -14,6 +14,19 @@ class DRF_Admin_Dashboard {
     public function __construct() {
         add_action('admin_menu', [$this, 'register_admin_menus']);
         add_action('admin_init', [$this, 'handle_admin_actions']);
+        add_action('admin_enqueue_scripts', [$this, 'enqueue_admin_assets']);
+    }
+
+    public function enqueue_admin_assets($hook) {
+        if (strpos($hook, 'drf-anmeldungen') === false && strpos($hook, 'drf-meetings-manage') === false) {
+            return;
+        }
+        wp_enqueue_style(
+            'drf-anmeldung-admin-css',
+            DRF_ANMELDUNG_URL . 'assets/css/admin.css',
+            [],
+            DRF_ANMELDUNG_VERSION
+        );
     }
 
     public function register_admin_menus() {
@@ -117,10 +130,8 @@ class DRF_Admin_Dashboard {
         header('Expires: 0');
 
         $output = fopen('php://output', 'w');
-        // UTF-8 BOM for Excel
         fprintf($output, chr(0xEF).chr(0xBB).chr(0xBF));
 
-        // Header row
         fputcsv($output, [
             'ID', 'Treffen', 'Jahr', 'Vorname', 'Nachname', 'Nickname', 'E-Mail', 'Telefon',
             'Straße', 'PLZ_Ort', 'Dauer', 'Zimmer', 'Zimmerpartner', 'Ernährung', 'Allergien',
@@ -217,43 +228,62 @@ class DRF_Admin_Dashboard {
                     <span class="dashicons dashicons-tickets-alt drf-admin-logo-icon"></span>
                     <div>
                         <h1 class="drf-admin-title">Jahrestreffen &bull; Anmeldungen</h1>
-                        <p class="drf-admin-subtitle">Verwaltung der Teilnehmer, Zimmerbelegung, Shuttleservice &amp; Sozialspenden</p>
+                        <p class="drf-admin-subtitle">Teilnehmerverwaltung, Zimmerkontingente, Bahnhofs-Shuttle &amp; Solidarfonds</p>
                     </div>
                 </div>
                 <div class="drf-admin-header-actions">
-                    <a href="<?php echo esc_url(wp_nonce_url(add_query_arg(['action' => 'drf_export_csv', 'meeting_id' => $filter_meeting]), 'drf_export_csv_nonce')); ?>" class="button button-primary">
-                        <span class="dashicons dashicons-download" style="margin-top:4px;"></span> CSV-Export f&uuml;r Tagungsb&uuml;ro
+                    <a href="<?php echo esc_url(wp_nonce_url(add_query_arg(['action' => 'drf_export_csv', 'meeting_id' => $filter_meeting]), 'drf_export_csv_nonce')); ?>" class="button button-primary" style="background:#f5b301; color:#141518; border-color:#f5b301; font-weight:700; padding:4px 14px; height:auto; line-height:2;">
+                        <span class="dashicons dashicons-download" style="margin-top:4px;"></span> CSV-Export für Tagungsbüro
                     </a>
                 </div>
             </header>
 
-            <!-- Stats Bar -->
-            <div style="display:flex; gap:16px; margin-bottom:20px;">
-                <div style="flex:1; background:#ffffff; padding:16px; border-radius:8px; border:1px solid #e5e7eb; box-shadow:0 1px 3px rgba(0,0,0,0.05);">
-                    <div style="font-size:12px; color:#6b7280; font-weight:600; text-transform:uppercase;">Anmeldungen</div>
-                    <div style="font-size:24px; font-weight:800; color:#111827;"><?php echo $total_count; ?></div>
+            <!-- Modern KPI Stats Grid -->
+            <div class="drf-stats-grid">
+                <div class="drf-stat-card card-blue">
+                    <div class="drf-stat-header">
+                        <span class="drf-stat-label">Anmeldungen</span>
+                        <span class="drf-stat-icon">👥</span>
+                    </div>
+                    <div class="drf-stat-value"><?php echo $total_count; ?></div>
+                    <div class="drf-stat-sub">Registrierte Teilnehmer</div>
                 </div>
-                <div style="flex:1; background:#ffffff; padding:16px; border-radius:8px; border:1px solid #e5e7eb; box-shadow:0 1px 3px rgba(0,0,0,0.05);">
-                    <div style="font-size:12px; color:#6b7280; font-weight:600; text-transform:uppercase;">Gesamtsumme Beiträge</div>
-                    <div style="font-size:24px; font-weight:800; color:#111827;"><?php echo number_format($total_amount_sum, 2, ',', '.'); ?> &euro;</div>
+
+                <div class="drf-stat-card card-gold">
+                    <div class="drf-stat-header">
+                        <span class="drf-stat-label">Gesamtsumme Beiträge</span>
+                        <span class="drf-stat-icon">💶</span>
+                    </div>
+                    <div class="drf-stat-value"><?php echo number_format($total_amount_sum, 2, ',', '.'); ?> &euro;</div>
+                    <div class="drf-stat-sub">Inkl. Übernachtung &amp; Verpflegung</div>
                 </div>
-                <div style="flex:1; background:#ffffff; padding:16px; border-radius:8px; border:1px solid #e5e7eb; box-shadow:0 1px 3px rgba(0,0,0,0.05);">
-                    <div style="font-size:12px; color:#6b7280; font-weight:600; text-transform:uppercase;">Sozialspenden („Sozialsowjet“)</div>
-                    <div style="font-size:24px; font-weight:800; color:#10b981;"><?php echo number_format($total_donation_sum, 2, ',', '.'); ?> &euro;</div>
+
+                <div class="drf-stat-card card-green">
+                    <div class="drf-stat-header">
+                        <span class="drf-stat-label">Solidarfonds („Sozialsowjet“)</span>
+                        <span class="drf-stat-icon">🤝</span>
+                    </div>
+                    <div class="drf-stat-value" style="color:#059669;"><?php echo number_format($total_donation_sum, 2, ',', '.'); ?> &euro;</div>
+                    <div class="drf-stat-sub">Freiwillige Spenden</div>
                 </div>
-                <div style="flex:1; background:#ffffff; padding:16px; border-radius:8px; border:1px solid #e5e7eb; box-shadow:0 1px 3px rgba(0,0,0,0.05);">
-                    <div style="font-size:12px; color:#6b7280; font-weight:600; text-transform:uppercase;">Shuttleservice Anfragen</div>
-                    <div style="font-size:24px; font-weight:800; color:#3b82f6;"><?php echo $shuttle_count; ?></div>
+
+                <div class="drf-stat-card card-purple">
+                    <div class="drf-stat-header">
+                        <span class="drf-stat-label">Shuttle-Bedarf</span>
+                        <span class="drf-stat-icon">🚐</span>
+                    </div>
+                    <div class="drf-stat-value" style="color:#7c3aed;"><?php echo $shuttle_count; ?></div>
+                    <div class="drf-stat-sub">Wicklesgreuth &amp; Ansbach</div>
                 </div>
             </div>
 
             <!-- Filter Bar -->
-            <div style="background:#ffffff; padding:12px 16px; border-radius:8px; border:1px solid #e5e7eb; margin-bottom:16px; display:flex; align-items:center; gap:12px;">
-                <form method="get" action="" style="display:flex; align-items:center; gap:12px; width:100%;">
+            <div class="drf-filter-box">
+                <form method="get" action="" class="drf-filter-group">
                     <input type="hidden" name="page" value="drf-anmeldungen">
 
-                    <label for="filter_meeting"><strong>Treffen:</strong></label>
-                    <select name="filter_meeting" id="filter_meeting" onchange="this.form.submit()">
+                    <span class="drf-filter-label">Treffen:</span>
+                    <select name="filter_meeting" id="filter_meeting" class="drf-select-styled" onchange="this.form.submit()">
                         <option value="0">&ndash; Alle Treffen anzeigen &ndash;</option>
                         <?php foreach ($all_meetings as $m) : ?>
                             <option value="<?php echo esc_attr($m->id); ?>" <?php selected($filter_meeting, $m->id); ?>>
@@ -262,8 +292,8 @@ class DRF_Admin_Dashboard {
                         <?php endforeach; ?>
                     </select>
 
-                    <label for="filter_status"><strong>Status:</strong></label>
-                    <select name="filter_status" id="filter_status" onchange="this.form.submit()">
+                    <span class="drf-filter-label" style="margin-left:12px;">Status:</span>
+                    <select name="filter_status" id="filter_status" class="drf-select-styled" onchange="this.form.submit()">
                         <option value="">&ndash; Alle Status &ndash;</option>
                         <option value="new" <?php selected($filter_status, 'new'); ?>>Neu</option>
                         <option value="confirmed" <?php selected($filter_status, 'confirmed'); ?>>Bestätigt</option>
@@ -272,33 +302,34 @@ class DRF_Admin_Dashboard {
                     </select>
 
                     <?php if ($filter_meeting || $filter_status) : ?>
-                        <a href="<?php echo esc_url(admin_url('admin.php?page=drf-anmeldungen')); ?>" class="button button-secondary">Filter zurücksetzen</a>
+                        <a href="<?php echo esc_url(admin_url('admin.php?page=drf-anmeldungen')); ?>" class="button button-secondary" style="margin-left:10px;">Filter aufheben</a>
                     <?php endif; ?>
                 </form>
             </div>
 
-            <!-- Table -->
-            <div style="background:#ffffff; border-radius:8px; border:1px solid #e5e7eb; overflow:hidden;">
+            <!-- Modern Table -->
+            <div class="drf-table-container">
                 <table class="wp-list-table widefat fixed striped">
                     <thead>
                         <tr>
                             <th width="45">#</th>
-                            <th>Teilnehmer</th>
-                            <th>Treffen</th>
-                            <th>Zimmer</th>
-                            <th>Verpflegung</th>
-                            <th>Shuttle</th>
-                            <th>Spende</th>
-                            <th>Betrag</th>
-                            <th>Status</th>
-                            <th>Aktionen</th>
+                            <th width="200">Teilnehmer</th>
+                            <th width="160">Treffen</th>
+                            <th width="120">Zimmer</th>
+                            <th width="130">Verpflegung</th>
+                            <th width="140">Shuttle</th>
+                            <th width="90">Spende</th>
+                            <th width="100">Gesamt</th>
+                            <th width="110">Status</th>
+                            <th width="190">Aktionen</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php if (empty($registrations)) : ?>
                             <tr>
-                                <td colspan="10" style="text-align:center; padding:30px; color:#6b7280;">
-                                    Keine Anmeldungen für die gewählten Kriterien gefunden.
+                                <td colspan="10" style="text-align:center; padding:40px; color:#64748b;">
+                                    <div style="font-size:2rem; margin-bottom:8px;">📬</div>
+                                    <strong>Keine Anmeldungen für die gewählten Kriterien gefunden.</strong>
                                 </td>
                             </tr>
                         <?php else : ?>
@@ -306,78 +337,82 @@ class DRF_Admin_Dashboard {
                                 <tr>
                                     <td><strong>#<?php echo esc_html($r->id); ?></strong></td>
                                     <td>
-                                        <strong><?php echo esc_html($r->firstname . ' ' . $r->lastname); ?></strong>
+                                        <div style="font-weight:700; color:#0f172a;"><?php echo esc_html($r->firstname . ' ' . $r->lastname); ?></div>
                                         <?php if (!empty($r->nickname)) : ?>
-                                            <span style="color:#d97706; font-weight:600;">(<?php echo esc_html($r->nickname); ?>)</span>
+                                            <span style="color:#d97706; font-weight:700; font-size:0.85rem;">@<?php echo esc_html($r->nickname); ?></span><br>
                                         <?php endif; ?>
-                                        <br>
-                                        <small><a href="mailto:<?php echo esc_attr($r->email); ?>"><?php echo esc_html($r->email); ?></a></small>
+                                        <small><a href="mailto:<?php echo esc_attr($r->email); ?>" style="color:#3b82f6; text-decoration:none;"><?php echo esc_html($r->email); ?></a></small>
                                         <?php if (!empty($r->phone)) : ?>
-                                            <small>&bull; <?php echo esc_html($r->phone); ?></small>
+                                            <br><small style="color:#64748b;"><?php echo esc_html($r->phone); ?></small>
                                         <?php endif; ?>
                                     </td>
                                     <td>
-                                        <strong><?php echo esc_html($r->meeting_title); ?></strong><br>
-                                        <small><?php echo esc_html($r->meeting_location); ?></small>
+                                        <div style="font-weight:700; font-size:0.9rem;"><?php echo esc_html($r->meeting_title); ?></div>
+                                        <small style="color:#64748b;"><?php echo esc_html($r->meeting_location); ?></small>
                                     </td>
                                     <td>
-                                        <span class="badge" style="background:#e5e7eb; padding:2px 8px; border-radius:4px; font-size:11px; font-weight:700;">
+                                        <span class="drf-badge drf-badge-room">
                                             <?php echo strtoupper(esc_html($r->room_category)); ?>
                                         </span>
                                         <?php if (!empty($r->room_partner)) : ?>
-                                            <br><small>mit: <?php echo esc_html($r->room_partner); ?></small>
+                                            <div style="font-size:0.78rem; color:#475569; margin-top:4px;">mit: <strong><?php echo esc_html($r->room_partner); ?></strong></div>
                                         <?php endif; ?>
                                     </td>
                                     <td>
-                                        <?php echo esc_html(ucfirst($r->diet)); ?>
+                                        <strong><?php echo esc_html(ucfirst($r->diet)); ?></strong>
                                         <?php if (!empty($r->diet_allergies)) : ?>
-                                            <br><small style="color:#dc2626;">⚠ <?php echo esc_html($r->diet_allergies); ?></small>
+                                            <div style="color:#dc2626; font-size:0.78rem; margin-top:2px; font-weight:600;">⚠ <?php echo esc_html($r->diet_allergies); ?></div>
                                         <?php endif; ?>
                                     </td>
                                     <td>
                                         <?php if ($r->shuttle_needed) : ?>
-                                            <span style="color:#2563eb; font-weight:700;">Ja (<?php echo esc_html($r->shuttle_station); ?>)</span>
+                                            <span style="color:#2563eb; font-weight:700;">🚐 <?php echo esc_html(ucfirst($r->shuttle_station)); ?></span>
                                             <?php if (!empty($r->shuttle_arrival)) : ?>
-                                                <br><small><?php echo esc_html($r->shuttle_arrival); ?></small>
+                                                <div style="font-size:0.78rem; color:#64748b;"><?php echo esc_html($r->shuttle_arrival); ?></div>
                                             <?php endif; ?>
                                         <?php else : ?>
-                                            <span style="color:#9ca3af;">Nein</span>
+                                            <span style="color:#94a3b8;">Eigene Anreise</span>
                                         <?php endif; ?>
                                     </td>
                                     <td>
                                         <?php if ($r->social_donation > 0) : ?>
-                                            <span style="color:#10b981; font-weight:700;">+<?php echo number_format($r->social_donation, 2, ',', '.'); ?> &euro;</span>
+                                            <span style="color:#059669; font-weight:700;">+<?php echo number_format($r->social_donation, 2, ',', '.'); ?> &euro;</span>
                                         <?php else : ?>
-                                            <span style="color:#9ca3af;">0 &euro;</span>
+                                            <span style="color:#94a3b8;">0 &euro;</span>
                                         <?php endif; ?>
                                     </td>
                                     <td>
-                                        <strong><?php echo number_format($r->total_amount, 2, ',', '.'); ?> &euro;</strong>
+                                        <strong style="font-size:1rem; color:#0f172a;"><?php echo number_format($r->total_amount, 2, ',', '.'); ?> &euro;</strong>
                                     </td>
                                     <td>
                                         <?php
-                                        $status_colors = [
-                                            'new'       => '#d97706',
-                                            'confirmed' => '#2563eb',
-                                            'paid'      => '#16a34a',
-                                            'cancelled' => '#dc2626',
-                                        ];
-                                        $color = $status_colors[$r->status] ?? '#6b7280';
+                                        $status_class = 'drf-badge-status-new';
+                                        $status_label = 'Neu';
+                                        if ($r->status === 'confirmed') {
+                                            $status_class = 'drf-badge-status-confirmed';
+                                            $status_label = 'Bestätigt';
+                                        } elseif ($r->status === 'paid') {
+                                            $status_class = 'drf-badge-status-paid';
+                                            $status_label = 'Bezahlt';
+                                        } elseif ($r->status === 'cancelled') {
+                                            $status_class = 'drf-badge-status-cancelled';
+                                            $status_label = 'Storniert';
+                                        }
                                         ?>
-                                        <span style="background:<?php echo $color; ?>; color:#ffffff; padding:3px 8px; border-radius:12px; font-size:11px; font-weight:700;">
-                                            <?php echo strtoupper(esc_html($r->status)); ?>
+                                        <span class="drf-badge <?php echo $status_class; ?>">
+                                            <?php echo $status_label; ?>
                                         </span>
                                     </td>
                                     <td>
-                                        <div style="display:flex; gap:4px; flex-wrap:wrap;">
+                                        <div class="drf-action-group">
                                             <?php if ($r->status !== 'confirmed') : ?>
-                                                <a href="<?php echo esc_url(wp_nonce_url(add_query_arg(['action' => 'drf_change_status', 'reg_id' => $r->id, 'status' => 'confirmed']), 'drf_status_nonce')); ?>" class="button button-small" title="Als bestätigt markieren">Bestätigen</a>
+                                                <a href="<?php echo esc_url(wp_nonce_url(add_query_arg(['action' => 'drf_change_status', 'reg_id' => $r->id, 'status' => 'confirmed']), 'drf_status_nonce')); ?>" class="drf-btn-action drf-btn-confirm" title="Als bestätigt markieren">Bestätigen</a>
                                             <?php endif; ?>
                                             <?php if ($r->status !== 'paid') : ?>
-                                                <a href="<?php echo esc_url(wp_nonce_url(add_query_arg(['action' => 'drf_change_status', 'reg_id' => $r->id, 'status' => 'paid']), 'drf_status_nonce')); ?>" class="button button-small" title="Als bezahlt markieren" style="color:#16a34a;">Bezahlt</a>
+                                                <a href="<?php echo esc_url(wp_nonce_url(add_query_arg(['action' => 'drf_change_status', 'reg_id' => $r->id, 'status' => 'paid']), 'drf_status_nonce')); ?>" class="drf-btn-action drf-btn-paid" title="Als bezahlt markieren">Bezahlt</a>
                                             <?php endif; ?>
                                             <?php if ($r->status !== 'cancelled') : ?>
-                                                <a href="<?php echo esc_url(wp_nonce_url(add_query_arg(['action' => 'drf_change_status', 'reg_id' => $r->id, 'status' => 'cancelled']), 'drf_status_nonce')); ?>" class="button button-small" style="color:#dc2626;" onclick="return confirm('Anmeldung wirklich stornieren?');">Storno</a>
+                                                <a href="<?php echo esc_url(wp_nonce_url(add_query_arg(['action' => 'drf_change_status', 'reg_id' => $r->id, 'status' => 'cancelled']), 'drf_status_nonce')); ?>" class="drf-btn-action drf-btn-cancel" onclick="return confirm('Anmeldung wirklich stornieren?');">Storno</a>
                                             <?php endif; ?>
                                         </div>
                                     </td>
@@ -405,62 +440,66 @@ class DRF_Admin_Dashboard {
                     <span class="dashicons dashicons-calendar-alt drf-admin-logo-icon"></span>
                     <div>
                         <h1 class="drf-admin-title">Jahrestreffen verwalten (2026, 2027, ...)</h1>
-                        <p class="drf-admin-subtitle">Erstellen und konfigurieren Sie anstehende Treffen für de.rec.fotografie e.V.</p>
+                        <p class="drf-admin-subtitle">Erstellen und konfigurieren von Augenblicke-Treffen für de.rec.fotografie e.V.</p>
                     </div>
                 </div>
             </header>
 
-            <div style="display:flex; gap:24px; align-items:flex-start;">
+            <div style="display:flex; gap:24px; align-items:flex-start; flex-wrap:wrap;">
                 <!-- Left: Form to create or edit meeting -->
-                <div style="flex:1; background:#ffffff; padding:24px; border-radius:12px; border:1px solid #e5e7eb; box-shadow:0 2px 8px rgba(0,0,0,0.05);">
-                    <h2><?php echo $edit_meeting ? 'Treffen bearbeiten' : 'Neues Treffen anlegen'; ?></h2>
+                <div style="flex:1.2; min-width:340px; background:#ffffff; padding:28px; border-radius:14px; border:1px solid #e2e8f0; box-shadow:0 2px 10px rgba(0,0,0,0.04);">
+                    <h2 style="font-size:1.3rem; font-weight:800; color:#0f172a; margin-top:0; border-bottom:1px solid #f1f5f9; padding-bottom:12px;">
+                        <?php echo $edit_meeting ? 'Treffen bearbeiten' : 'Neues Treffen anlegen'; ?>
+                    </h2>
                     <form method="post" action="">
                         <?php wp_nonce_field('drf_save_meeting_nonce'); ?>
                         <?php if ($edit_meeting) : ?>
                             <input type="hidden" name="meeting_id" value="<?php echo esc_attr($edit_meeting->id); ?>">
                         <?php endif; ?>
 
-                        <table class="form-table">
+                        <table class="form-table" style="margin-top:10px;">
                             <tr>
-                                <th><label for="meet_title">Titel des Treffens</label></th>
+                                <th><label for="meet_title"><strong>Titel des Treffens</strong></label></th>
                                 <td>
-                                    <input type="text" id="meet_title" name="title" required value="<?php echo esc_attr($edit_meeting->title ?? 'AUGENBLICKE XXVII (2027)'); ?>" class="regular-text">
+                                    <input type="text" id="meet_title" name="title" required value="<?php echo esc_attr($edit_meeting->title ?? 'AUGENBLICKE XXVII (2027)'); ?>" class="regular-text" style="font-weight:700;">
                                     <p class="description">z.B. AUGENBLICKE XXVI (2026) oder AUGENBLICKE XXVII (2027)</p>
                                 </td>
                             </tr>
                             <tr>
-                                <th><label for="meet_year">Jahr</label></th>
+                                <th><label for="meet_year"><strong>Jahr</strong></label></th>
                                 <td>
-                                    <input type="number" id="meet_year" name="year" required value="<?php echo esc_attr($edit_meeting->year ?? (date('Y') + 1)); ?>" style="width:100px;">
+                                    <input type="number" id="meet_year" name="year" required value="<?php echo esc_attr($edit_meeting->year ?? (date('Y') + 1)); ?>" style="width:100px; font-weight:700;">
                                 </td>
                             </tr>
                             <tr>
-                                <th><label for="meet_location">Tagungsort</label></th>
+                                <th><label for="meet_location"><strong>Tagungsort</strong></label></th>
                                 <td>
                                     <input type="text" id="meet_location" name="location" required value="<?php echo esc_attr($edit_meeting->location ?? 'Haus Lutherrose, Neuendettelsau'); ?>" class="large-text">
                                 </td>
                             </tr>
                             <tr>
-                                <th><label for="meet_dates">Zeitraum (Start / Ende)</label></th>
+                                <th><label for="meet_dates"><strong>Zeitraum</strong></label></th>
                                 <td>
                                     <input type="date" name="start_date" required value="<?php echo esc_attr($edit_meeting->start_date ?? '2027-05-27'); ?>">
-                                    bis
+                                    <span style="margin:0 6px;">bis</span>
                                     <input type="date" name="end_date" required value="<?php echo esc_attr($edit_meeting->end_date ?? '2027-05-30'); ?>">
                                 </td>
                             </tr>
                             <tr>
-                                <th><label>Teilnehmerbeiträge (&euro;)</label></th>
+                                <th><label><strong>Teilnehmerbeiträge (&euro;)</strong></label></th>
                                 <td>
-                                    <label>EZ: <input type="number" step="0.5" name="price_ez" value="<?php echo esc_attr($edit_meeting->price_ez ?? 250); ?>" style="width:90px;"></label>
-                                    <label style="margin-left:8px;">DZ: <input type="number" step="0.5" name="price_dz" value="<?php echo esc_attr($edit_meeting->price_dz ?? 205); ?>" style="width:90px;"></label>
-                                    <label style="margin-left:8px;">MBZ: <input type="number" step="0.5" name="price_mbz" value="<?php echo esc_attr($edit_meeting->price_mbz ?? 170); ?>" style="width:90px;"></label>
-                                    <label style="margin-left:8px;">Tagesgast: <input type="number" step="0.5" name="price_day" value="<?php echo esc_attr($edit_meeting->price_day ?? 65); ?>" style="width:90px;"></label>
+                                    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                                        <label>EZ: <input type="number" step="0.5" name="price_ez" value="<?php echo esc_attr($edit_meeting->price_ez ?? 250); ?>" style="width:85px;"></label>
+                                        <label>DZ: <input type="number" step="0.5" name="price_dz" value="<?php echo esc_attr($edit_meeting->price_dz ?? 205); ?>" style="width:85px;"></label>
+                                        <label>MBZ: <input type="number" step="0.5" name="price_mbz" value="<?php echo esc_attr($edit_meeting->price_mbz ?? 170); ?>" style="width:85px;"></label>
+                                        <label>Tagesgast: <input type="number" step="0.5" name="price_day" value="<?php echo esc_attr($edit_meeting->price_day ?? 65); ?>" style="width:85px;"></label>
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
-                                <th><label for="meet_status">Status</label></th>
+                                <th><label for="meet_status"><strong>Status</strong></label></th>
                                 <td>
-                                    <select name="status" id="meet_status">
+                                    <select name="status" id="meet_status" class="drf-select-styled">
                                         <option value="active" <?php selected($edit_meeting->status ?? 'active', 'active'); ?>>Aktiv (Anmeldung geöffnet)</option>
                                         <option value="planning" <?php selected($edit_meeting->status ?? '', 'planning'); ?>>In Planung (Vorschau)</option>
                                         <option value="closed" <?php selected($edit_meeting->status ?? '', 'closed'); ?>>Geschlossen (Ausgebucht / Beendet)</option>
@@ -468,16 +507,16 @@ class DRF_Admin_Dashboard {
                                 </td>
                             </tr>
                             <tr>
-                                <th><label for="meet_details">Beschreibung / Anreise</label></th>
+                                <th><label for="meet_details"><strong>Beschreibung / Anreise</strong></label></th>
                                 <td>
                                     <textarea name="location_details" id="meet_details" rows="3" class="large-text"><?php echo esc_textarea($edit_meeting->location_details ?? ''); ?></textarea>
                                 </td>
                             </tr>
                         </table>
 
-                        <p class="submit">
-                            <button type="submit" name="drf_save_meeting" class="button button-primary button-large">
-                                <?php echo $edit_meeting ? 'Änderungen speichern' : 'Treffen anlegen'; ?>
+                        <p class="submit" style="margin-top:20px; display:flex; gap:10px;">
+                            <button type="submit" name="drf_save_meeting" class="button button-primary button-large" style="background:#f5b301; color:#141518; border-color:#f5b301; font-weight:800;">
+                                <?php echo $edit_meeting ? 'Änderungen speichern' : 'Treffen speichern'; ?>
                             </button>
                             <?php if ($edit_meeting) : ?>
                                 <a href="<?php echo esc_url(admin_url('admin.php?page=drf-meetings-manage')); ?>" class="button button-secondary">Abbrechen</a>
@@ -487,36 +526,34 @@ class DRF_Admin_Dashboard {
                 </div>
 
                 <!-- Right: List of Meetings -->
-                <div style="flex:1; background:#ffffff; padding:24px; border-radius:12px; border:1px solid #e5e7eb; box-shadow:0 2px 8px rgba(0,0,0,0.05);">
-                    <h2>Bestehende Treffen</h2>
+                <div style="flex:1; min-width:320px; background:#ffffff; padding:28px; border-radius:14px; border:1px solid #e2e8f0; box-shadow:0 2px 10px rgba(0,0,0,0.04);">
+                    <h2 style="font-size:1.3rem; font-weight:800; color:#0f172a; margin-top:0; border-bottom:1px solid #f1f5f9; padding-bottom:12px;">
+                        Bestehende Treffen
+                    </h2>
                     <table class="wp-list-table widefat fixed striped">
                         <thead>
                             <tr>
-                                <th>Jahr</th>
+                                <th width="60">Jahr</th>
                                 <th>Titel &amp; Ort</th>
-                                <th>Zeitraum</th>
                                 <th>Status</th>
-                                <th>Aktionen</th>
+                                <th width="90">Aktionen</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php foreach ($meetings as $m) : ?>
                                 <tr>
-                                    <td><strong><?php echo esc_html($m->year); ?></strong></td>
+                                    <td><strong style="font-size:1.05rem;"><?php echo esc_html($m->year); ?></strong></td>
                                     <td>
                                         <strong><?php echo esc_html($m->title); ?></strong><br>
-                                        <small><?php echo esc_html($m->location); ?></small>
-                                    </td>
-                                    <td>
-                                        <small><?php echo date_i18n('d.m.Y', strtotime($m->start_date)); ?> &ndash; <?php echo date_i18n('d.m.Y', strtotime($m->end_date)); ?></small>
+                                        <small style="color:#64748b;"><?php echo esc_html($m->location); ?></small>
                                     </td>
                                     <td>
                                         <?php if ($m->status === 'active') : ?>
-                                            <span style="background:#16a34a; color:#ffffff; padding:2px 8px; border-radius:10px; font-size:11px; font-weight:700;">Aktiv</span>
+                                            <span class="drf-badge drf-badge-status-paid">Aktiv</span>
                                         <?php elseif ($m->status === 'planning') : ?>
-                                            <span style="background:#d97706; color:#ffffff; padding:2px 8px; border-radius:10px; font-size:11px; font-weight:700;">In Planung</span>
+                                            <span class="drf-badge drf-badge-status-new">In Planung</span>
                                         <?php else : ?>
-                                            <span style="background:#6b7280; color:#ffffff; padding:2px 8px; border-radius:10px; font-size:11px; font-weight:700;">Geschlossen</span>
+                                            <span class="drf-badge drf-badge-room">Geschlossen</span>
                                         <?php endif; ?>
                                     </td>
                                     <td>

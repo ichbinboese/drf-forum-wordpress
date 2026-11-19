@@ -61,6 +61,19 @@ $snippets_def = [
         ],
     ],
     [
+        'title'       => 'Snippet: Live Event Countdown 2026/2027',
+        'slug'        => 'snippet-countdown',
+        'widget_type' => 'drf_countdown',
+        'settings'    => [
+            'badge'          => 'AUGENBLICKE XXVI (2026)',
+            'target_date'    => '2026-05-28T09:00:00',
+            'location_title' => 'Haus Lutherrose, Neuendettelsau',
+            'dates_text'     => '28. Mai bis 31. Mai 2026 (Fronleichnam)',
+            'btn_text'       => 'Jetzt Platz sichern',
+            'btn_url'        => '/tagungsbuero/',
+        ],
+    ],
+    [
         'title'       => 'Snippet: 4 Feature Cards Grid',
         'slug'        => 'snippet-cards',
         'widget_type' => 'drf_cards',
@@ -81,7 +94,34 @@ $snippets_def = [
         ],
     ],
     [
-        'title'       => 'Snippet: Interaktive Treffen-Anmeldung',
+        'title'       => 'Snippet: Interaktive Treffen-Timeline (1999–2027)',
+        'slug'        => 'snippet-timeline',
+        'widget_type' => 'drf_timeline',
+        'settings'    => [
+            'title'    => 'Meilensteine & Treffen-Geschichte (1999 – 2027)',
+            'subtitle' => 'Über zwei Jahrzehnte lebendige Fotografie-Gemeinschaft: Von der ersten Verabredung im Usenet bis zu den modernen AUGENBLICKE-Großtreffen.',
+        ],
+    ],
+    [
+        'title'       => 'Snippet: Polaroid Photo Gallery Wall',
+        'slug'        => 'snippet-gallery',
+        'widget_type' => 'drf_gallery',
+        'settings'    => [
+            'title'    => 'Impressionen der Augenblicke-Treffen',
+            'subtitle' => 'Echte Momentaufnahmen: Von analoger Laborchemie über Studio-Setups bis zu Porträts in der Abendsonne.',
+        ],
+    ],
+    [
+        'title'       => 'Snippet: Shuttle Transfer-Route (Wicklesgreuth & Ansbach)',
+        'slug'        => 'snippet-shuttle-route',
+        'widget_type' => 'drf_shuttle_route',
+        'settings'    => [
+            'title'    => 'Kostenlose Abholung ab Wicklesgreuth & Ansbach',
+            'subtitle' => 'Bequem mit dem Zug anreisen: Unser ehrenamtliches Shuttle holt dich pünktlich am Bahnsteig ab.',
+        ],
+    ],
+    [
+        'title'       => 'Snippet: Interaktive Treffen-Anmeldung (Multi-Step)',
         'slug'        => 'snippet-anmeldung',
         'widget_type' => 'drf_anmeldung',
         'settings'    => [
@@ -188,7 +228,6 @@ echo "\n2. Building Elementor Homepage ('Startseite')...\n";
 
 $home_page = get_page_by_path('startseite');
 if (!$home_page) {
-    // Try to find if there's any other page set or create new
     $home_id = wp_insert_post([
         'post_title'   => 'Startseite',
         'post_name'    => 'startseite',
@@ -201,11 +240,13 @@ if (!$home_page) {
     update_post_meta($home_id, '_wp_page_template', 'template-elementor-fullwidth.php');
 }
 
-// Assemble Homepage with 4 complete Elementor sections:
-// 1. Hero
-// 2. Event Banner 2026/2027
-// 3. Feature Cards
-// 4. Forum Teaser
+// Assemble Homepage with rich Elementor sections:
+// 1. Hero with Polaroid Visuals
+// 2. Live Event Countdown 2026/2027
+// 3. Event Banner 2026/2027
+// 4. Feature Cards
+// 5. Gallery Impressions
+// 6. Community Forum Teaser
 $home_sections = [
     drf_make_elementor_section('drf_hero', [
         'hero_tag'         => 'DAS JÄHRLICHE TREFFEN DER d.r.f.',
@@ -213,6 +254,14 @@ $home_sections = [
         'hero_desc'        => 'Wir sind ein eingetragener, gemeinnütziger Verein und laden einmal im Jahr zu unserem besonderen Treffen ein – mit Austausch, Gemeinschaft und spannenden Workshops rund um Fotografie.',
         'btn_primary_text' => 'Mehr erfahren',
         'btn_forum_text'   => 'Zum Forum',
+    ]),
+    drf_make_elementor_section('drf_countdown', [
+        'badge'          => 'AUGENBLICKE XXVI (2026)',
+        'target_date'    => '2026-05-28T09:00:00',
+        'location_title' => 'Haus Lutherrose, Neuendettelsau',
+        'dates_text'     => '28. Mai bis 31. Mai 2026 (Fronleichnam)',
+        'btn_text'       => 'Jetzt anmelden & Platz sichern',
+        'btn_url'        => '/tagungsbuero/',
     ]),
     drf_make_elementor_section('drf_event_banner', [
         'badge'          => 'AUGENBLICKE XXVI & XXVII',
@@ -224,6 +273,10 @@ $home_sections = [
         'button_url'     => '/tagungsbuero/',
     ]),
     drf_make_elementor_section('drf_cards', []),
+    drf_make_elementor_section('drf_gallery', [
+        'title'    => 'Impressionen der Augenblicke-Treffen',
+        'subtitle' => 'Echte Momentaufnahmen aus über zwei Jahrzehnten: Studio-Sessions, Schwarzweiß-Dunkelkammer und gesellige Abende.',
+    ]),
     drf_make_elementor_section('drf_flarum_feed', [
         'title'     => 'de.rec.fotografie Community Forum',
         'desc'      => 'Tausche dich mit Teilnehmern und Fotografen über Bildkritik [BK], Workshops [WS] und die kommenden Treffen aus.',
@@ -247,6 +300,14 @@ echo "\n3. Upgrading Sub-Pages with Elementor...\n";
 $tb_page = get_page_by_path('tagungsbuero');
 if ($tb_page) {
     $tb_sections = [
+        drf_make_elementor_section('drf_countdown', [
+            'badge'          => 'TAGUNGSBÜRO 2026 & 2027',
+            'target_date'    => '2026-05-28T09:00:00',
+            'location_title' => 'Haus Lutherrose, Neuendettelsau',
+            'dates_text'     => '28. Mai bis 31. Mai 2026 (Fronleichnam)',
+            'btn_text'       => 'Direkt zum Anmeldeformular',
+            'btn_url'        => '#drfAnmeldungWrapper',
+        ]),
         drf_make_elementor_section('drf_event_banner', [
             'badge'          => 'ANMELDUNG 2026 & 2027',
             'title'          => 'Tagungsbüro • Haus Lutherrose, Neuendettelsau',
@@ -284,8 +345,16 @@ if ($ab_page) {
             'button_text'    => 'Jetzt anmelden',
             'button_url'     => '/tagungsbuero/',
         ]),
+        drf_make_elementor_section('drf_timeline', [
+            'title'    => 'Meilensteine & Treffen-Geschichte (1999 – 2027)',
+            'subtitle' => 'Über zwei Jahrzehnte lebendige Fotografie-Gemeinschaft: Von der ersten Verabredung im Usenet bis zu den modernen AUGENBLICKE-Großtreffen.',
+        ]),
+        drf_make_elementor_section('drf_gallery', [
+            'title'    => 'Foto-Chronik & Impressionen',
+            'subtitle' => 'Ein Rückblick auf vergangene Treffen und die Vorfreude auf Neuendettelsau.',
+        ]),
         drf_make_elementor_section('drf_chronik', [
-            'title' => 'Chronik aller Treffen (1999–2027)',
+            'title' => 'Vollständige Chronik aller Treffen (1999–2027)',
             'desc'  => 'Von den ersten Treffen auf Burg Rieneck bis zum Haus Lutherrose.',
         ]),
         drf_make_elementor_section('drf_cards', []),
@@ -301,6 +370,10 @@ if ($ab_page) {
 $shuttle_page = get_page_by_path('shuttleservice');
 if ($shuttle_page) {
     $shuttle_sections = [
+        drf_make_elementor_section('drf_shuttle_route', [
+            'title'    => 'Kostenlose Abholung ab Wicklesgreuth & Ansbach',
+            'subtitle' => 'Reise entspannt mit dem Zug an – unser Shuttle bringt dich direkt zum Tagungshaus.',
+        ]),
         drf_make_elementor_section('drf_shuttle', [
             'title'     => 'Shuttleservice & Anreise für Bahnreisende',
             'show_form' => 'yes',
@@ -344,6 +417,10 @@ if ($ws_page) {
         drf_make_elementor_section('drf_workshops', [
             'title' => 'Geplante Workshops & Sessions',
         ]),
+        drf_make_elementor_section('drf_gallery', [
+            'title'    => 'Impressionen aus vergangenen Praxis-Workshops',
+            'subtitle' => 'Blitzen, Available Light, Makro und analoge Entwicklungsverfahren in Aktion.',
+        ]),
     ];
     update_post_meta($ws_page->ID, '_wp_page_template', 'template-elementor-fullwidth.php');
     update_post_meta($ws_page->ID, '_elementor_edit_mode', 'builder');
@@ -358,6 +435,10 @@ if ($verein_page) {
     $verein_sections = [
         drf_make_elementor_section('drf_verein', [
             'title' => 'de.rec.fotografie e.V. – Der Verein',
+        ]),
+        drf_make_elementor_section('drf_timeline', [
+            'title'    => 'Stationen unserer Vereins- und Tagungsgeschichte',
+            'subtitle' => 'Wie aus einer Usenet-Newsgroup ein aktiver Verein und eine bundesweite Gemeinschaft wurde.',
         ]),
         drf_make_elementor_section('drf_cards', []),
     ];

@@ -186,28 +186,28 @@ class DRF_Hero_Widget extends Widget_Base {
                         <span><?php echo esc_html($hero_tag); ?></span>
                     </div>
 
-                    <h1 class="hero-headline">
+                    <h1 class="hero-title hero-headline">
                         <?php
                         $parts = explode('.', $hero_title, 2);
                         if (count($parts) === 2 && !empty(trim($parts[0]))) {
-                            echo esc_html(trim($parts[0])) . '<span class="text-accent">.</span>';
+                            echo esc_html(trim($parts[0])) . '<span class="accent-yellow text-accent">.</span>';
                         } else {
                             echo esc_html($hero_title);
                         }
                         ?>
                     </h1>
 
-                    <p class="hero-description">
+                    <p class="hero-desc hero-description">
                         <?php echo nl2br(esc_html($hero_desc)); ?>
                     </p>
 
-                    <div class="hero-actions">
-                        <a href="<?php echo esc_url($btn_primary_url); ?>" class="btn btn-primary">
+                    <div class="hero-buttons hero-actions">
+                        <a href="<?php echo esc_url($btn_primary_url); ?>" class="btn-hero-primary btn btn-primary">
                             <span><?php echo esc_html($btn_primary_text); ?></span>
                             <span class="btn-arrow">&rarr;</span>
                         </a>
 
-                        <a href="<?php echo esc_url($btn_forum_url); ?>" class="btn btn-forum">
+                        <a href="<?php echo esc_url($btn_forum_url); ?>" class="btn-hero-forum btn btn-forum">
                             <span class="btn-icon">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                             </span>
@@ -218,18 +218,12 @@ class DRF_Hero_Widget extends Widget_Base {
 
                 <div class="hero-visual" aria-hidden="true">
                     <div class="polaroid-wrapper">
-                        <div class="polaroid-item polaroid-back">
-                            <div class="polaroid-photo-area">
-                                <img src="<?php echo esc_url($p1); ?>" alt="Augenblicke Fotografie Impressionen" loading="eager">
-                            </div>
-                            <div class="polaroid-caption">Augenblicke &bull; Momente</div>
+                        <div class="polaroid-item polaroid-dock polaroid-back">
+                            <img src="<?php echo esc_url($p1); ?>" alt="Augenblicke Fotografie Impressionen" loading="eager">
                         </div>
 
-                        <div class="polaroid-item polaroid-front">
-                            <div class="polaroid-photo-area">
-                                <img src="<?php echo esc_url($p2); ?>" alt="Kamera und Technik" loading="eager">
-                            </div>
-                            <div class="polaroid-caption">Licht &amp; Perspektive</div>
+                        <div class="polaroid-item polaroid-camera polaroid-front">
+                            <img src="<?php echo esc_url($p2); ?>" alt="Kamera und Technik" loading="eager">
                         </div>
 
                         <div class="badge-sticker">

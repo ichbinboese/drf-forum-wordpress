@@ -49,7 +49,11 @@ class DRF_Registration_Form {
             'year'    => '',
         ], $atts, 'drf_anmeldung');
 
-        if (!empty($atts['meeting'])) {
+        if (!empty($_GET['meeting'])) {
+            $meeting = DRF_Meeting_Manager::get_meeting(sanitize_text_field($_GET['meeting']));
+        } elseif (!empty($_GET['meeting_id'])) {
+            $meeting = DRF_Meeting_Manager::get_meeting(absint($_GET['meeting_id']));
+        } elseif (!empty($atts['meeting'])) {
             $meeting = DRF_Meeting_Manager::get_meeting($atts['meeting']);
         } elseif (!empty($atts['year'])) {
             $meeting = DRF_Meeting_Manager::get_meeting('augenblicke-' . $atts['year']);
@@ -66,7 +70,30 @@ class DRF_Registration_Form {
         ob_start();
         ?>
         <div class="drf-anmeldung-wrapper" id="drfAnmeldungWrapper">
-            <!-- Header Infobox -->
+            <!-- 1. Meeting Switcher Tabs -->
+            <?php if (count($all_meetings) > 1) : ?>
+                <div class="drf-meeting-switcher-tabs">
+                    <span class="drf-switcher-label">Treffen wählen:</span>
+                    <div class="drf-switcher-pills">
+                        <?php foreach ($all_meetings as $m) :
+                            $is_current = ($m->id == $meeting->id);
+                            $url = add_query_arg('meeting_id', $m->id);
+                            ?>
+                            <a href="<?php echo esc_url($url); ?>#drfAnmeldungWrapper" class="drf-pill-tab <?php echo $is_current ? 'active' : ''; ?>">
+                                <span class="tab-year"><?php echo esc_html($m->year); ?></span>
+                                <span class="tab-title"><?php echo esc_html($m->title); ?></span>
+                                <?php if ($m->status === 'active') : ?>
+                                    <span class="tab-badge">Offen</span>
+                                <?php else : ?>
+                                    <span class="tab-badge secondary">Voranmeldung</span>
+                                <?php endif; ?>
+                            </a>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+
+            <!-- 2. Meeting Header Card -->
             <div class="drf-meeting-banner">
                 <div class="drf-banner-header">
                     <span class="drf-meeting-badge"><?php echo esc_html($meeting->title); ?></span>
@@ -74,72 +101,83 @@ class DRF_Registration_Form {
                 </div>
                 <h3 class="drf-meeting-location"><?php echo esc_html($meeting->location); ?></h3>
                 <div class="drf-meeting-dates">
-                    <span>📅 <strong>Zeitraum:</strong> <?php echo date_i18n('d.m.Y', strtotime($meeting->start_date)); ?> &ndash; <?php echo date_i18n('d.m.Y', strtotime($meeting->end_date)); ?></span>
+                    <span>📅 <strong>Zeitraum:</strong> <?php echo esc_html(date_i18n('d.m.Y', strtotime($meeting->start_date))); ?> &ndash; <?php echo esc_html(date_i18n('d.m.Y', strtotime($meeting->end_date))); ?></span>
                     <span>📍 <strong>Veranstalter:</strong> de.rec.fotografie e.V. &bull; Tagungsbüro</span>
                 </div>
                 <?php if (!empty($meeting->location_details)) : ?>
                     <p class="drf-meeting-details"><?php echo esc_html($meeting->location_details); ?></p>
                 <?php endif; ?>
-
-                <?php if (count($all_meetings) > 1) : ?>
-                    <div class="drf-meeting-switch">
-                        <label for="drfMeetingSelect">Treffen wechseln:</label>
-                        <select id="drfMeetingSelect" onchange="if(this.value) window.location.href=this.value;">
-                            <?php foreach ($all_meetings as $m) : ?>
-                                <option value="<?php echo esc_url(add_query_arg('meeting_id', $m->id)); ?>" <?php selected($m->id, $meeting->id); ?>>
-                                    <?php echo esc_html($m->title . ' (' . $m->year . ' in ' . $m->location . ')'); ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                <?php endif; ?>
             </div>
 
-            <!-- Form Container -->
+            <!-- 3. Multi-Step Progress Bar -->
+            <div class="drf-steps-progress">
+                <div class="drf-step-item active" data-step="1">
+                    <div class="step-circle">1</div>
+                    <div class="step-label">Persönliches</div>
+                </div>
+                <div class="step-line"></div>
+                <div class="drf-step-item" data-step="2">
+                    <div class="step-circle">2</div>
+                    <div class="step-label">Zimmer &amp; Essen</div>
+                </div>
+                <div class="step-line"></div>
+                <div class="drf-step-item" data-step="3">
+                    <div class="step-circle">3</div>
+                    <div class="step-label">Shuttle &amp; Spende</div>
+                </div>
+                <div class="step-line"></div>
+                <div class="drf-step-item" data-step="4">
+                    <div class="step-circle">4</div>
+                    <div class="step-label">Übersicht &amp; Abschluss</div>
+                </div>
+            </div>
+
+            <!-- 4. Form Container -->
             <form id="drfRegistrationForm" class="drf-reg-form" method="post">
                 <input type="hidden" name="action" value="drf_submit_registration">
                 <input type="hidden" name="meeting_id" value="<?php echo esc_attr($meeting->id); ?>">
                 <?php wp_nonce_field('drf_registration_nonce', 'drf_reg_nonce'); ?>
 
-                <!-- Step 1: Persönliche Daten -->
-                <fieldset class="drf-form-section">
-                    <legend class="drf-section-title">
-                        <span class="drf-step-num">1</span>
-                        <span>Persönliche Angaben</span>
-                    </legend>
+                <!-- STEP 1: Persönliche Angaben -->
+                <div class="drf-form-step-content active" data-step-content="1">
+                    <div class="drf-step-header">
+                        <h3>1. Persönliche Angaben</h3>
+                        <p>Bitte gib deine Kontaktdaten ein, damit wir deine Buchung erfassen können.</p>
+                    </div>
+
                     <div class="drf-form-row drf-cols-2">
                         <div class="drf-form-group">
                             <label for="reg_firstname">Vorname <span class="drf-req">*</span></label>
-                            <input type="text" id="reg_firstname" name="firstname" required placeholder="z.B. Frank">
+                            <input type="text" id="reg_firstname" name="firstname" required placeholder="z.B. Matthias">
                         </div>
                         <div class="drf-form-group">
                             <label for="reg_lastname">Nachname <span class="drf-req">*</span></label>
-                            <input type="text" id="reg_lastname" name="lastname" required placeholder="z.B. Schliffke">
+                            <input type="text" id="reg_lastname" name="lastname" required placeholder="z.B. Weber">
                         </div>
                     </div>
 
                     <div class="drf-form-row drf-cols-2">
                         <div class="drf-form-group">
                             <label for="reg_nickname">Nickname / Newsgroup-Handle</label>
-                            <input type="text" id="reg_nickname" name="nickname" placeholder="z.B. microbug oder SilberKorn">
-                            <small>Für Namensschild vor Ort und Forum-Zuordnung</small>
+                            <input type="text" id="reg_nickname" name="nickname" placeholder="z.B. matthias_w oder AltglasFan">
+                            <small>Wird auf deinem Namensschild beim Treffen aufgedruckt.</small>
                         </div>
                         <div class="drf-form-group">
                             <label for="reg_email">E-Mail-Adresse <span class="drf-req">*</span></label>
                             <input type="email" id="reg_email" name="email" required placeholder="name@beispiel.de">
-                            <small>Für Anmeldebestätigung und Tagungsbüro-Infos</small>
+                            <small>Für deine Anmeldebestätigung und wichtige Infos vorab.</small>
                         </div>
                     </div>
 
                     <div class="drf-form-row drf-cols-2">
                         <div class="drf-form-group">
                             <label for="reg_phone">Telefon / Mobilnummer</label>
-                            <input type="tel" id="reg_phone" name="phone" placeholder="z.B. 0170 1234567">
-                            <small>Für Erreichbarkeit vor Ort bei Anreise / Shuttle</small>
+                            <input type="tel" id="reg_phone" name="phone" placeholder="z.B. 0172 1234567">
+                            <small>Wichtig für die Shuttle-Fahrer am Anreisetag.</small>
                         </div>
                         <div class="drf-form-group">
                             <label for="reg_street">Straße &amp; Hausnummer</label>
-                            <input type="text" id="reg_street" name="street" placeholder="Musterstraße 12">
+                            <input type="text" id="reg_street" name="street" placeholder="Objektivstraße 12">
                         </div>
                     </div>
 
@@ -149,230 +187,313 @@ class DRF_Registration_Form {
                             <input type="text" id="reg_zip_city" name="zip_city" placeholder="z.B. 91564 Neuendettelsau">
                         </div>
                     </div>
-                </fieldset>
 
-                <!-- Step 2: Teilnahme & Zimmerkategorie -->
-                <fieldset class="drf-form-section">
-                    <legend class="drf-section-title">
-                        <span class="drf-step-num">2</span>
-                        <span>Teilnahme &amp; Unterkunft</span>
-                    </legend>
-
-                    <div class="drf-form-group">
-                        <label>Teilnahme-Dauer:</label>
-                        <div class="drf-radio-cards">
-                            <label class="drf-radio-card">
-                                <input type="radio" name="participation_type" value="full" checked data-factor="1">
-                                <div class="drf-card-label">
-                                    <strong>Gesamtes Treffen (Donnerstag &ndash; Sonntag)</strong>
-                                    <span>Vollzeit &bull; 3 Übernachtungen &bull; 4 Tage Programm</span>
-                                </div>
-                            </label>
-                            <label class="drf-radio-card">
-                                <input type="radio" name="participation_type" value="part_fri" data-factor="0.75">
-                                <div class="drf-card-label">
-                                    <strong>Teilzeit (Freitag &ndash; Sonntag)</strong>
-                                    <span>2 Übernachtungen</span>
-                                </div>
-                            </label>
-                            <label class="drf-radio-card">
-                                <input type="radio" name="participation_type" value="day" data-factor="0.3">
-                                <div class="drf-card-label">
-                                    <strong>Tagesgast (ohne Übernachtung im Haus)</strong>
-                                    <span>Inkl. Tagespauschale &amp; Verpflegung vor Ort</span>
-                                </div>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="drf-form-group">
-                        <label>Gewünschte Zimmerkategorie:</label>
-                        <div class="drf-radio-cards">
-                            <label class="drf-radio-card">
-                                <input type="radio" name="room_category" value="ez" checked data-price="<?php echo esc_attr($meeting->price_ez); ?>">
-                                <div class="drf-card-label">
-                                    <strong>Einzelzimmer (EZ)</strong>
-                                    <span>Eigenes Zimmer mit Bad &bull; ca. <?php echo number_format($meeting->price_ez, 2, ',', '.'); ?> &euro;</span>
-                                </div>
-                            </label>
-                            <label class="drf-radio-card">
-                                <input type="radio" name="room_category" value="dz" data-price="<?php echo esc_attr($meeting->price_dz); ?>">
-                                <div class="drf-card-label">
-                                    <strong>Doppelzimmer (DZ)</strong>
-                                    <span>Geteiltes Zimmer &bull; ca. <?php echo number_format($meeting->price_dz, 2, ',', '.'); ?> &euro; pro Person</span>
-                                </div>
-                            </label>
-                            <label class="drf-radio-card">
-                                <input type="radio" name="room_category" value="mbz" data-price="<?php echo esc_attr($meeting->price_mbz); ?>">
-                                <div class="drf-card-label">
-                                    <strong>Mehrbettzimmer / Bettenlager</strong>
-                                    <span>Günstige Kategorie &bull; ca. <?php echo number_format($meeting->price_mbz, 2, ',', '.'); ?> &euro; pro Person</span>
-                                </div>
-                            </label>
-                            <label class="drf-radio-card">
-                                <input type="radio" name="room_category" value="self" data-price="<?php echo esc_attr($meeting->price_day); ?>">
-                                <div class="drf-card-label">
-                                    <strong>Selbstzahler / WoMo / Heimschläfer</strong>
-                                    <span>Nur Verpflegung &amp; Tagungspauschale &bull; ca. <?php echo number_format($meeting->price_day, 2, ',', '.'); ?> &euro;</span>
-                                </div>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="drf-form-group" id="drfRoomPartnerGroup" style="display:none;">
-                        <label for="reg_room_partner">Wunschpartner für Doppelzimmer:</label>
-                        <input type="text" id="reg_room_partner" name="room_partner" placeholder="Name oder Nickname deines Zimmerpartners">
-                    </div>
-                </fieldset>
-
-                <!-- Step 3: Verpflegung & Ernährung -->
-                <fieldset class="drf-form-section">
-                    <legend class="drf-section-title">
-                        <span class="drf-step-num">3</span>
-                        <span>Verpflegung &amp; Ernährung</span>
-                    </legend>
-
-                    <div class="drf-form-group">
-                        <label>Ernährungsform:</label>
-                        <div class="drf-pill-select">
-                            <label><input type="radio" name="diet" value="omnivore" checked> <span>Normalkost</span></label>
-                            <label><input type="radio" name="diet" value="vegetarian"> <span>Vegetarisch</span></label>
-                            <label><input type="radio" name="diet" value="vegan"> <span>Vegan</span></label>
-                        </div>
-                    </div>
-
-                    <div class="drf-form-group">
-                        <label for="reg_diet_allergies">Allergien / Lebensmittelunverträglichkeiten:</label>
-                        <input type="text" id="reg_diet_allergies" name="diet_allergies" placeholder="z.B. Laktose, Gluten, Nüsse (wird an die Hausküche weitergegeben)">
-                    </div>
-                </fieldset>
-
-                <!-- Step 4: Workshops & Eigene Angebote -->
-                <fieldset class="drf-form-section">
-                    <legend class="drf-section-title">
-                        <span class="drf-step-num">4</span>
-                        <span>Workshops &amp; Sessions</span>
-                    </legend>
-                    <p class="drf-section-desc">Bei AUGENBLICKE gestalten die Teilnehmer das Programm aktiv mit.</p>
-
-                    <div class="drf-form-group">
-                        <label for="reg_workshop_interest">Interessensschwerpunkte:</label>
-                        <textarea id="reg_workshop_interest" name="workshop_interest" rows="2" placeholder="z.B. Analogfotografie, Studioblitz-Technik, Altglas-Linsen, Makro, Bildkritik, Astro"></textarea>
-                    </div>
-
-                    <div class="drf-form-group">
-                        <label for="reg_workshop_offer">Möchtest du selbst einen Workshop anbieten?</label>
-                        <input type="text" id="reg_workshop_offer" name="workshop_offer" placeholder="Thema / Titel deines Workshop-Vorschlags (optional)">
-                    </div>
-
-                    <div class="drf-form-group">
-                        <label for="reg_workshop_details">Raum- / Ausstattungsbedarf für deinen Workshop:</label>
-                        <textarea id="reg_workshop_details" name="workshop_offer_details" rows="2" placeholder="z.B. Beamer, Dunkelkammer, Studiofläche, Fotowalk im Freien"></textarea>
-                    </div>
-                </fieldset>
-
-                <!-- Step 5: Shuttleservice für Bahnreisende -->
-                <fieldset class="drf-form-section">
-                    <legend class="drf-section-title">
-                        <span class="drf-step-num">5</span>
-                        <span>Shuttleservice (Bahn-Anreise)</span>
-                    </legend>
-                    <p class="drf-section-desc">Kommst du mit der Bahn? Unser Shuttleservice holt dich gerne am Bahnhof ab!</p>
-
-                    <div class="drf-form-group">
-                        <label class="drf-checkbox-label">
-                            <input type="checkbox" id="reg_shuttle_needed" name="shuttle_needed" value="1">
-                            <span><strong>Ja, ich benötige Shuttleservice vom/zum Bahnhof</strong></span>
-                        </label>
-                    </div>
-
-                    <div id="drfShuttleDetails" style="display:none;" class="drf-sub-block">
-                        <div class="drf-form-row drf-cols-2">
-                            <div class="drf-form-group">
-                                <label for="reg_shuttle_station">Gewünschter Bahnhof:</label>
-                                <select id="reg_shuttle_station" name="shuttle_station">
-                                    <option value="Neuendettelsau">Bahnhof Neuendettelsau</option>
-                                    <option value="Ansbach">Bahnhof Ansbach (Fernverkehr / IC / RE)</option>
-                                    <option value="Wicklesgreuth">Bahnhof Wicklesgreuth (S-Bahn Nürnberg)</option>
-                                </select>
-                            </div>
-                            <div class="drf-form-group">
-                                <label for="reg_shuttle_arrival">Geplante Ankunftszeit:</label>
-                                <input type="text" id="reg_shuttle_arrival" name="shuttle_arrival" placeholder="z.B. Do. ca. 15:45 Uhr (Zug RE 58212)">
-                            </div>
-                        </div>
-                        <div class="drf-form-group">
-                            <label for="reg_shuttle_luggage">Gepäckgröße / Begleitpersonen:</label>
-                            <input type="text" id="reg_shuttle_luggage" name="shuttle_luggage" placeholder="z.B. 1 Koffer + 1 Fotorucksack, 1 Person">
-                        </div>
-                    </div>
-                </fieldset>
-
-                <!-- Step 6: Freiwillige Sozialspende für das Sozialgremium („Sozialsowjet“) -->
-                <fieldset class="drf-form-section drf-sozial-highlight">
-                    <legend class="drf-section-title">
-                        <span class="drf-step-num">6</span>
-                        <span>Freiwillige Sozialspende &bull; Sozialgremium</span>
-                    </legend>
-                    <p class="drf-section-desc">
-                        Niemand soll aus finanziellen Gründen dem Treffen fernbleiben müssen. Das <strong>Sozialgremium</strong> unterstützt Teilnehmer diskret und unbürokratisch. Möchtest du deinen Teilnehmerbeitrag freiwillig um eine Spende aufstocken?
-                    </p>
-
-                    <div class="drf-form-group">
-                        <div class="drf-donation-pills">
-                            <label><input type="radio" name="social_donation_select" value="0" checked> <span>Keine Spende</span></label>
-                            <label><input type="radio" name="social_donation_select" value="10"> <span>+ 10 &euro;</span></label>
-                            <label><input type="radio" name="social_donation_select" value="25"> <span>+ 25 &euro;</span></label>
-                            <label><input type="radio" name="social_donation_select" value="50"> <span>+ 50 &euro;</span></label>
-                            <label><input type="radio" name="social_donation_select" value="custom"> <span>Anderer Betrag</span></label>
-                        </div>
-                        <div id="drfCustomDonationGroup" style="display:none; margin-top:10px;">
-                            <input type="number" id="reg_social_donation" name="social_donation" min="0" step="5" value="0" placeholder="Betrag in Euro">
-                        </div>
-                    </div>
-                </fieldset>
-
-                <!-- Calculation Summary & Consent -->
-                <div class="drf-form-summary">
-                    <div class="drf-summary-box">
-                        <div class="drf-summary-row">
-                            <span>Teilnehmerbeitrag (geschätzt):</span>
-                            <span id="drfSummaryBase">0,00 &euro;</span>
-                        </div>
-                        <div class="drf-summary-row">
-                            <span>Freiwillige Sozialspende:</span>
-                            <span id="drfSummaryDonation">0,00 &euro;</span>
-                        </div>
-                        <div class="drf-summary-row drf-summary-total">
-                            <strong>Gesamtbetrag (Zahlung per Überweisung):</strong>
-                            <strong id="drfSummaryTotal">0,00 &euro;</strong>
-                        </div>
-                        <p class="drf-summary-note">
-                            * Die genauen Kontodaten des de.rec.fotografie e.V. Treffenkontos und dein persönlicher Verwendungszweck werden dir nach dem Absenden per E-Mail zugestellt.
-                        </p>
-                    </div>
-
-                    <div class="drf-form-group">
-                        <label for="reg_notes">Sonstige Anmerkungen / Fragen an das Tagungsbüro:</label>
-                        <textarea id="reg_notes" name="notes" rows="3" placeholder="z.B. Fahrgemeinschaft ab München, besondere Zimmerwünsche, etc."></textarea>
-                    </div>
-
-                    <div class="drf-form-group drf-consent-group">
-                        <label class="drf-checkbox-label">
-                            <input type="checkbox" name="privacy_consent" required value="1">
-                            <span>Ich habe die <a href="<?php echo esc_url(home_url('/datenschutz/')); ?>" target="_blank">Datenschutzerklärung</a> gelesen und willige ein, dass meine Angaben zur Organisation des Treffens durch das Tagungsbüro verarbeitet werden. <span class="drf-req">*</span></span>
-                        </label>
-                    </div>
-
-                    <div class="drf-submit-row">
-                        <button type="submit" id="drfSubmitBtn" class="btn-drf-submit">
-                            <span>Verbindlich für <?php echo esc_html($meeting->title); ?> anmelden</span>
-                            <span>&rarr;</span>
+                    <div class="drf-step-nav">
+                        <div></div>
+                        <button type="button" class="btn btn-primary drf-btn-next" data-target="2">
+                            <span>Weiter zu Unterkunft &rarr;</span>
                         </button>
                     </div>
                 </div>
 
-                <div id="drfFormFeedback" class="drf-feedback" style="display:none;"></div>
+                <!-- STEP 2: Teilnahme & Unterkunft -->
+                <div class="drf-form-step-content" data-step-content="2">
+                    <div class="drf-step-header">
+                        <h3>2. Unterkunft &amp; Verpflegung</h3>
+                        <p>Wähle deine bevorzugte Zimmerkategorie und deine Ernährungswünsche im Tagungshaus.</p>
+                    </div>
+
+                    <!-- Dauer -->
+                    <div class="drf-form-group">
+                        <label class="drf-label-strong">Dauer deiner Teilnahme:</label>
+                        <div class="drf-duration-options">
+                            <label class="drf-duration-pill">
+                                <input type="radio" name="participation_type" value="full" checked data-factor="1">
+                                <span>Vollzeit (Donnerstag &ndash; Sonntag) &bull; 4 Tage &amp; 3 Nächte</span>
+                            </label>
+                            <label class="drf-duration-pill">
+                                <input type="radio" name="participation_type" value="part_fri" data-factor="0.75">
+                                <span>Teilzeit (Freitag &ndash; Sonntag) &bull; 2 Nächte</span>
+                            </label>
+                            <label class="drf-duration-pill">
+                                <input type="radio" name="participation_type" value="day" data-factor="0.3">
+                                <span>Tagesgast (ohne Übernachtung im Tagungshaus)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Zimmerkarten -->
+                    <div class="drf-form-group">
+                        <label class="drf-label-strong">Gewünschte Zimmerkategorie:</label>
+                        <div class="drf-room-cards-grid">
+                            <!-- EZ -->
+                            <label class="drf-room-card selected">
+                                <input type="radio" name="room_category" value="ez" checked data-price="<?php echo esc_attr($meeting->price_ez); ?>" data-title="Einzelzimmer (EZ)">
+                                <div class="room-card-inner">
+                                    <div class="room-icon">🛏️</div>
+                                    <div class="room-info">
+                                        <div class="room-title">Einzelzimmer (EZ)</div>
+                                        <div class="room-details">Eigenes Zimmer mit eigenem Bad/WC</div>
+                                    </div>
+                                    <div class="room-price">
+                                        <span>ca. <?php echo number_format($meeting->price_ez, 2, ',', '.'); ?> &euro;</span>
+                                        <small>Vollpension</small>
+                                    </div>
+                                </div>
+                            </label>
+
+                            <!-- DZ -->
+                            <label class="drf-room-card">
+                                <input type="radio" name="room_category" value="dz" data-price="<?php echo esc_attr($meeting->price_dz); ?>" data-title="Doppelzimmer (DZ)">
+                                <div class="room-card-inner">
+                                    <div class="room-icon">👥</div>
+                                    <div class="room-info">
+                                        <div class="room-title">Doppelzimmer (DZ)</div>
+                                        <div class="room-details">Zweibettzimmer mit Bad &bull; Preis pro Person</div>
+                                    </div>
+                                    <div class="room-price">
+                                        <span>ca. <?php echo number_format($meeting->price_dz, 2, ',', '.'); ?> &euro;</span>
+                                        <small>pro Person</small>
+                                    </div>
+                                </div>
+                            </label>
+
+                            <!-- MBZ -->
+                            <label class="drf-room-card">
+                                <input type="radio" name="room_category" value="mbz" data-price="<?php echo esc_attr($meeting->price_mbz); ?>" data-title="Mehrbettzimmer (MBZ)">
+                                <div class="room-card-inner">
+                                    <div class="room-icon">🧳</div>
+                                    <div class="room-info">
+                                        <div class="room-title">Mehrbettzimmer (MBZ)</div>
+                                        <div class="room-details">Ideal für Studenten &amp; Sparfüchse</div>
+                                    </div>
+                                    <div class="room-price">
+                                        <span>ca. <?php echo number_format($meeting->price_mbz, 2, ',', '.'); ?> &euro;</span>
+                                        <small>pro Person</small>
+                                    </div>
+                                </div>
+                            </label>
+
+                            <!-- Tagesgast -->
+                            <label class="drf-room-card">
+                                <input type="radio" name="room_category" value="self" data-price="<?php echo esc_attr($meeting->price_day); ?>" data-title="Heimschläfer / Tagesgast">
+                                <div class="room-card-inner">
+                                    <div class="room-icon">☀️</div>
+                                    <div class="room-info">
+                                        <div class="room-title">Tagesgast / WoMo</div>
+                                        <div class="room-details">Inkl. Tagungsgebühr &amp; Mahlzeiten im Haus</div>
+                                    </div>
+                                    <div class="room-price">
+                                        <span>ca. <?php echo number_format($meeting->price_day, 2, ',', '.'); ?> &euro;</span>
+                                        <small>Pauschale</small>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Room partner group for DZ -->
+                    <div class="drf-form-group" id="drfRoomPartnerGroup" style="display:none; background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:16px;">
+                        <label for="reg_room_partner" style="font-weight:700; color:#1e293b;">Wunsch-Zimmerpartner für Doppelzimmer:</label>
+                        <input type="text" id="reg_room_partner" name="room_partner" placeholder="Name oder Nickname deines Partners (oder 'bitte zuteilen')">
+                        <small>Wenn du niemanden angibst, teilt das Tagungsbüro dich einem netten Mitreisenden zu.</small>
+                    </div>
+
+                    <!-- Verpflegung -->
+                    <div class="drf-form-group" style="margin-top:24px;">
+                        <label class="drf-label-strong">Ernährungsform:</label>
+                        <div class="drf-diet-chips">
+                            <label class="drf-diet-chip active">
+                                <input type="radio" name="diet" value="omnivore" checked>
+                                <span>🥩 Normalkost / Allesesser</span>
+                            </label>
+                            <label class="drf-diet-chip">
+                                <input type="radio" name="diet" value="vegetarian">
+                                <span>🥗 Vegetarisch</span>
+                            </label>
+                            <label class="drf-diet-chip">
+                                <input type="radio" name="diet" value="vegan">
+                                <span>🌱 Vegan</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="drf-form-group">
+                        <label for="reg_diet_allergies">Lebensmittelunverträglichkeiten / Allergien:</label>
+                        <input type="text" id="reg_diet_allergies" name="diet_allergies" placeholder="z.B. Gluten, Laktose, Nussallergie (wird an die Küche übermittelt)">
+                    </div>
+
+                    <div class="drf-step-nav">
+                        <button type="button" class="btn btn-secondary drf-btn-prev" data-target="1">
+                            <span>&larr; Zurück</span>
+                        </button>
+                        <button type="button" class="btn btn-primary drf-btn-next" data-target="3">
+                            <span>Weiter zu Shuttle &amp; Spende &rarr;</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- STEP 3: Shuttle & Solidarfonds -->
+                <div class="drf-form-step-content" data-step-content="3">
+                    <div class="drf-step-header">
+                        <h3>3. Shuttleservice &amp; Solidarfonds</h3>
+                        <p>Kostenloser Bahn-Transfer und freiwillige Unterstützung des »Sozialsowjets«.</p>
+                    </div>
+
+                    <!-- Shuttle Service Box -->
+                    <div class="drf-shuttle-box">
+                        <div class="shuttle-header-toggle">
+                            <label class="drf-toggle-switch">
+                                <input type="checkbox" id="reg_shuttle_needed" name="shuttle_needed" value="1">
+                                <span class="toggle-slider"></span>
+                            </label>
+                            <div>
+                                <strong style="font-size:1.05rem; color:#1e293b;">Ich reise mit der Bahn an und brauche den Shuttle-Service</strong>
+                                <p style="font-size:0.88rem; color:#64748b; margin:2px 0 0 0;">Kostenlose Abholung ab Wicklesgreuth (S4) oder Ansbach (IC/ICE).</p>
+                            </div>
+                        </div>
+
+                        <div id="drfShuttleDetails" style="display:none; margin-top:16px; padding-top:16px; border-top:1px solid #e2e8f0;">
+                            <div class="drf-form-row drf-cols-2">
+                                <div class="drf-form-group">
+                                    <label for="reg_shuttle_station">Gewünschter Bahnhof:</label>
+                                    <select id="reg_shuttle_station" name="shuttle_station" class="drf-select">
+                                        <option value="wicklesgreuth">Bahnhof Wicklesgreuth (S-Bahn S4 ab Nürnberg Hbf - 8 Min)</option>
+                                        <option value="ansbach">Hauptbahnhof Ansbach (IC/ICE Fernverkehr - 20 Min)</option>
+                                    </select>
+                                </div>
+                                <div class="drf-form-group">
+                                    <label for="reg_shuttle_arrival">Voraussichtliche Ankunftszeit:</label>
+                                    <input type="text" id="reg_shuttle_arrival" name="shuttle_arrival" placeholder="z.B. 14:45 Uhr">
+                                </div>
+                            </div>
+                            <div class="drf-form-group">
+                                <label for="reg_shuttle_luggage">Gepäckhinweis:</label>
+                                <input type="text" id="reg_shuttle_luggage" name="shuttle_luggage" placeholder="z.B. 1 Koffer, 1 Fotorucksack, 1 sperriges Stativ">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Workshop Angebote -->
+                    <div class="drf-form-group" style="margin-top:24px;">
+                        <label class="drf-label-strong">Workshop-Themen (Interesse &amp; Eigene Angebote):</label>
+                        <div class="drf-form-group">
+                            <label for="reg_workshop_interest">Themen, die dich besonders interessieren:</label>
+                            <input type="text" id="reg_workshop_interest" name="workshop_interest" placeholder="z.B. Studioblitz, Barytabzüge, Altglas an spiegellos, Makro-Stacking">
+                        </div>
+                        <div class="drf-form-group">
+                            <label for="reg_workshop_offer">Möchtest du selbst eine Session oder einen Vortrag halten?</label>
+                            <input type="text" id="reg_workshop_offer" name="workshop_offer" placeholder="Thema deines Vortrags oder Workshops (optional)">
+                        </div>
+                    </div>
+
+                    <!-- Solidarfonds ("Sozialsowjet") -->
+                    <div class="drf-solidar-box" style="background:#fff8e1; border:1px solid #fde047; border-left:5px solid #f5b301; border-radius:10px; padding:20px; margin-top:24px;">
+                        <h4 style="color:#b45309; margin:0 0 6px 0; font-size:1.1rem; display:flex; align-items:center; gap:8px;">
+                            <span>🤝</span> Freiwilliger Solidarbeitrag ("Sozialsowjet")
+                        </h4>
+                        <p style="font-size:0.9rem; color:#78350f; margin:0 0 14px 0; line-height:1.5;">
+                            Seit 1999 sorgt der Solidarfonds dafür, dass Teilnehmer in vorübergehenden finanziellen Engpässen (z.B. Studenten, Auszubildende) diskret bezuschusst werden können.
+                        </p>
+                        <div class="drf-donation-pills">
+                            <label class="drf-don-pill active"><input type="radio" name="social_donation_select" value="0" checked> <span>Keine Spende</span></label>
+                            <label class="drf-don-pill"><input type="radio" name="social_donation_select" value="15"> <span>+ 15 &euro;</span></label>
+                            <label class="drf-don-pill"><input type="radio" name="social_donation_select" value="25"> <span>+ 25 &euro;</span></label>
+                            <label class="drf-don-pill"><input type="radio" name="social_donation_select" value="50"> <span>+ 50 &euro;</span></label>
+                            <label class="drf-don-pill"><input type="radio" name="social_donation_select" value="custom"> <span>Anderer Betrag</span></label>
+                        </div>
+                        <div id="drfCustomDonationGroup" style="display:none; margin-top:12px;">
+                            <input type="number" id="reg_social_donation" name="social_donation" min="0" step="5" value="0" style="max-width:180px;" placeholder="Betrag in €">
+                        </div>
+                    </div>
+
+                    <div class="drf-step-nav">
+                        <button type="button" class="btn btn-secondary drf-btn-prev" data-target="2">
+                            <span>&larr; Zurück</span>
+                        </button>
+                        <button type="button" class="btn btn-primary drf-btn-next" data-target="4">
+                            <span>Zur Zusammenfassung &rarr;</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- STEP 4: Übersicht & Verbindliche Anmeldung -->
+                <div class="drf-form-step-content" data-step-content="4">
+                    <div class="drf-step-header">
+                        <h3>4. Zusammenfassung &amp; Verbindliche Buchung</h3>
+                        <p>Bitte überprüfe deine Angaben sorgfältig vor dem Absenden.</p>
+                    </div>
+
+                    <!-- Live Summary Review Card -->
+                    <div class="drf-review-summary-card">
+                        <div class="review-grid">
+                            <div class="review-item">
+                                <span class="lbl">Veranstaltung:</span>
+                                <strong id="revMeeting"><?php echo esc_html($meeting->title); ?> (<?php echo esc_html($meeting->year); ?>)</strong>
+                            </div>
+                            <div class="review-item">
+                                <span class="lbl">Teilnehmer:</span>
+                                <strong id="revName">--</strong> (<span id="revNick">--</span>)
+                            </div>
+                            <div class="review-item">
+                                <span class="lbl">E-Mail &amp; Tel:</span>
+                                <span id="revContact">--</span>
+                            </div>
+                            <div class="review-item">
+                                <span class="lbl">Unterkunft:</span>
+                                <strong id="revRoom">Einzelzimmer (EZ)</strong>
+                            </div>
+                            <div class="review-item">
+                                <span class="lbl">Verpflegung:</span>
+                                <span id="revDiet">Normalkost</span>
+                            </div>
+                            <div class="review-item">
+                                <span class="lbl">Shuttleservice:</span>
+                                <span id="revShuttle">Nicht benötigt</span>
+                            </div>
+                        </div>
+
+                        <!-- Price Breakdown -->
+                        <div class="review-price-box">
+                            <div class="price-row">
+                                <span>Unterkunft &amp; Tagungspauschale:</span>
+                                <strong id="drfSummaryBase">0,00 &euro;</strong>
+                            </div>
+                            <div class="price-row">
+                                <span>Freiwilliger Solidarfonds ("Sozialsowjet"):</span>
+                                <strong id="drfSummaryDonation">0,00 &euro;</strong>
+                            </div>
+                            <div class="price-row total-row">
+                                <span>Gesamtbetrag (Richtwert):</span>
+                                <strong id="drfSummaryTotal" class="total-highlight">0,00 &euro;</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notice & Checkboxes -->
+                    <div class="drf-form-agreements">
+                        <label class="drf-checkbox-label">
+                            <input type="checkbox" name="agree_terms" required>
+                            <span>Ich melde mich verbindlich zum Treffen an. Die Zahlung des Tagungsbeitrags erfolgt nach Bestätigung durch das Tagungsbüro per Überweisung.</span>
+                        </label>
+                        <label class="drf-checkbox-label">
+                            <input type="checkbox" name="agree_privacy" required>
+                            <span>Ich willige ein, dass meine Kontaktdaten zur Organisation des Treffens durch das gewählte Tagungsbüro verarbeitet werden.</span>
+                        </label>
+                    </div>
+
+                    <!-- Form Feedback Message Container -->
+                    <div id="drfFormFeedback" class="drf-feedback-box" style="display:none;"></div>
+
+                    <div class="drf-step-nav">
+                        <button type="button" class="btn btn-secondary drf-btn-prev" data-target="3">
+                            <span>&larr; Zurück</span>
+                        </button>
+                        <button type="submit" id="drfSubmitBtn" class="btn btn-primary btn-submit-final">
+                            <span>Verbindlich anmelden &amp; Platz sichern &rarr;</span>
+                        </button>
+                    </div>
+                </div>
             </form>
         </div>
         <?php
@@ -421,19 +542,20 @@ class DRF_Registration_Form {
         // Calculate base price
         $base_price = $meeting->price_ez;
         if ($room_cat === 'dz') $base_price = $meeting->price_dz;
-        elseif ($room_cat === 'mbz') $base_price = $meeting->price_mbz;
-        elseif ($room_cat === 'self') $base_price = $meeting->price_day;
+        if ($room_cat === 'mbz') $base_price = $meeting->price_mbz;
+        if ($room_cat === 'self') $base_price = $meeting->price_day;
 
-        if ($part_type === 'part_fri') $base_price = $base_price * 0.75;
-        elseif ($part_type === 'day') $base_price = $meeting->price_day;
+        $factor = 1.0;
+        if ($part_type === 'part_fri') $factor = 0.75;
+        if ($part_type === 'day') $factor = 0.3;
 
-        $total_amount = $base_price + $donation;
+        $total_amount = ($base_price * $factor) + $donation;
 
         global $wpdb;
         $table = $wpdb->prefix . 'drf_registrations';
 
-        $inserted = $wpdb->insert($table, [
-            'meeting_id'             => $meeting->id,
+        $insert_data = [
+            'meeting_id'             => $meeting_id,
             'firstname'              => $firstname,
             'lastname'               => $lastname,
             'nickname'               => $nickname,
@@ -455,46 +577,48 @@ class DRF_Registration_Form {
             'shuttle_luggage'        => $shuttle_lug,
             'social_donation'        => $donation,
             'total_amount'           => $total_amount,
-            'notes'                  => $notes,
             'status'                 => 'new',
-        ]);
+            'notes'                  => $notes,
+        ];
+
+        $current_user_id = get_current_user_id();
+        if ($current_user_id) {
+            $insert_data['user_id'] = $current_user_id;
+        }
+
+        $inserted = $wpdb->insert($table, $insert_data);
 
         if (!$inserted) {
-            wp_send_json_error(['message' => 'Datenbankfehler beim Speichern der Anmeldung.']);
+            wp_send_json_error(['message' => 'Datenbankfehler: Die Anmeldung konnte nicht gespeichert werden. ' . $wpdb->last_error]);
         }
 
         $reg_id = $wpdb->insert_id;
 
-        // Send confirmation email
-        $subject = "Anmeldebestätigung: {$meeting->title} (" . ($nickname ? $nickname : $firstname) . ")";
-        $body = "Hallo {$firstname},\n\n";
-        $body .= "vielen Dank für deine verbindliche Anmeldung zu {$meeting->title}!\n\n";
-        $body .= "=== DEINE ANMELDEDATEN ===\n";
-        $body .= "Name: {$firstname} {$lastname}\n";
-        if ($nickname) $body .= "Nickname: {$nickname}\n";
-        $body .= "Zimmerkategorie: " . strtoupper($room_cat) . "\n";
-        if ($room_partner) $body .= "Zimmerpartner: {$room_partner}\n";
-        $body .= "Ernährung: {$diet}\n";
-        if ($shuttle) $body .= "Shuttleservice: Ja (ab {$shuttle_st}, Ankunft: {$shuttle_arr})\n";
-        if ($donation > 0) $body .= "Freiwillige Sozialspende: " . number_format($donation, 2, ',', '.') . " EUR\n";
-        $body .= "Gesamtbetrag: " . number_format($total_amount, 2, ',', '.') . " EUR\n\n";
-        $body .= "=== ÜBERWEISUNG & TAGUNGSBÜRO ===\n";
-        $body .= "Bitte überweise den Gesamtbetrag zeitnah auf das Treffen-Konto von de.rec.fotografie e.V.\n";
-        $body .= "Verwendungszweck: AUGENBLICKE {$meeting->year} - {$lastname} - #{$reg_id}\n\n";
-        $body .= "Bei Rückfragen erreichst du das Tagungsbüro unter tagungsbuero{$meeting->year}@d-r-f.de.\n\n";
-        $body .= "Wir freuen uns auf ein großartiges Treffen in Neuendettelsau!\n";
-        $body .= "Dein d.r.f-Tagungsbüro\n";
+        // Send Email Confirmation
+        $subject = sprintf('[d.r.f] Anmeldebestätigung #%d - %s', $reg_id, $meeting->title);
+        $message = "Hallo {$firstname},\n\nvielen Dank für deine verbindliche Anmeldung zu {$meeting->title} im {$meeting->location}!\n\n";
+        $message .= "Zusammenfassung deiner Anmeldung:\n";
+        $message .= "- Buchungsnummer: #{$reg_id}\n";
+        $message .= "- Treffen: {$meeting->title} ({$meeting->year})\n";
+        $message .= "- Zeitraum: " . date_i18n('d.m.Y', strtotime($meeting->start_date)) . " bis " . date_i18n('d.m.Y', strtotime($meeting->end_date)) . "\n";
+        $message .= "- Zimmerkategorie: " . strtoupper($room_cat) . "\n";
+        if ($room_partner) $message .= "- Wunschpartner: {$room_partner}\n";
+        $message .= "- Verpflegung: {$diet}\n";
+        if ($shuttle) $message .= "- Shuttleservice: Abholung ab {$shuttle_st} ({$shuttle_arr})\n";
+        if ($donation > 0) $message .= "- Freiwilliger Solidarfonds: " . number_format($donation, 2, ',', '.') . " €\n";
+        $message .= "- Gesamtbetrag: " . number_format($total_amount, 2, ',', '.') . " €\n\n";
+        $message .= "Das Tagungsbüro prüft nun die Zimmerkontingente und meldet sich zeitnah mit den genauen Überweisungsdaten.\n\n";
+        $message .= "Herzliche Grüße,\nDein d.r.f Tagungsbüro";
 
-        $headers = ['Content-Type: text/plain; charset=UTF-8'];
-        @wp_mail($email, $subject, $body, $headers);
-
-        // Also notify Tagungsbüro
-        $tb_email = 'tagungsbuero2026@d-r-f.de';
-        $tb_subject = "[Neue Anmeldung #{$reg_id}] {$meeting->title}: {$firstname} {$lastname}" . ($nickname ? " ({$nickname})" : '');
-        @wp_mail($tb_email, $tb_subject, $body, $headers);
+        @wp_mail($email, $subject, $message);
 
         wp_send_json_success([
-            'message' => "Vielen Dank, {$firstname}! Deine Anmeldung für {$meeting->title} wurde erfolgreich erfasst. Eine Bestätigungs-E-Mail wurde an {$email} gesendet.",
+            'message' => sprintf(
+                'Vielen Dank, %s! Deine Anmeldung für %s wurde erfolgreich erfasst. Eine Bestätigungs-E-Mail wurde an %s gesendet.',
+                esc_html($firstname),
+                esc_html($meeting->title),
+                esc_html($email)
+            ),
             'regId'   => $reg_id,
             'total'   => number_format($total_amount, 2, ',', '.') . ' €',
         ]);

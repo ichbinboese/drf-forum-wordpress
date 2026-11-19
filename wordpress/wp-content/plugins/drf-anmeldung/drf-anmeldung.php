@@ -59,6 +59,7 @@ function drf_anmeldung_activate() {
     $sql_registrations = "CREATE TABLE $table_registrations (
         id mediumint(9) NOT NULL AUTO_INCREMENT,
         meeting_id mediumint(9) NOT NULL,
+        user_id mediumint(9) NULL,
         firstname varchar(100) NOT NULL,
         lastname varchar(100) NOT NULL,
         nickname varchar(100) DEFAULT '' NOT NULL,
