@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 100" width="130" height="100" role="img" aria-label="d.r.f de.rec.fotografie">
+  <!-- Filmstreifen Hintergrund -->
+  <rect x="0" y="0" width="130" height="100" fill="#000000"/>
+
+  <!-- Obere Perforation -->
+  <g fill="#ffffff">
+    <rect x="-3" y="5" width="5.5" height="8" rx="1.5"/>
+    <rect x="11.5" y="5" width="5.5" height="8" rx="1.5"/>
+    <rect x="25.5" y="5" width="5.5" height="8" rx="1.5"/>
+    <rect x="39.5" y="5" width="5.5" height="8" rx="1.5"/>
+    <rect x="53.5" y="5" width="5.5" height="8" rx="1.5"/>
+    <rect x="67.5" y="5" width="5.5" height="8" rx="1.5"/>
+    <rect x="81.5" y="5" width="5.5" height="8" rx="1.5"/>
+    <rect x="95.5" y="5" width="5.5" height="8" rx="1.5"/>
+    <rect x="109.5" y="5" width="5.5" height="8" rx="1.5"/>
+    <rect x="123.5" y="5" width="5.5" height="8" rx="1.5"/>
+  </g>
+
+  <!-- Untere Perforation -->
+  <g fill="#ffffff">
+    <rect x="-3" y="87" width="5.5" height="8" rx="1.5"/>
+    <rect x="11.5" y="87" width="5.5" height="8" rx="1.5"/>
+    <rect x="25.5" y="87" width="5.5" height="8" rx="1.5"/>
+    <rect x="39.5" y="87" width="5.5" height="8" rx="1.5"/>
+    <rect x="53.5" y="87" width="5.5" height="8" rx="1.5"/>
+    <rect x="67.5" y="87" width="5.5" height="8" rx="1.5"/>
+    <rect x="81.5" y="87" width="5.5" height="8" rx="1.5"/>
+    <rect x="95.5" y="87" width="5.5" height="8" rx="1.5"/>
+    <rect x="109.5" y="87" width="5.5" height="8" rx="1.5"/>
+    <rect x="123.5" y="87" width="5.5" height="8" rx="1.5"/>
+  </g>
+
+  <!-- Großes d.r.f -->
+  <g fill="#FFD000" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="700">
+    <text x="3" y="62" font-size="63">d</text>
+    <rect x="46" y="53.5" width="8.5" height="8.5"/>
+    <text x="60" y="62" font-size="63">r</text>
+    <rect x="88" y="53.5" width="8.5" height="8.5"/>
+    <text x="102" y="62" font-size="63">f</text>
+  </g>
+
+  <!-- Unterzeile de.rec.fotografie -->
+  <text x="66.5" y="80.5" fill="#F8CD18" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14.5" font-weight="600" text-anchor="middle" textLength="117" lengthAdjust="spacingAndGlyphs">de.rec.fotografie</text>
+</svg>

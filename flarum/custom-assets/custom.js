@@ -13,11 +13,7 @@
         <div class="drf-topbar-inner">
           <a href="/" class="drf-brand-link" title="Zurück zur Homepage">
             <span class="drf-brand-icon">
-              <svg viewBox="0 0 48 38" fill="none" stroke="#f5b301" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M14 6L17 2H31L34 6H42C44.2091 6 46 7.79086 46 10V32C46 34.2091 44.2091 36 42 36H6C3.79086 36 2 34.2091 2 32V10C2 7.79086 3.79086 6 6 6H14Z"></path>
-                <circle cx="24" cy="20" r="8"></circle>
-                <circle cx="24" cy="20" r="3" fill="#f5b301"></circle>
-              </svg>
+              <img src="/forum/assets/drf-logo.svg" alt="d.r.f – de.rec.fotografie" width="130" height="100">
             </span>
             <div class="drf-brand-text">
               <span class="drf-brand-title">AUGENBLICKE</span>

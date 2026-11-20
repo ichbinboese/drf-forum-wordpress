@@ -130,14 +130,15 @@ img {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 64px;
+  min-height: 112px;
+  padding: 6px 0;
 }
 
-/* Branding: Camera Logo + Text */
+/* Branding: d.r.f Filmstrip Logo + Text */
 .brand-link {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
   text-decoration: none;
 }
 
@@ -148,6 +149,18 @@ img {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+}
+
+.brand-icon.brand-logo-svg {
+  width: auto;
+  height: 100px;
+}
+
+.drf-header-logo-svg {
+  height: 100px;
+  width: auto;
+  display: block;
+  border-radius: 4px;
 }
 
 .brand-icon svg {
