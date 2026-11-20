@@ -13,7 +13,7 @@
         <div class="drf-topbar-inner">
           <a href="/" class="drf-brand-link" title="Zurück zur Homepage">
             <span class="drf-brand-icon">
-              <img src="/forum/assets/drf-logo.svg" alt="d.r.f – de.rec.fotografie" width="130" height="100">
+              <img src="/forum/assets/drf-logo.svg" alt="d.r.f – de.rec.fotografie" width="78" height="60">
             </span>
             <div class="drf-brand-text">
               <span class="drf-brand-title">AUGENBLICKE</span>

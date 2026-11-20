@@ -22,7 +22,7 @@
         <!-- Logo Branding -->
         <a href="<?php echo esc_url(home_url('/')); ?>" class="brand-link" rel="home">
             <span class="brand-icon brand-logo-svg">
-                <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/drf-logo.svg'); ?>" alt="d.r.f – de.rec.fotografie" width="130" height="100" class="drf-header-logo-svg">
+                <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/drf-logo.svg'); ?>" alt="d.r.f – de.rec.fotografie" width="78" height="60" class="drf-header-logo-svg">
             </span>
             <div class="brand-text-group">
                 <span class="brand-title"><?php echo esc_html(drf_get_theme_option('logo_text', 'AUGENBLICKE')); ?></span>

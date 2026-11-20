@@ -33,14 +33,12 @@ return [
   background-color: #141518;
   color: #ffffff;
   border-bottom: 1px solid #2a2d34;
-  min-height: 112px;
 }
 
 .drf-topbar-inner {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 6px 20px;
-  min-height: 112px;
+  padding: 18px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -57,7 +55,7 @@ return [
 
 .drf-brand-icon {
   width: auto;
-  height: 100px;
+  height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -66,10 +64,10 @@ return [
 
 .drf-brand-icon img,
 .drf-brand-icon svg {
-  height: 100px;
+  height: 60px;
   width: auto;
   display: block;
-  border-radius: 4px;
+  border-radius: 3px;
 }
 
 .drf-brand-text {
@@ -275,7 +273,7 @@ CSS;
     <div class="drf-topbar-inner">
       <a href="/" class="drf-brand-link" title="Zurück zur Homepage">
         <span class="drf-brand-icon">
-          <img src="/forum/assets/drf-logo.svg" alt="d.r.f – de.rec.fotografie" width="130" height="100">
+          <img src="/forum/assets/drf-logo.svg" alt="d.r.f – de.rec.fotografie" width="78" height="60">
         </span>
         <div class="drf-brand-text">
           <span class="drf-brand-title">AUGENBLICKE</span>
