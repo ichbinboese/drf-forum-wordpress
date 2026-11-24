@@ -120,12 +120,16 @@ class DRF_Event_Banner_Widget extends Widget_Base {
     protected function render() {
         $settings = $this->get_settings_for_display();
         ?>
-        <div class="container drf-elementor-event-banner" style="margin-top: 32px; margin-bottom: 32px;">
+        <div class="container drf-elementor-event-banner">
             <div class="event-banner">
                 <div class="event-banner-content">
-                    <span class="event-badge"><?php echo esc_html($settings['badge']); ?></span>
+                    <?php if (!empty($settings['badge'])) : ?>
+                        <span class="event-badge"><?php echo esc_html($settings['badge']); ?></span>
+                    <?php endif; ?>
                     <h2 class="event-title"><?php echo esc_html($settings['title']); ?></h2>
-                    <p class="event-sub"><?php echo esc_html($settings['subtitle']); ?></p>
+                    <?php if (!empty($settings['subtitle'])) : ?>
+                        <p class="event-sub"><?php echo esc_html($settings['subtitle']); ?></p>
+                    <?php endif; ?>
 
                     <?php if ($settings['show_secondary'] === 'yes' && !empty($settings['secondary_text'])) : ?>
                         <p style="margin: 8px 0 0 0; font-size: 0.88rem; color: #f5b301; font-weight: 600;">
@@ -134,12 +138,14 @@ class DRF_Event_Banner_Widget extends Widget_Base {
                     <?php endif; ?>
                 </div>
 
-                <div class="event-banner-action">
-                    <a href="<?php echo esc_url($settings['button_url']); ?>" class="btn btn-primary">
-                        <span><?php echo esc_html($settings['button_text']); ?></span>
-                        <span class="btn-arrow">&rarr;</span>
-                    </a>
-                </div>
+                <?php if (!empty($settings['button_text'])) : ?>
+                    <div class="event-banner-action">
+                        <a href="<?php echo esc_url($settings['button_url'] ?? '#'); ?>" class="btn btn-primary" style="margin:0;">
+                            <span><?php echo esc_html($settings['button_text']); ?></span>
+                            <span class="btn-arrow">&rarr;</span>
+                        </a>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
         <?php

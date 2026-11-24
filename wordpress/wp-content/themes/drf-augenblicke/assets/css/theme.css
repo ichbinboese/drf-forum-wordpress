@@ -1446,3 +1446,181 @@ button.btn-outline:hover {
     right: 14px;
   }
 }
+
+/* ==========================================================================
+   Harmonized Event Banner & Live Countdown Components
+   ========================================================================== */
+
+/* Prevent nested double container padding */
+.drf-elementor-page .elementor-widget .container,
+.drf-elementor-page .container .container {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  max-width: 100% !important;
+}
+
+/* Event Banner (Page Intro) */
+.drf-elementor-event-banner {
+  margin: 0 auto 24px auto !important;
+  padding: 0;
+}
+
+.event-banner {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 24px 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+
+.event-badge {
+  display: inline-block;
+  background: #141518;
+  color: #f5b301;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  margin-bottom: 8px;
+}
+
+.event-title {
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: #141518;
+  margin: 0 0 4px 0;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+.event-sub {
+  font-size: 0.95rem;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Countdown Container & Harmonized Margins */
+.drf-elementor-countdown-wrap {
+  margin: 0 auto 24px auto !important;
+  padding: 0;
+}
+
+/* Alternative: Modern Light Countdown Design */
+.drf-countdown-card.drf-countdown-light {
+  background: #ffffff;
+  color: #141518;
+  border-radius: 14px;
+  padding: 24px 28px;
+  border: 1px solid #e2e8f0;
+  border-top: 4px solid #f5b301;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  position: relative;
+}
+
+.drf-countdown-light .drf-cd-info {
+  flex: 1 1 300px;
+}
+
+.drf-countdown-light .drf-cd-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #141518;
+  color: #f5b301;
+  font-weight: 800;
+  font-size: 0.72rem;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+
+.drf-countdown-light .drf-cd-pulse {
+  width: 7px;
+  height: 7px;
+  background-color: #f5b301;
+  border-radius: 50%;
+  box-shadow: 0 0 0 0 rgba(245, 179, 1, 0.7);
+  animation: drf-pulse 2s infinite;
+}
+
+@keyframes drf-pulse {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(245, 179, 1, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(245, 179, 1, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(245, 179, 1, 0); }
+}
+
+.drf-countdown-light .drf-cd-heading {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #141518;
+  margin: 0 0 4px 0;
+  letter-spacing: -0.02em;
+}
+
+.drf-countdown-light .drf-cd-sub {
+  color: #64748b;
+  font-size: 0.92rem;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.drf-countdown-light .drf-countdown-timer {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.drf-countdown-light .drf-cd-tile {
+  background: #141518;
+  border-radius: 10px;
+  padding: 10px 14px;
+  min-width: 68px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(20, 21, 24, 0.12);
+}
+
+.drf-countdown-light .drf-cd-val {
+  display: block;
+  font-size: 1.75rem;
+  font-weight: 900;
+  color: #f5b301;
+  line-height: 1.1;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.drf-countdown-light .drf-cd-lbl {
+  display: block;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  color: #94a3b8;
+  letter-spacing: 0.06em;
+  margin-top: 2px;
+}
+
+/* Registration Wrapper Spacing Harmonization */
+.drf-elementor-anmeldung-wrap {
+  margin: 0 auto 36px auto !important;
+  padding: 0;
+}
+
+.drf-elementor-anmeldung-wrap .drf-anmeldung-wrapper {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
