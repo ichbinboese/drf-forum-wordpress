@@ -713,36 +713,39 @@ class DRF_Admin_Dashboard {
         }
         ?>
         <div class="wrap drf-admin-wrap">
+            <h1 class="wp-heading-inline screen-reader-text"><?php echo esc_html__('Jahrestreffen Anmeldungen', 'drf-anmeldung'); ?></h1>
+            <hr class="wp-header-end" style="display:none;">
+
+            <?php if (isset($_GET['status']) && $_GET['status'] === 'reg_saved') : ?>
+                <div class="notice notice-success is-dismissible" style="margin:12px 0 16px;"><p><strong>Teilnehmeranmeldung erfolgreich gespeichert!</strong></p></div>
+            <?php elseif (isset($_GET['status']) && $_GET['status'] === 'reg_created') : ?>
+                <div class="notice notice-success is-dismissible" style="margin:12px 0 16px;"><p><strong>Neuer Teilnehmer erfolgreich angelegt!</strong></p></div>
+            <?php elseif (isset($_GET['status']) && $_GET['status'] === 'reg_deleted') : ?>
+                <div class="notice notice-success is-dismissible" style="margin:12px 0 16px;"><p><strong>Teilnehmeranmeldung wurde erfolgreich gelöscht.</strong></p></div>
+            <?php elseif (isset($_GET['status']) && $_GET['status'] === 'status_updated') : ?>
+                <div class="notice notice-success is-dismissible" style="margin:12px 0 16px;"><p><strong>Status des Teilnehmers erfolgreich aktualisiert.</strong></p></div>
+            <?php endif; ?>
+
             <header class="drf-admin-header">
                 <div class="drf-admin-header-brand">
                     <span class="dashicons dashicons-tickets-alt drf-admin-logo-icon"></span>
                     <div>
-                        <h1 class="drf-admin-title">Jahrestreffen &bull; Anmeldungen</h1>
+                        <div class="drf-admin-title">Jahrestreffen &bull; Anmeldungen</div>
                         <p class="drf-admin-subtitle">Teilnehmerverwaltung verschachtelt nach Treffen, Zimmerkontingente &amp; Excel-Export</p>
                     </div>
                 </div>
-                <div class="drf-admin-header-actions" style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
-                    <a href="<?php echo esc_url(admin_url('admin.php?page=drf-anmeldungen&edit_reg=new#drf-reg-edit-form')); ?>" class="button button-primary" style="background:#f5b301; color:#141518; border-color:#f5b301; font-weight:800; padding:6px 14px; height:auto; line-height:1.8;">
-                        <span class="dashicons dashicons-plus-alt2" style="margin-top:4px;"></span> Neuer Teilnehmer
+                <div class="drf-admin-header-actions">
+                    <a href="<?php echo esc_url(admin_url('admin.php?page=drf-anmeldungen&edit_reg=new#drf-reg-edit-form')); ?>" class="drf-header-btn drf-header-btn-primary">
+                        <span class="dashicons dashicons-plus-alt2"></span> Neuer Teilnehmer
                     </a>
-                    <a href="<?php echo esc_url(wp_nonce_url(add_query_arg(['action' => 'drf_export_excel', 'meeting_id' => $filter_meeting]), 'drf_export_excel_nonce')); ?>" class="button" style="background:#141518; color:#f5b301; border-color:#141518; font-weight:700; padding:6px 14px; height:auto; line-height:1.8;">
-                        <span class="dashicons dashicons-media-spreadsheet" style="margin-top:4px;"></span> Excel-Export (Alle)
+                    <a href="<?php echo esc_url(wp_nonce_url(add_query_arg(['action' => 'drf_export_excel', 'meeting_id' => $filter_meeting]), 'drf_export_excel_nonce')); ?>" class="drf-header-btn drf-header-btn-export" title="Excel-Export (.xls)">
+                        <span class="dashicons dashicons-media-spreadsheet"></span> Excel-Export (Alle)
                     </a>
-                    <a href="<?php echo esc_url(wp_nonce_url(add_query_arg(['action' => 'drf_export_csv', 'meeting_id' => $filter_meeting]), 'drf_export_csv_nonce')); ?>" class="button button-secondary" style="height:auto; padding:6px 12px; line-height:1.8;">
-                        <span class="dashicons dashicons-download" style="margin-top:4px;"></span> CSV
+                    <a href="<?php echo esc_url(wp_nonce_url(add_query_arg(['action' => 'drf_export_csv', 'meeting_id' => $filter_meeting]), 'drf_export_csv_nonce')); ?>" class="drf-header-btn drf-header-btn-csv" title="CSV-Export">
+                        <span class="dashicons dashicons-download"></span> CSV
                     </a>
                 </div>
             </header>
-
-            <?php if (isset($_GET['status']) && $_GET['status'] === 'reg_saved') : ?>
-                <div class="notice notice-success is-dismissible" style="margin:16px 0;"><p><strong>Teilnehmeranmeldung erfolgreich gespeichert!</strong></p></div>
-            <?php elseif (isset($_GET['status']) && $_GET['status'] === 'reg_created') : ?>
-                <div class="notice notice-success is-dismissible" style="margin:16px 0;"><p><strong>Neuer Teilnehmer erfolgreich angelegt!</strong></p></div>
-            <?php elseif (isset($_GET['status']) && $_GET['status'] === 'reg_deleted') : ?>
-                <div class="notice notice-success is-dismissible" style="margin:16px 0;"><p><strong>Teilnehmeranmeldung wurde erfolgreich gelöscht.</strong></p></div>
-            <?php elseif (isset($_GET['status']) && $_GET['status'] === 'status_updated') : ?>
-                <div class="notice notice-success is-dismissible" style="margin:16px 0;"><p><strong>Status des Teilnehmers erfolgreich aktualisiert.</strong></p></div>
-            <?php endif; ?>
 
             <?php if ($edit_reg) : ?>
                 <?php $this->render_participant_edit_form($edit_reg, $all_meetings, 'drf-anmeldungen'); ?>
@@ -937,33 +940,36 @@ class DRF_Admin_Dashboard {
         }
         ?>
         <div class="wrap drf-admin-wrap">
+            <h1 class="wp-heading-inline screen-reader-text"><?php echo esc_html__('Jahrestreffen verwalten', 'drf-anmeldung'); ?></h1>
+            <hr class="wp-header-end" style="display:none;">
+
+            <?php if (isset($_GET['status']) && $_GET['status'] === 'saved') : ?>
+                <div class="notice notice-success is-dismissible" style="margin:12px 0 16px;"><p><strong>Treffen erfolgreich gespeichert!</strong></p></div>
+            <?php elseif (isset($_GET['status']) && $_GET['status'] === 'deleted') : ?>
+                <div class="notice notice-success is-dismissible" style="margin:12px 0 16px;"><p><strong>Treffen wurde erfolgreich gelöscht.</strong></p></div>
+            <?php elseif (isset($_GET['status']) && $_GET['status'] === 'has_registrations') : ?>
+                <div class="notice notice-error is-dismissible" style="margin:12px 0 16px;">
+                    <p><strong>Treffen kann nicht gelöscht werden:</strong> Für dieses Treffen liegen bereits Teilnehmer-Anmeldungen vor. Bitte löschen oder verschieben Sie zuerst die Anmeldungen im Tagungsbüro.</p>
+                </div>
+            <?php elseif (isset($_GET['status']) && $_GET['status'] === 'reg_saved') : ?>
+                <div class="notice notice-success is-dismissible" style="margin:12px 0 16px;"><p><strong>Teilnehmeranmeldung erfolgreich gespeichert!</strong></p></div>
+            <?php elseif (isset($_GET['status']) && $_GET['status'] === 'reg_created') : ?>
+                <div class="notice notice-success is-dismissible" style="margin:12px 0 16px;"><p><strong>Neuer Teilnehmer erfolgreich angelegt!</strong></p></div>
+            <?php elseif (isset($_GET['status']) && $_GET['status'] === 'reg_deleted') : ?>
+                <div class="notice notice-success is-dismissible" style="margin:12px 0 16px;"><p><strong>Teilnehmeranmeldung wurde erfolgreich gelöscht.</strong></p></div>
+            <?php elseif (isset($_GET['status']) && $_GET['status'] === 'status_updated') : ?>
+                <div class="notice notice-success is-dismissible" style="margin:12px 0 16px;"><p><strong>Status des Teilnehmers erfolgreich aktualisiert.</strong></p></div>
+            <?php endif; ?>
+
             <header class="drf-admin-header">
                 <div class="drf-admin-header-brand">
                     <span class="dashicons dashicons-calendar-alt drf-admin-logo-icon"></span>
                     <div>
-                        <h1 class="drf-admin-title">Jahrestreffen verwalten (2026, 2027, ...)</h1>
+                        <div class="drf-admin-title">Jahrestreffen verwalten (2026, 2027, ...)</div>
                         <p class="drf-admin-subtitle">Erstellen, Konfigurieren und Anmeldungen verschachtelt pro Treffen bearbeiten</p>
                     </div>
                 </div>
             </header>
-
-            <?php if (isset($_GET['status']) && $_GET['status'] === 'saved') : ?>
-                <div class="notice notice-success is-dismissible" style="margin:16px 0;"><p><strong>Treffen erfolgreich gespeichert!</strong></p></div>
-            <?php elseif (isset($_GET['status']) && $_GET['status'] === 'deleted') : ?>
-                <div class="notice notice-success is-dismissible" style="margin:16px 0;"><p><strong>Treffen wurde erfolgreich gelöscht.</strong></p></div>
-            <?php elseif (isset($_GET['status']) && $_GET['status'] === 'has_registrations') : ?>
-                <div class="notice notice-error is-dismissible" style="margin:16px 0;">
-                    <p><strong>Treffen kann nicht gelöscht werden:</strong> Für dieses Treffen liegen bereits Teilnehmer-Anmeldungen vor. Bitte löschen oder verschieben Sie zuerst die Anmeldungen im Tagungsbüro.</p>
-                </div>
-            <?php elseif (isset($_GET['status']) && $_GET['status'] === 'reg_saved') : ?>
-                <div class="notice notice-success is-dismissible" style="margin:16px 0;"><p><strong>Teilnehmeranmeldung erfolgreich gespeichert!</strong></p></div>
-            <?php elseif (isset($_GET['status']) && $_GET['status'] === 'reg_created') : ?>
-                <div class="notice notice-success is-dismissible" style="margin:16px 0;"><p><strong>Neuer Teilnehmer erfolgreich angelegt!</strong></p></div>
-            <?php elseif (isset($_GET['status']) && $_GET['status'] === 'reg_deleted') : ?>
-                <div class="notice notice-success is-dismissible" style="margin:16px 0;"><p><strong>Teilnehmeranmeldung wurde erfolgreich gelöscht.</strong></p></div>
-            <?php elseif (isset($_GET['status']) && $_GET['status'] === 'status_updated') : ?>
-                <div class="notice notice-success is-dismissible" style="margin:16px 0;"><p><strong>Status des Teilnehmers erfolgreich aktualisiert.</strong></p></div>
-            <?php endif; ?>
 
             <?php if ($edit_reg) : ?>
                 <?php $this->render_participant_edit_form($edit_reg, $meetings, 'drf-meetings-manage'); ?>

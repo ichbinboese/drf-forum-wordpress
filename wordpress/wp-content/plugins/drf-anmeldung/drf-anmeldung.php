@@ -3,7 +3,7 @@
  * Plugin Name: DRF Treffen-Anmeldung
  * Plugin URI: https://github.com/ichbinboese/drf-forum-wordpress
  * Description: Professionelles Anmelde- und Verwaltungssystem für die Jahrestreffen von de.rec.fotografie (z.B. Augenblicke 2026, 2027 in Neuendettelsau). Mit Zimmerkategorien, Verpflegung, Workshops, Shuttleservice, freiwilliger Sozialspende („Sozialsowjet“) und CSV-Export für das Tagungsbüro.
- * Version: 1.2.0
+ * Version: 1.2.1
  * Author: de.rec.fotografie e.V. / Benjamin Böse
  * Author URI: https://www.d-r-f.de/augenblicke/
  * Text Domain: drf-anmeldung
@@ -14,7 +14,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('DRF_ANMELDUNG_VERSION', '1.2.0');
+define('DRF_ANMELDUNG_VERSION', '1.2.1');
 define('DRF_ANMELDUNG_PATH', plugin_dir_path(__FILE__));
 define('DRF_ANMELDUNG_URL', plugin_dir_url(__FILE__));
 
