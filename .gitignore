@@ -18,3 +18,9 @@ node_modules/
 # Environment
 .env.local
 .env.*.local
+
+# FileGator runtime files
+filegator/private/sessions/*
+!filegator/private/sessions/.gitkeep
+filegator/private/tmp/*
+filegator/private/logs/*

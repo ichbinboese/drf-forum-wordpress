@@ -287,6 +287,9 @@ CSS;
         <a href="/" class="drf-pill-btn drf-pill-home">
           <span>&larr; Zurück zur Homepage</span>
         </a>
+        <a href="/dateien/" class="drf-pill-btn drf-pill-home" title="Interner Dateibereich (SharePoint-Alternative)">
+          <span>📁 Dateiablage</span>
+        </a>
         <a href="/forum/" class="drf-pill-btn drf-pill-forum">
           <span>Forum &bull; Aktiv</span>
         </a>
@@ -298,6 +301,7 @@ CSS;
 
       <div class="drf-mobile-panel" id="drfMobilePanel">
         <a href="/">🏠 Zurück zur Homepage</a>
+        <a href="/dateien/">📁 Interne Dateiablage</a>
         <a href="/verein/">👥 Verein</a>
         <a href="/augenblicke/">📷 Augenblicke Treffen</a>
         <a href="/tagungsbuero/">📅 Tagungsbüro &amp; Anmeldung</a>

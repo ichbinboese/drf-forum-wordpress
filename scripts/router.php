@@ -70,6 +70,31 @@ if (strpos($uri, '/forum') === 0) {
     exit;
 }
 
+// 1b. FILEGATOR ROUTING (/dateien/...)
+if (strpos($uri, '/dateien') === 0) {
+    $fg_public = $base_dir . '/filegator/dist';
+    $fg_rel = substr($uri, 8); // Strip '/dateien'
+    if ($fg_rel === '') {
+        header('Location: /dateien/');
+        exit;
+    }
+
+    // Static file in filegator/dist?
+    $fg_file = $fg_public . $fg_rel;
+    if ($fg_rel !== '/' && file_exists($fg_file) && !is_dir($fg_file)) {
+        drf_serve_static($fg_file);
+    }
+
+    // Forward to FileGator dist/index.php
+    define('APP_PUBLIC_PATH', '/dateien/');
+    $_SERVER['SCRIPT_FILENAME'] = $fg_public . '/index.php';
+    $_SERVER['SCRIPT_NAME']     = '/dateien/index.php';
+    $_SERVER['PHP_SELF']        = '/dateien/index.php';
+    chdir($fg_public);
+    require $fg_public . '/index.php';
+    exit;
+}
+
 // 2. WORDPRESS STATIC FILES
 $wp_file = $wp_dir . $uri;
 if ($uri !== '/' && file_exists($wp_file) && !is_dir($wp_file)) {
