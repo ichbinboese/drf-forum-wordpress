@@ -118,12 +118,23 @@ class DRF_Hero_Widget extends Widget_Base {
 
         $this->end_controls_section();
 
-        // Polaroid Media Section
+        // Polaroid & Background Media Section
         $this->start_controls_section(
             'section_polaroids',
             [
-                'label' => __('Polaroids & Sticker', 'drf-augenblicke'),
+                'label' => __('Hintergrund, Polaroids & Sticker', 'drf-augenblicke'),
                 'tab'   => Controls_Manager::TAB_CONTENT,
+            ]
+        );
+
+        $this->add_control(
+            'hero_bg_image',
+            [
+                'label'   => __('Hero Hintergrundbild', 'drf-augenblicke'),
+                'type'    => Controls_Manager::MEDIA,
+                'default' => [
+                    'url' => DRF_THEME_URI . '/assets/images/hero-bg.jpg',
+                ],
             ]
         );
 
@@ -174,11 +185,16 @@ class DRF_Hero_Widget extends Widget_Base {
         $btn_forum_text   = $settings['btn_forum_text'];
         $btn_forum_url    = !empty($settings['btn_forum_url']['url']) ? $settings['btn_forum_url']['url'] : '/forum/';
 
+        $hero_bg = !empty($settings['hero_bg_image']['url']) ? $settings['hero_bg_image']['url'] : DRF_THEME_URI . '/assets/images/hero-bg.jpg';
         $p1 = !empty($settings['polaroid_1']['url']) ? $settings['polaroid_1']['url'] : DRF_THEME_URI . '/assets/images/polaroid-dock.jpg';
         $p2 = !empty($settings['polaroid_2']['url']) ? $settings['polaroid_2']['url'] : DRF_THEME_URI . '/assets/images/polaroid-camera.jpg';
         $badge = !empty($settings['badge_sticker']['url']) ? $settings['badge_sticker']['url'] : DRF_THEME_URI . '/assets/images/badge-treffen.png';
+        $bg_style = sprintf(
+            "background-image: linear-gradient(90deg, rgba(15, 17, 21, 0.92) 0%%, rgba(15, 17, 21, 0.78) 45%%, rgba(15, 17, 21, 0.45) 80%%, rgba(15, 17, 21, 0.65) 100%%), url('%s');",
+            esc_url($hero_bg)
+        );
         ?>
-        <section class="hero-augenblicke drf-elementor-hero">
+        <section class="hero-augenblicke drf-elementor-hero" style="<?php echo esc_attr($bg_style); ?>">
             <div class="container hero-grid">
                 <div class="hero-content">
                     <div class="hero-tag">
