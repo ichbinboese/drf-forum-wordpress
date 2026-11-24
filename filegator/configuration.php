@@ -5,10 +5,10 @@ $drf_head = <<<'HTML'
 <link rel="alternate icon" type="image/x-icon" href="/favicon.ico">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#141518">
-<link rel="stylesheet" href="/dateien/drf-theme.css?v=2">
 HTML;
 
 $drf_body = <<<'HTML'
+<link rel="stylesheet" href="/dateien/drf-theme.css?v=3">
 <script>
 (function() {
   function injectDrfFilebar() {
@@ -39,7 +39,7 @@ $drf_body = <<<'HTML'
   }
 })();
 </script>
-<script src="/dateien/drf-icons.js?v=2"></script>
+<script src="/dateien/drf-icons.js?v=3"></script>
 HTML;
 
 return [

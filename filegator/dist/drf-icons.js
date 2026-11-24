@@ -119,35 +119,32 @@
   }
 
   function decorateFileRows() {
-    var tables = document.querySelectorAll('#app table.table');
+    var tables = document.querySelectorAll('#browser table.table');
     tables.forEach(function (table) {
-      // Only decorate the file browser table (which has checkbox cells)
-      if (!table.querySelector('td.checkbox-cell')) return;
-
       var rows = table.querySelectorAll('tbody tr');
       rows.forEach(function (row) {
-        var nameCell = row.querySelector('td:nth-child(2)');
+        var hasCheckbox = !!row.querySelector('td.checkbox-cell');
+        var nameCell = row.querySelector(hasCheckbox ? 'td:nth-child(2)' : 'td:nth-child(1)');
         if (!nameCell) return;
 
-        // Determine if row is a folder by checking the size column text ("Ordner" / "Folder") or bold tag
-        var rowText = row.textContent || '';
+        // Check if this row is a folder ("Ordner" / "Folder")
         var cells = row.querySelectorAll('td');
-        var sizeText = '';
-        for (var i = 2; i < cells.length; i++) {
+        var isFolder = false;
+        for (var i = 1; i < cells.length; i++) {
           var t = (cells[i].textContent || '').trim();
-          if (t === 'Ordner' || t === 'Folder' || t === 'dir') {
-            sizeText = t;
+          if (t === 'Ordner' || t === 'Folder') {
+            isFolder = true;
             break;
           }
         }
 
-        // Extract clean file/folder name without our icon
-        var rawName = '';
+        // Target element inside name cell (<a> if present, otherwise the cell itself)
         var nameLink = nameCell.querySelector('a');
         var targetEl = nameLink || nameCell;
         var existingIcon = nameCell.querySelector('.drf-file-icon');
 
-        // Clone text without existing icon
+        // Extract clean file/folder name without our icon
+        var rawName = '';
         if (existingIcon) {
           var clone = targetEl.cloneNode(true);
           var ic = clone.querySelector('.drf-file-icon');
@@ -159,7 +156,6 @@
 
         if (!rawName) return;
 
-        var isFolder = sizeText !== '' || (nameCell.querySelector('strong, b') !== null && rawName.indexOf('.') === -1);
         var type = getFileType(rawName, isFolder);
 
         // Skip if already decorated with the exact same file & type
@@ -183,11 +179,18 @@
 
   function startObserver() {
     decorateFileRows();
-    var app = document.getElementById('app') || document.body;
     var observer = new MutationObserver(function () {
       decorateFileRows();
     });
-    observer.observe(app, { childList: true, subtree: true });
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    // Safety poll for initial async Vue load
+    var checks = 0;
+    var timer = setInterval(function () {
+      decorateFileRows();
+      checks++;
+      if (checks > 20) clearInterval(timer);
+    }, 250);
   }
 
   if (document.readyState === 'loading') {
