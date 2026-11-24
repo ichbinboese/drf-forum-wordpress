@@ -151,10 +151,13 @@ class DRF_Chronik_Widget extends Widget_Base {
         <div class="container drf-elementor-chronik-wrap">
             <div class="drf-elementor-chronik" style="margin: 28px 0;">
             <?php if (!empty($settings['title'])) : ?>
-                <h2 style="margin-bottom: 8px;"><?php echo esc_html($settings['title']); ?></h2>
-            <?php endif; ?>
-            <?php if (!empty($settings['desc'])) : ?>
-                <p style="color: #64748b; margin-bottom: 20px;"><?php echo esc_html($settings['desc']); ?></p>
+                <div class="drf-section-header">
+                    <span class="drf-section-badge">TREFFEN-ARCHIV</span>
+                    <h2 class="drf-section-title"><?php echo esc_html($settings['title']); ?></h2>
+                    <?php if (!empty($settings['desc'])) : ?>
+                        <p class="drf-section-lead"><?php echo esc_html($settings['desc']); ?></p>
+                    <?php endif; ?>
+                </div>
             <?php endif; ?>
 
             <div style="overflow-x: auto;">

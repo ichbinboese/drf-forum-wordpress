@@ -19,6 +19,12 @@ get_header();
 <div class="page-content-area">
     <div class="container">
         <div class="page-card-container">
+            <div class="drf-section-header">
+                <span class="drf-section-badge">RECHTLICHE ANGABEN</span>
+                <h2 class="drf-section-title">Gesetzliche Anbieterkennzeichnung &amp; Vorstandskontakt</h2>
+                <p class="drf-section-lead">Pflichtangaben nach &sect; 5 TMG sowie vertretungsberechtigte Personen des eingetragenen Vereins de.rec.fotografie e.V.</p>
+            </div>
+
             <h2>Herausgeber &amp; Betreiber der Website</h2>
             <p>
                 <strong>de.rec.fotografie e.V.</strong><br>

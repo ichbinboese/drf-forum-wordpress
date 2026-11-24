@@ -92,9 +92,9 @@ class DRF_Flarum_Feed_Widget extends Widget_Base {
             <div class="drf-elementor-flarum" style="background: #141518; color: #ffffff; border-radius: 12px; padding: 32px; border-left: 5px solid #f5b301; margin: 32px 0;">
             <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px;">
                 <div style="max-width: 650px;">
-                    <span style="background: #f5b301; color: #141518; font-weight: 800; font-size: 0.75rem; padding: 2px 8px; border-radius: 4px; text-transform: uppercase;">d.r.f Community</span>
-                    <h3 style="color: #ffffff; margin: 8px 0; font-size: 1.5rem;"><?php echo esc_html($settings['title']); ?></h3>
-                    <p style="color: #cbd5e1; margin-bottom: 16px; font-size: 0.95rem;"><?php echo esc_html($settings['desc']); ?></p>
+                    <span class="drf-section-badge">COMMUNITY FORUM</span>
+                    <h2 style="color: #ffffff !important; margin: 8px 0 6px 0; font-size: 1.65rem; font-weight: 800; letter-spacing: -0.02em;"><?php echo esc_html($settings['title']); ?></h2>
+                    <p style="color: #cbd5e1; margin-bottom: 16px; font-size: 0.95rem; line-height: 1.6;"><?php echo esc_html($settings['desc']); ?></p>
 
                     <div style="display: flex; flex-wrap: wrap; gap: 8px;">
                         <?php foreach ($tags as $t) : ?>

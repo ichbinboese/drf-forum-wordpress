@@ -50,7 +50,7 @@ class DRF_Sozial_Widget extends Widget_Base {
             [
                 'label'   => __('Titel', 'drf-augenblicke'),
                 'type'    => Controls_Manager::TEXT,
-                'default' => 'Über das Sozialgremium & Solidarfonds',
+                'default' => 'Der Solidarfonds („Sozialsowjet“) & Vertrauenspersonen',
             ]
         );
 
@@ -71,10 +71,13 @@ class DRF_Sozial_Widget extends Widget_Base {
         ?>
         <div class="container drf-elementor-sozial-wrap">
             <div class="drf-elementor-sozial" style="margin: 28px 0;">
-                <h2><?php echo esc_html($settings['title']); ?></h2>
-                <p>
-                    Seit den Anf&auml;ngen von <code>de.rec.fotografie</code> und den ersten Treffen 1999 gilt ein unumst&ouml;&szlig;licher Grundsatz: <strong>Wir halten als Gemeinschaft zusammen.</strong> Wenn Teilnehmer durch Ausbildung, Studium, Rentenengp&auml;sse oder pers&ouml;nliche Lebensumst&auml;nde in finanzielle H&uuml;rden geraten, soll niemand auf die Teilnahme an &raquo;Augenblicke&laquo; verzichten m&uuml;ssen.
-                </p>
+                <div class="drf-section-header">
+                    <span class="drf-section-badge">SOLIDARITÄT &amp; HILFE</span>
+                    <h2 class="drf-section-title"><?php echo esc_html($settings['title']); ?></h2>
+                    <p class="drf-section-lead">
+                        Seit den Anfängen von <code>de.rec.fotografie</code> und den ersten Treffen 1999 gilt ein unumstößlicher Grundsatz: Wir halten als Gemeinschaft zusammen. Niemand soll aus finanziellen Gründen auf das Jahrestreffen verzichten müssen – diskret, vertraulich und unbürokratisch.
+                    </p>
+                </div>
 
                 <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 24px; margin: 24px 0;">
                     <h3 style="margin-top: 0; color: #141518; font-size: 1.2rem; font-weight: 700;">

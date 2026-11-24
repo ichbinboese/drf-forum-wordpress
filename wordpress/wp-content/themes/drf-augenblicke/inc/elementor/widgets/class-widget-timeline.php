@@ -298,10 +298,13 @@ class DRF_Timeline_Widget extends Widget_Base {
         <div class="container drf-elementor-timeline-wrap">
             <div class="drf-timeline-section" style="margin: 40px 0;">
             <?php if (!empty($settings['title'])) : ?>
-                <h2 style="font-size: 1.8rem; font-weight: 800; color: #1e293b; margin-bottom: 6px;"><?php echo esc_html($settings['title']); ?></h2>
-            <?php endif; ?>
-            <?php if (!empty($settings['subtitle'])) : ?>
-                <p style="color: #64748b; font-size: 1rem; margin-bottom: 30px;"><?php echo esc_html($settings['subtitle']); ?></p>
+                <div class="drf-section-header">
+                    <span class="drf-section-badge">CHRONIK &amp; GESCHICHTE</span>
+                    <h2 class="drf-section-title"><?php echo esc_html($settings['title']); ?></h2>
+                    <?php if (!empty($settings['subtitle'])) : ?>
+                        <p class="drf-section-lead"><?php echo esc_html($settings['subtitle']); ?></p>
+                    <?php endif; ?>
+                </div>
             <?php endif; ?>
 
             <div class="drf-timeline-wrap" style="position: relative; padding-left: 36px; border-left: 3px solid #e2e8f0; margin-left: 14px;">

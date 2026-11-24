@@ -19,6 +19,12 @@ get_header();
 <div class="page-content-area">
     <div class="container">
         <div class="page-card-container">
+            <div class="drf-section-header">
+                <span class="drf-section-badge">DATENSCHUTZ (DSGVO)</span>
+                <h2 class="drf-section-title">Datenschutzerklärung &amp; Schutz deiner Daten</h2>
+                <p class="drf-section-lead">Transparente Informationen &uuml;ber Art, Umfang und Zweck der Verarbeitung personenbezogener Daten im Rahmen unserer Vereinsarbeit und Treffen-Anmeldung gem&auml;&szlig; DSGVO.</p>
+            </div>
+
             <h2>1. Datenschutz auf einen Blick</h2>
             <p>
                 Der Schutz deiner pers&ouml;nlichen Daten ist uns ein wichtiges Anliegen. Wir behandeln deine personenbezogenen Daten vertraulich und entsprechend den gesetzlichen Datenschutzvorschriften sowie dieser Datenschutzerkl&auml;rung. Wir setzen bewusst keine kommerziellen Tracking-Dienste oder Werbe-Cookies ein.

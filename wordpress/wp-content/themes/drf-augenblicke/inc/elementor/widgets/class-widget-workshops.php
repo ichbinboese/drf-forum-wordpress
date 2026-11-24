@@ -117,8 +117,11 @@ class DRF_Workshops_Widget extends Widget_Base {
         ?>
         <div class="container drf-elementor-workshops-wrap">
             <div class="drf-elementor-workshops" style="margin: 28px 0;">
-            <h2><?php echo esc_html($settings['title']); ?></h2>
-            <p style="color: #64748b; font-size: 1.05rem;"><?php echo esc_html($settings['desc']); ?></p>
+            <div class="drf-section-header">
+                <span class="drf-section-badge">PROGRAMM &amp; SESSIONS</span>
+                <h2 class="drf-section-title"><?php echo esc_html($settings['title']); ?></h2>
+                <p class="drf-section-lead"><?php echo esc_html($settings['desc']); ?></p>
+            </div>
 
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin: 24px 0;">
                 <?php foreach ($workshops as $ws) : ?>

@@ -62,10 +62,10 @@ class DRF_Shuttle_Route_Widget extends Widget_Base {
         ?>
         <div class="container drf-elementor-shuttle-route-wrap">
             <div class="drf-shuttle-route-card" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 28px; box-shadow: 0 4px 16px rgba(0,0,0,0.05); margin: 32px 0;">
-            <div style="border-bottom: 1px solid #e2e8f0; padding-bottom: 16px; margin-bottom: 24px;">
-                <span style="background: #f5b301; color: #141518; font-weight: 800; font-size: 0.75rem; padding: 3px 8px; border-radius: 4px; text-transform: uppercase;">Kostenloser Service</span>
-                <h3 style="font-size: 1.5rem; font-weight: 800; color: #1e293b; margin: 8px 0 4px 0;"><?php echo esc_html($settings['title']); ?></h3>
-                <p style="color: #64748b; font-size: 0.95rem; margin: 0;">Wir holen dich und dein schweres Fotogepäck direkt am Bahnsteig ab.</p>
+            <div class="drf-section-header" style="border-bottom: 1px solid #e2e8f0; padding-bottom: 16px; margin-bottom: 24px;">
+                <span class="drf-section-badge">TRANSFER &amp; ANREISE</span>
+                <h2 class="drf-section-title"><?php echo esc_html($settings['title']); ?></h2>
+                <p class="drf-section-lead">Bequem und unkompliziert: Unsere ehrenamtlichen Shuttle-Fahrer holen dich und deine schwere Fotoausrüstung verlässlich an den Bahnhöfen Wicklesgreuth und Ansbach ab.</p>
             </div>
 
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;">

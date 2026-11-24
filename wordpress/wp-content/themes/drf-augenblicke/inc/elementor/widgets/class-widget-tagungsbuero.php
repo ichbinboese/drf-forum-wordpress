@@ -50,7 +50,7 @@ class DRF_Tagungsbuero_Widget extends Widget_Base {
             [
                 'label'   => __('Titel', 'drf-augenblicke'),
                 'type'    => Controls_Manager::TEXT,
-                'default' => 'Über das Tagungsbüro',
+                'default' => 'Organisation, Betreuung & Verwaltung durch das Tagungsbüro',
             ]
         );
 
@@ -87,10 +87,13 @@ class DRF_Tagungsbuero_Widget extends Widget_Base {
         ?>
         <div class="container drf-elementor-tagungsbuero-wrap">
             <div class="drf-elementor-tagungsbuero" style="margin: 28px 0;">
-            <h2><?php echo esc_html($settings['title']); ?></h2>
-            <p>
-                Das Tagungsb&uuml;ro (TB) sind die in der Newsgroup <code>de.rec.fotografie</code> gew&auml;hlten Menschen, die die Vorbereitung des Treffens organisieren und das Programm koordinieren &ndash; ehrenamtlich und als treuh&auml;nderische Verwalter des eingezahlten Geldes.
-            </p>
+            <div class="drf-section-header">
+                <span class="drf-section-badge">TAGUNGSBÜRO</span>
+                <h2 class="drf-section-title"><?php echo esc_html($settings['title']); ?></h2>
+                <p class="drf-section-lead">
+                    Ehrenamtlich gewählt aus der Community: Das Tagungsbüro (TB) organisiert den reibungslosen Ablauf, verwaltet die Finanzen treuhänderisch und koordiniert die Zimmerkontingente im Haus Lutherrose.
+                </p>
+            </div>
 
             <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 24px; margin: 24px 0;">
                 <h3 style="margin-top: 0; color: #141518; font-size: 1.2rem; font-weight: 700;">

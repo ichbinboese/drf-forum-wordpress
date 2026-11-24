@@ -38,10 +38,11 @@ get_header();
 
         <!-- 2. Tagungsbüro Infoboxen & Mitglieder -->
         <div class="page-card-container" style="margin-top: 40px;">
-            <h2>Über das Tagungsb&uuml;ro</h2>
-            <p>
-                Das Tagungsb&uuml;ro (TB) sind die in der Newsgroup <code>de.rec.fotografie</code> gew&auml;hlten Menschen, die die Vorbereitung des Treffens organisieren und das Programm koordinieren &ndash; ehrenamtlich und als treuh&auml;nderische Verwalter des eingezahlten Geldes.
-            </p>
+            <div class="drf-section-header">
+                <span class="drf-section-badge">TAGUNGSBÜRO</span>
+                <h2 class="drf-section-title">Organisation, Betreuung &amp; Verwaltung durch das Tagungsbüro</h2>
+                <p class="drf-section-lead">Ehrenamtlich gewählt aus der Community: Das Tagungsbüro (TB) organisiert den reibungslosen Ablauf, verwaltet die Finanzen treuhänderisch und betreut die Zimmerkontingente im Haus Lutherrose.</p>
+            </div>
             <p>
                 Das TB ist weder kommerzieller Veranstalter noch gewinnorientierter Anbieter der Workshops, sondern sorgt f&uuml;r den reibungslosen Ablauf im Tagungshaus, verwaltet die Zimmerkontingente und koordiniert den Shuttleservice.
             </p>

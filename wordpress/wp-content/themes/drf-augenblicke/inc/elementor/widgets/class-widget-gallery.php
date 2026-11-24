@@ -118,10 +118,13 @@ class DRF_Gallery_Widget extends Widget_Base {
         <div class="container drf-elementor-gallery-wrap">
             <div class="drf-gallery-section" style="margin: 40px 0;">
             <?php if (!empty($settings['title'])) : ?>
-                <h2 style="font-size: 1.8rem; font-weight: 800; color: #1e293b; margin-bottom: 6px;"><?php echo esc_html($settings['title']); ?></h2>
-            <?php endif; ?>
-            <?php if (!empty($settings['subtitle'])) : ?>
-                <p style="color: #64748b; font-size: 1rem; margin-bottom: 28px;"><?php echo esc_html($settings['subtitle']); ?></p>
+                <div class="drf-section-header">
+                    <span class="drf-section-badge">IMPRESSIONEN &amp; GALERIE</span>
+                    <h2 class="drf-section-title"><?php echo esc_html($settings['title']); ?></h2>
+                    <?php if (!empty($settings['subtitle'])) : ?>
+                        <p class="drf-section-lead"><?php echo esc_html($settings['subtitle']); ?></p>
+                    <?php endif; ?>
+                </div>
             <?php endif; ?>
 
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px;">
