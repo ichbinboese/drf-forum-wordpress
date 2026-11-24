@@ -64,13 +64,80 @@ class DRF_Chronik_Widget extends Widget_Base {
             ]
         );
 
+        $repeater = new \Elementor\Repeater();
+
+        $repeater->add_control(
+            'title',
+            [
+                'label'   => __('Titel des Treffens', 'drf-augenblicke'),
+                'type'    => Controls_Manager::TEXT,
+                'default' => 'AUGENBLICKE',
+            ]
+        );
+
+        $repeater->add_control(
+            'code',
+            [
+                'label'   => __('Kürzel', 'drf-augenblicke'),
+                'type'    => Controls_Manager::TEXT,
+                'default' => '[LR]',
+            ]
+        );
+
+        $repeater->add_control(
+            'year',
+            [
+                'label'   => __('Jahr', 'drf-augenblicke'),
+                'type'    => Controls_Manager::TEXT,
+                'default' => '2026',
+            ]
+        );
+
+        $repeater->add_control(
+            'venue',
+            [
+                'label'   => __('Veranstaltungsort', 'drf-augenblicke'),
+                'type'    => Controls_Manager::TEXT,
+                'default' => 'Haus Lutherrose, Neuendettelsau',
+            ]
+        );
+
+        $repeater->add_control(
+            'focus',
+            [
+                'label'   => __('Schwerpunkte', 'drf-augenblicke'),
+                'type'    => Controls_Manager::TEXT,
+                'default' => 'Workshop, Fotopraxis',
+            ]
+        );
+
+        $this->add_control(
+            'items',
+            [
+                'label'       => __('Treffen-Einträge', 'drf-augenblicke'),
+                'type'        => Controls_Manager::REPEATER,
+                'fields'      => $repeater->get_controls(),
+                'default'     => [
+                    ['title' => 'AUGENBLICKE XXVII', 'code' => '[LR]', 'year' => '2027', 'venue' => 'Haus Lutherrose, Neuendettelsau', 'focus' => 'Studio, Digital & Analog, Fotowalk Franken'],
+                    ['title' => 'AUGENBLICKE XXVI', 'code' => '[LR]', 'year' => '2026', 'venue' => 'Haus Lutherrose, Neuendettelsau', 'focus' => 'Studioblitz, Altglas, Großformat, Relaunch'],
+                    ['title' => 'AUGENBLICKE XXV', 'code' => '[LR]', 'year' => '2024', 'venue' => 'Haus Lutherrose, Neuendettelsau', 'focus' => 'Jubiläumstreffen, Available Light, Porträt'],
+                    ['title' => 'AUGENBLICKE XXIV', 'code' => '[FB]', 'year' => '2023', 'venue' => 'Göbel\'s Schlosshotel, Friedewald', 'focus' => 'Architektur & Landschaftsfotografie'],
+                    ['title' => 'AUGENBLICKE XXIII', 'code' => '[SE]', 'year' => '2022', 'venue' => 'Hotel Schwarzenshof, Rudolstadt', 'focus' => 'Post-Corona Wiedersehen & Makroworkshop'],
+                    ['title' => 'AUGENBLICKE XXII', 'code' => '[LR]', 'year' => '2019', 'venue' => 'Haus Lutherrose, Neuendettelsau', 'focus' => 'High-Speed-Fotografie, Modelsharing'],
+                    ['title' => 'AUGENBLICKE I', 'code' => '[BM]', 'year' => '2007', 'venue' => 'Kloster Michaelstein, Blankenburg', 'focus' => 'Die Geburtsstunde der »Augenblicke« Reihe'],
+                    ['title' => 'd.r.f Urtreffen', 'code' => '[OR]', 'year' => '1999', 'venue' => 'Burg Rieneck, Spessart', 'focus' => 'Erstes legendäres Treffen der Newsgroup'],
+                ],
+                'title_field' => '{{{ year }}} - {{{ title }}}',
+            ]
+        );
+
         $this->end_controls_section();
     }
 
     protected function render() {
         $settings = $this->get_settings_for_display();
 
-        $rows = [
+        $rows = !empty($settings['items']) ? $settings['items'] : [
             ['title' => 'AUGENBLICKE XXVII', 'code' => '[LR]', 'year' => '2027', 'venue' => 'Haus Lutherrose, Neuendettelsau', 'focus' => 'Studio, Digital & Analog, Fotowalk Franken'],
             ['title' => 'AUGENBLICKE XXVI', 'code' => '[LR]', 'year' => '2026', 'venue' => 'Haus Lutherrose, Neuendettelsau', 'focus' => 'Studioblitz, Altglas, Großformat, Relaunch'],
             ['title' => 'AUGENBLICKE XXV', 'code' => '[LR]', 'year' => '2024', 'venue' => 'Haus Lutherrose, Neuendettelsau', 'focus' => 'Jubiläumstreffen, Available Light, Porträt'],

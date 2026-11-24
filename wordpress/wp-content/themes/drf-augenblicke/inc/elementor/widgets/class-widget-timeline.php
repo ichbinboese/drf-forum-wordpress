@@ -64,13 +64,163 @@ class DRF_Timeline_Widget extends Widget_Base {
             ]
         );
 
+        $repeater = new \Elementor\Repeater();
+
+        $repeater->add_control(
+            'year',
+            [
+                'label'   => __('Jahr', 'drf-augenblicke'),
+                'type'    => Controls_Manager::TEXT,
+                'default' => '2026',
+            ]
+        );
+
+        $repeater->add_control(
+            'code',
+            [
+                'label'   => __('Kürzel', 'drf-augenblicke'),
+                'type'    => Controls_Manager::TEXT,
+                'default' => '[LR]',
+            ]
+        );
+
+        $repeater->add_control(
+            'tag',
+            [
+                'label'   => __('Titel / Tag', 'drf-augenblicke'),
+                'type'    => Controls_Manager::TEXT,
+                'default' => 'AUGENBLICKE',
+            ]
+        );
+
+        $repeater->add_control(
+            'venue',
+            [
+                'label'   => __('Veranstaltungsort', 'drf-augenblicke'),
+                'type'    => Controls_Manager::TEXT,
+                'default' => 'Haus Lutherrose, Neuendettelsau',
+            ]
+        );
+
+        $repeater->add_control(
+            'desc',
+            [
+                'label'   => __('Beschreibung', 'drf-augenblicke'),
+                'type'    => Controls_Manager::TEXTAREA,
+                'default' => '',
+            ]
+        );
+
+        $repeater->add_control(
+            'badge',
+            [
+                'label'   => __('Badge Label', 'drf-augenblicke'),
+                'type'    => Controls_Manager::TEXT,
+                'default' => '',
+            ]
+        );
+
+        $repeater->add_control(
+            'active',
+            [
+                'label'        => __('Hervorgehoben / Aktiv', 'drf-augenblicke'),
+                'type'         => Controls_Manager::SWITCHER,
+                'return_value' => 'yes',
+                'default'      => '',
+            ]
+        );
+
+        $this->add_control(
+            'milestones',
+            [
+                'label'       => __('Meilensteine / Treffen', 'drf-augenblicke'),
+                'type'        => Controls_Manager::REPEATER,
+                'fields'      => $repeater->get_controls(),
+                'default'     => [
+                    [
+                        'year'    => '2027',
+                        'code'    => '[LR]',
+                        'tag'     => 'AUGENBLICKE XXVII',
+                        'venue'   => 'Haus Lutherrose, Neuendettelsau',
+                        'desc'    => 'Voranmeldung und Zimmerkontingent-Planung für das Christi-Himmelfahrt-Wochenende (06.–09. Mai 2027) bereits geöffnet.',
+                        'badge'   => 'In Vorbereitung',
+                        'active'  => 'yes',
+                    ],
+                    [
+                        'year'    => '2026',
+                        'code'    => '[LR]',
+                        'tag'     => 'AUGENBLICKE XXVI',
+                        'venue'   => 'Haus Lutherrose, Neuendettelsau',
+                        'desc'    => 'Das kommende Jahrestreffen an Fronleichnam (28.–31. Mai 2026) mit Studioblitz-Aufbauten, SW-Dunkelkammerlabor, Altglas-Shootings und Schnellfotowettbewerb.',
+                        'badge'   => 'Aktuelle Anmeldung',
+                        'active'  => 'yes',
+                    ],
+                    [
+                        'year'    => '2024',
+                        'code'    => '[LR]',
+                        'tag'     => 'AUGENBLICKE XXV',
+                        'venue'   => 'Haus Lutherrose, Neuendettelsau',
+                        'desc'    => 'Das große 25. Jubiläumstreffen: Feierliche Bildprojektionen, Available Light Porträts und Wiedersehen vieler Generationen.',
+                        'badge'   => 'Jubiläum',
+                        'active'  => '',
+                    ],
+                    [
+                        'year'    => '2023',
+                        'code'    => '[FB]',
+                        'tag'     => 'AUGENBLICKE XXIV',
+                        'venue'   => 'Göbel\'s Schlosshotel, Friedewald',
+                        'desc'    => 'Architektur, Landschaft und Available Light in historischer Schlosskulisse.',
+                        'badge'   => 'Schloss',
+                        'active'  => '',
+                    ],
+                    [
+                        'year'    => '2022',
+                        'code'    => '[SE]',
+                        'tag'     => 'AUGENBLICKE XXIII',
+                        'venue'   => 'Hotel Schwarzenshof, Rudolstadt',
+                        'desc'    => 'Das ersehnte Post-Corona Wiedersehen mit Fokus auf Makro- und Naturfotografie in Thüringen.',
+                        'badge'   => 'Reunion',
+                        'active'  => '',
+                    ],
+                    [
+                        'year'    => '2019',
+                        'code'    => '[LR]',
+                        'tag'     => 'AUGENBLICKE XXII',
+                        'venue'   => 'Haus Lutherrose, Neuendettelsau',
+                        'desc'    => 'Premieren-Treffen in Neuendettelsau: Großzügige Seminarräume und Einweihung des neuen Studio-Setups.',
+                        'badge'   => 'Meilenstein',
+                        'active'  => '',
+                    ],
+                    [
+                        'year'    => '2007',
+                        'code'    => '[BM]',
+                        'tag'     => 'AUGENBLICKE I',
+                        'venue'   => 'Kloster Michaelstein, Blankenburg',
+                        'desc'    => 'Die offizielle Geburtsstunde der Treffen-Reihe unter dem Namen »AUGENBLICKE«. Vier Tage intensive Fotografie.',
+                        'badge'   => 'Geburt AUGENBLICKE',
+                        'active'  => '',
+                    ],
+                    [
+                        'year'    => '1999',
+                        'code'    => '[OR]',
+                        'tag'     => 'd.r.f Urtreffen',
+                        'venue'   => 'Burg Rieneck, Spessart',
+                        'desc'    => 'Die Teilnehmer der Newsgroup de.rec.fotografie treffen sich erstmals im echten Leben. Beginn einer bis heute lebendigen Gemeinschaft.',
+                        'badge'   => 'Ursprung',
+                        'active'  => '',
+                    ],
+                ],
+                'title_field' => '{{{ year }}} - {{{ tag }}}',
+            ]
+        );
+
         $this->end_controls_section();
     }
 
     protected function render() {
         $settings = $this->get_settings_for_display();
 
-        $milestones = [
+        $milestones = !empty($settings['milestones']) ? $settings['milestones'] : [
             [
                 'year'    => '2027',
                 'code'    => '[LR]',

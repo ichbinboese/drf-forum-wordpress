@@ -81,4 +81,22 @@ class DRF_Meeting_Manager {
             return $wpdb->insert_id;
         }
     }
+
+    /**
+     * Delete a meeting
+     */
+    public static function delete_meeting($id) {
+        global $wpdb;
+        $table = $wpdb->prefix . 'drf_meetings';
+        return $wpdb->delete($table, ['id' => absint($id)]);
+    }
+
+    /**
+     * Get registration count for a meeting
+     */
+    public static function get_registration_count($id) {
+        global $wpdb;
+        $table = $wpdb->prefix . 'drf_registrations';
+        return (int) $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM $table WHERE meeting_id = %d", absint($id)));
+    }
 }

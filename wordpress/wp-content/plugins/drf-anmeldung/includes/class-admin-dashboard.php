@@ -101,8 +101,12 @@ class DRF_Admin_Dashboard {
         if (isset($_GET['action']) && $_GET['action'] === 'drf_delete_meeting') {
             check_admin_referer('drf_delete_meeting_nonce');
             $id = absint($_GET['meeting_id'] ?? 0);
-            global $wpdb;
-            $wpdb->delete($wpdb->prefix . 'drf_meetings', ['id' => $id]);
+            $has_regs = DRF_Meeting_Manager::get_registration_count($id);
+            if ($has_regs > 0 && !isset($_GET['force'])) {
+                wp_redirect(add_query_arg(['page' => 'drf-meetings-manage', 'status' => 'has_registrations'], admin_url('admin.php')));
+                exit;
+            }
+            DRF_Meeting_Manager::delete_meeting($id);
             wp_redirect(add_query_arg(['page' => 'drf-meetings-manage', 'status' => 'deleted'], admin_url('admin.php')));
             exit;
         }
@@ -445,6 +449,16 @@ class DRF_Admin_Dashboard {
                 </div>
             </header>
 
+            <?php if (isset($_GET['status']) && $_GET['status'] === 'saved') : ?>
+                <div class="notice notice-success is-dismissible" style="margin:16px 0;"><p><strong>Treffen erfolgreich gespeichert!</strong></p></div>
+            <?php elseif (isset($_GET['status']) && $_GET['status'] === 'deleted') : ?>
+                <div class="notice notice-success is-dismissible" style="margin:16px 0;"><p><strong>Treffen wurde erfolgreich gelöscht.</strong></p></div>
+            <?php elseif (isset($_GET['status']) && $_GET['status'] === 'has_registrations') : ?>
+                <div class="notice notice-error is-dismissible" style="margin:16px 0;">
+                    <p><strong>Treffen kann nicht gelöscht werden:</strong> Für dieses Treffen liegen bereits Teilnehmer-Anmeldungen vor. Bitte löschen oder verschieben Sie zuerst die Anmeldungen im Tagungsbüro.</p>
+                </div>
+            <?php endif; ?>
+
             <div style="display:flex; gap:24px; align-items:flex-start; flex-wrap:wrap;">
                 <!-- Left: Form to create or edit meeting -->
                 <div style="flex:1.2; min-width:340px; background:#ffffff; padding:28px; border-radius:14px; border:1px solid #e2e8f0; box-shadow:0 2px 10px rgba(0,0,0,0.04);">
@@ -536,16 +550,24 @@ class DRF_Admin_Dashboard {
                                 <th width="60">Jahr</th>
                                 <th>Titel &amp; Ort</th>
                                 <th>Status</th>
-                                <th width="90">Aktionen</th>
+                                <th width="150">Aktionen</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($meetings as $m) : ?>
+                            <?php foreach ($meetings as $m) :
+                                $reg_count = DRF_Meeting_Manager::get_registration_count($m->id);
+                                $delete_url = wp_nonce_url(admin_url('admin.php?page=drf-meetings-manage&action=drf_delete_meeting&meeting_id=' . $m->id), 'drf_delete_meeting_nonce');
+                                ?>
                                 <tr>
                                     <td><strong style="font-size:1.05rem;"><?php echo esc_html($m->year); ?></strong></td>
                                     <td>
                                         <strong><?php echo esc_html($m->title); ?></strong><br>
                                         <small style="color:#64748b;"><?php echo esc_html($m->location); ?></small>
+                                        <?php if ($reg_count > 0) : ?>
+                                            <br><span class="drf-badge" style="background:#e0f2fe; color:#0369a1; font-size:0.75rem; margin-top:4px; display:inline-block;">
+                                                <?php echo sprintf(_n('%d Anmeldung', '%d Anmeldungen', $reg_count, 'drf-anmeldung'), $reg_count); ?>
+                                            </span>
+                                        <?php endif; ?>
                                     </td>
                                     <td>
                                         <?php if ($m->status === 'active') : ?>
@@ -557,7 +579,10 @@ class DRF_Admin_Dashboard {
                                         <?php endif; ?>
                                     </td>
                                     <td>
-                                        <a href="<?php echo esc_url(admin_url('admin.php?page=drf-meetings-manage&edit_id=' . $m->id)); ?>" class="button button-small">Bearbeiten</a>
+                                        <div style="display:inline-flex; gap:6px; align-items:center;">
+                                            <a href="<?php echo esc_url(admin_url('admin.php?page=drf-meetings-manage&edit_id=' . $m->id)); ?>" class="button button-small" title="Treffen bearbeiten">Bearbeiten</a>
+                                            <a href="<?php echo esc_url($delete_url); ?>" class="button button-small" style="color:#b91c1c; border-color:#fca5a5;" title="Treffen löschen" onclick="return confirm('Möchten Sie das Treffen &bdquo;<?php echo esc_js($m->title); ?>&ldquo; wirklich löschen?');">Löschen</a>
+                                        </div>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
