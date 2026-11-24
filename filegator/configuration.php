@@ -5,108 +5,7 @@ $drf_head = <<<'HTML'
 <link rel="alternate icon" type="image/x-icon" href="/favicon.ico">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#141518">
-<style>
-  .drf-fg-topbar {
-    background-color: #141518;
-    color: #ffffff;
-    border-bottom: 2px solid #F5B301;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.14);
-  }
-  .drf-fg-topbar-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 14px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-  .drf-fg-brand {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    text-decoration: none;
-    color: #ffffff;
-  }
-  .drf-fg-brand img {
-    height: 52px;
-    width: auto;
-    display: block;
-    border-radius: 3px;
-  }
-  .drf-fg-brand-title {
-    font-size: 1.1rem;
-    font-weight: 800;
-    letter-spacing: 0.4px;
-    color: #ffffff;
-  }
-  .drf-fg-brand-badge {
-    background: #F5B301;
-    color: #141518;
-    font-size: 0.72rem;
-    font-weight: 800;
-    padding: 3px 8px;
-    border-radius: 4px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-left: 6px;
-  }
-  .drf-fg-actions {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .drf-fg-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 8px 15px;
-    border-radius: 999px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.15s ease;
-  }
-  .drf-fg-btn-forum {
-    background: #F5B301;
-    color: #141518 !important;
-  }
-  .drf-fg-btn-forum:hover {
-    background: #e0a300;
-    color: #000000 !important;
-  }
-  .drf-fg-btn-home {
-    background: #23262d;
-    color: #ffffff !important;
-    border: 1px solid rgba(255, 255, 255, 0.18);
-  }
-  .drf-fg-btn-home:hover {
-    background: #2f333d;
-    border-color: #F5B301;
-    color: #F5B301 !important;
-  }
-  /* FileGator Logo & Primary Accent Polish */
-  .navbar-brand img {
-    max-height: 40px !important;
-    border-radius: 3px;
-  }
-  .button.is-primary {
-    background-color: #F5B301 !important;
-    color: #141518 !important;
-    font-weight: 600;
-  }
-  .button.is-primary:hover {
-    background-color: #dca000 !important;
-  }
-  .has-text-primary, a.is-primary {
-    color: #c99200 !important;
-  }
-</style>
+<link rel="stylesheet" href="/dateien/drf-theme.css?v=2">
 HTML;
 
 $drf_body = <<<'HTML'
@@ -140,6 +39,7 @@ $drf_body = <<<'HTML'
   }
 })();
 </script>
+<script src="/dateien/drf-icons.js?v=2"></script>
 HTML;
 
 return [

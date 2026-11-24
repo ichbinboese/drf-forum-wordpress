@@ -1,0 +1,451 @@
+/**
+ * DRF Augenblicke – Modern SharePoint-Style Theme for FileGator
+ * Clean light UI matching WordPress & Flarum (#F5B301 Gold & #141518 Charcoal)
+ */
+
+:root,
+html,
+body {
+  --color-primary-a0: #F5B301 !important;
+  --color-primary-a20: #d99b00 !important;
+  --color-primary-transparent: rgba(245, 179, 1, 0.14) !important;
+  --color-surface-a0: #f4f6f9 !important;
+  --color-surface-a10: #ffffff !important;
+  --color-surface-a20: #f1f5f9 !important;
+  --color-surface-a30: #e2e8f0 !important;
+  --color-surface-a50: #64748b !important;
+  --color-text: #1e293b !important;
+}
+
+html,
+body {
+  background-color: #f4f6f9 !important;
+  color: #1e293b !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+  min-height: 100vh;
+}
+
+/* 1. DRF Top Header Bar */
+.drf-fg-topbar {
+  background-color: #141518;
+  color: #ffffff;
+  border-bottom: 2px solid #F5B301;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.14);
+}
+
+.drf-fg-topbar-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+}
+
+.drf-fg-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.drf-fg-brand img {
+  height: 54px;
+  width: auto;
+  display: block;
+  border-radius: 3px;
+}
+
+.drf-fg-brand-title {
+  font-size: 1.12rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: #ffffff;
+}
+
+.drf-fg-brand-badge {
+  background: #F5B301;
+  color: #141518;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 3px 9px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin-left: 8px;
+}
+
+.drf-fg-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.drf-fg-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none !important;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.drf-fg-btn-forum {
+  background: #F5B301;
+  color: #141518 !important;
+}
+
+.drf-fg-btn-forum:hover {
+  background: #e0a300;
+  color: #000000 !important;
+  transform: translateY(-1px);
+}
+
+.drf-fg-btn-home {
+  background: #23262d;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.drf-fg-btn-home:hover {
+  background: #2f333d;
+  border-color: #F5B301;
+  color: #F5B301 !important;
+}
+
+/* 2. FileGator Sub-Navbar (Hide duplicate logo, style like crisp white DRF Subnav) */
+#app .navbar {
+  background-color: #ffffff !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04) !important;
+  margin-bottom: 24px !important;
+  min-height: 52px !important;
+  padding: 0 !important;
+}
+
+#app .navbar .container,
+#app > .container {
+  max-width: 1200px !important;
+  width: 100% !important;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+}
+
+#app .navbar-brand .navbar-item,
+#app .navbar-brand img {
+  display: none !important;
+}
+
+#app .navbar-menu {
+  background-color: #ffffff !important;
+  box-shadow: none !important;
+}
+
+#app .navbar-item,
+#app .navbar-link {
+  color: #334155 !important;
+  font-weight: 600 !important;
+  font-size: 0.92rem !important;
+  border-radius: 8px;
+  margin: 6px 3px;
+  padding: 6px 14px !important;
+  transition: all 0.15s ease;
+}
+
+#app .navbar-item:hover,
+#app .navbar-item.is-active,
+#app .navbar-item.router-link-active {
+  background-color: rgba(245, 179, 1, 0.14) !important;
+  color: #141518 !important;
+}
+
+#app .navbar-burger {
+  color: #141518 !important;
+}
+
+/* 3. Links, Breadcrumbs & Toolbar Actions */
+#app a,
+#app .breadcrumb a,
+#app .has-text-primary {
+  color: #1e293b !important;
+}
+
+#app a:hover {
+  color: #b45309 !important;
+}
+
+#app .breadcrumb {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 10px 16px;
+  margin-bottom: 16px !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+#app .breadcrumb a {
+  font-weight: 600;
+  color: #334155 !important;
+}
+
+#app .breadcrumb a:hover {
+  color: #d97706 !important;
+}
+
+/* Toolbar Buttons (Dateien hinzufügen, Neu) */
+#app .is-flex a,
+#app .level a {
+  transition: all 0.15s ease;
+}
+
+#app .button {
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  border-color: #cbd5e1 !important;
+  background-color: #ffffff !important;
+  color: #1e293b !important;
+}
+
+#app .button:hover {
+  border-color: #94a3b8 !important;
+  background-color: #f8fafc !important;
+}
+
+#app .button.is-primary,
+#app .button.is-success {
+  background-color: #F5B301 !important;
+  border-color: #F5B301 !important;
+  color: #141518 !important;
+}
+
+#app .button.is-primary:hover,
+#app .button.is-success:hover {
+  background-color: #e0a300 !important;
+  border-color: #e0a300 !important;
+}
+
+#app .button.is-danger {
+  background-color: #ef4444 !important;
+  border-color: #ef4444 !important;
+  color: #ffffff !important;
+}
+
+#app .select select,
+#app .input,
+#app .textarea {
+  background-color: #ffffff !important;
+  color: #1e293b !important;
+  border: 1px solid #cbd5e1 !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+}
+
+#app .select select:focus,
+#app .input:focus,
+#app .textarea:focus {
+  border-color: #F5B301 !important;
+  box-shadow: 0 0 0 3px rgba(245, 179, 1, 0.2) !important;
+}
+
+#app .select:not(.is-multiple):not(.is-loading)::after {
+  border-color: #475569 !important;
+}
+
+/* 4. SharePoint-Style File Table Card */
+#app .b-table .table-wrapper {
+  background: #ffffff !important;
+  border-radius: 12px !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05) !important;
+  overflow: visible !important;
+}
+
+#app .table {
+  background-color: transparent !important;
+  color: #1e293b !important;
+  width: 100%;
+  margin-bottom: 0 !important;
+}
+
+#app .table thead th {
+  background-color: #f8fafc !important;
+  color: #475569 !important;
+  font-size: 0.78rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  padding: 13px 16px !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+}
+
+#app .table thead th.is-current-sort {
+  border-bottom: 2px solid #F5B301 !important;
+  color: #141518 !important;
+}
+
+#app .table tbody tr {
+  background-color: #ffffff !important;
+  transition: background-color 0.12s ease;
+}
+
+#app .table tbody tr:hover {
+  background-color: #fffbeb !important;
+}
+
+#app .table tbody tr.is-selected {
+  background-color: rgba(245, 179, 1, 0.16) !important;
+  color: #141518 !important;
+}
+
+#app .table tbody td {
+  padding: 12px 16px !important;
+  vertical-align: middle !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+  color: #334155 !important;
+  font-size: 0.93rem !important;
+}
+
+#app .table tbody tr:last-child td {
+  border-bottom: none !important;
+}
+
+/* Checkbox styling */
+#app .b-checkbox.checkbox .check {
+  border-color: #cbd5e1 !important;
+  background-color: #ffffff !important;
+  border-radius: 5px !important;
+}
+
+#app .b-checkbox.checkbox input[type="checkbox"]:checked + .check {
+  background-color: #F5B301 !important;
+  border-color: #F5B301 !important;
+}
+
+/* Dropdown menu in table rows */
+#app .dropdown-content {
+  background-color: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 10px !important;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.14) !important;
+  padding: 6px !important;
+}
+
+#app .dropdown-item {
+  color: #334155 !important;
+  border-radius: 6px !important;
+  font-size: 0.88rem !important;
+  font-weight: 500 !important;
+}
+
+#app .dropdown-item:hover {
+  background-color: #fffbeb !important;
+  color: #141518 !important;
+}
+
+/* 5. File & Folder Icons injected by drf-icons.js */
+.drf-file-cell {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.drf-file-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+
+.drf-file-icon svg {
+  width: 26px;
+  height: 26px;
+  display: block;
+}
+
+.drf-file-badge {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.drf-badge-folder { background: rgba(245, 179, 1, 0.16); color: #92400e; }
+.drf-badge-excel  { background: rgba(29, 111, 66, 0.12); color: #166534; }
+.drf-badge-word   { background: rgba(43, 87, 154, 0.12); color: #1e40af; }
+.drf-badge-pdf    { background: rgba(220, 38, 38, 0.12); color: #b91c1c; }
+.drf-badge-ppt    { background: rgba(210, 71, 38, 0.12); color: #9a3412; }
+.drf-badge-img    { background: rgba(124, 58, 237, 0.12); color: #6d28d9; }
+.drf-badge-zip    { background: rgba(180, 83, 9, 0.12);  color: #92400e; }
+.drf-badge-text   { background: rgba(71, 85, 105, 0.12); color: #334155; }
+.drf-badge-media  { background: rgba(8, 145, 178, 0.12); color: #0e7490; }
+
+/* 6. Modals, Cards & Login Box */
+#app .box,
+#app .modal-card,
+#app .modal-card-body,
+#app .modal-card-head,
+#app .modal-card-foot {
+  background-color: #ffffff !important;
+  color: #1e293b !important;
+  border-color: #e2e8f0 !important;
+}
+
+#app .box {
+  border-radius: 14px !important;
+  box-shadow: 0 10px 35px rgba(15, 23, 42, 0.08) !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+#app .modal-card-title,
+#app .label,
+#app .title,
+#app .subtitle {
+  color: #141518 !important;
+}
+
+/* Login box polish */
+#login .logo img {
+  max-height: 76px !important;
+  width: auto !important;
+  margin: 0 auto 12px !important;
+  border-radius: 6px;
+}
+
+/* Action icons color (search, tree, trash, etc.) */
+#app .icon,
+#app .fa,
+#app .fas,
+#app .far {
+  color: #475569;
+}
+
+#app a:hover .icon,
+#app a:hover .fas {
+  color: #d97706 !important;
+}
+
+/* Footer text */
+#app .is-size-7,
+#app p {
+  color: #64748b;
+}
