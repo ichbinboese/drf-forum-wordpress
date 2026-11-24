@@ -51,56 +51,29 @@
 
         <!-- Mobile Navigation Panel (Dropdown) -->
         <div class="mobile-nav-panel" id="mobileNavPanel">
-            <ul class="mobile-nav-list">
-                <li class="mobile-nav-item">
-                    <a href="<?php echo esc_url(home_url('/verein/')); ?>">
-                        <?php echo drf_get_icon('users'); ?>
-                        <span>Verein</span>
-                    </a>
-                </li>
-                <li class="mobile-nav-item">
-                    <a href="<?php echo esc_url(home_url('/augenblicke/')); ?>">
-                        <?php echo drf_get_icon('camera'); ?>
-                        <span>Augenblicke</span>
-                    </a>
-                </li>
-                <li class="mobile-nav-item">
-                    <a href="<?php echo esc_url(home_url('/tagungsbuero/')); ?>">
-                        <?php echo drf_get_icon('calendar'); ?>
-                        <span>Tagungsbüro</span>
-                    </a>
-                </li>
-                <li class="mobile-nav-item">
-                    <a href="<?php echo esc_url(home_url('/sozialgremium/')); ?>">
-                        <?php echo drf_get_icon('users'); ?>
-                        <span>Sozialgremium</span>
-                    </a>
-                </li>
-                <li class="mobile-nav-item">
-                    <a href="<?php echo esc_url(home_url('/shuttleservice/')); ?>">
-                        <?php echo drf_get_icon('bus'); ?>
-                        <span>Shuttleservice</span>
-                    </a>
-                </li>
-                <li class="mobile-nav-item">
-                    <a href="<?php echo esc_url(home_url('/workshops/')); ?>">
-                        <?php echo drf_get_icon('camera'); ?>
-                        <span>Workshops</span>
-                    </a>
-                </li>
-                <li class="mobile-nav-item">
-                    <a href="<?php echo esc_url(home_url('/impressum/')); ?>">
-                        <?php echo drf_get_icon('lock'); ?>
-                        <span>Impressum</span>
-                    </a>
-                </li>
-                <li class="mobile-nav-item">
-                    <a href="<?php echo esc_url(home_url('/datenschutz/')); ?>">
-                        <?php echo drf_get_icon('lock'); ?>
-                        <span>Datenschutz</span>
-                    </a>
-                </li>
-            </ul>
+            <?php
+            if (has_nav_menu('primary-menu')) {
+                wp_nav_menu([
+                    'theme_location' => 'primary-menu',
+                    'container'      => false,
+                    'menu_class'     => 'mobile-nav-list',
+                    'depth'          => 2,
+                ]);
+            } else {
+                ?>
+                <ul class="mobile-nav-list">
+                    <li class="mobile-nav-item"><a href="<?php echo esc_url(home_url('/verein/')); ?>"><span>Verein</span></a></li>
+                    <li class="mobile-nav-item"><a href="<?php echo esc_url(home_url('/augenblicke/')); ?>"><span>Augenblicke</span></a></li>
+                    <li class="mobile-nav-item"><a href="<?php echo esc_url(home_url('/tagungsbuero/')); ?>"><span>Tagungsbüro</span></a></li>
+                    <li class="mobile-nav-item"><a href="<?php echo esc_url(home_url('/sozialgremium/')); ?>"><span>Sozialgremium</span></a></li>
+                    <li class="mobile-nav-item"><a href="<?php echo esc_url(home_url('/shuttleservice/')); ?>"><span>Shuttleservice</span></a></li>
+                    <li class="mobile-nav-item"><a href="<?php echo esc_url(home_url('/workshops/')); ?>"><span>Workshops</span></a></li>
+                    <li class="mobile-nav-item"><a href="<?php echo esc_url(home_url('/impressum/')); ?>"><span>Impressum</span></a></li>
+                    <li class="mobile-nav-item"><a href="<?php echo esc_url(home_url('/datenschutz/')); ?>"><span>Datenschutz</span></a></li>
+                </ul>
+                <?php
+            }
+            ?>
         </div>
     </div>
 </header>
@@ -120,38 +93,28 @@
 <!-- 2. Desktop Sub Navigation Bar (White Submenu) -->
 <nav class="site-subnav" aria-label="<?php esc_attr_e('Hauptnavigation', 'drf-augenblicke'); ?>">
     <div class="container">
-        <ul class="subnav-menu">
-            <li class="subnav-item <?php echo is_page('verein') ? 'active' : ''; ?>">
-                <a href="<?php echo esc_url(home_url('/verein/')); ?>" class="subnav-link">Verein</a>
-            </li>
-            <li class="subnav-divider">|</li>
-            <li class="subnav-item <?php echo is_page('augenblicke') ? 'active' : ''; ?>">
-                <a href="<?php echo esc_url(home_url('/augenblicke/')); ?>" class="subnav-link">Augenblicke</a>
-            </li>
-            <li class="subnav-divider">|</li>
-            <li class="subnav-item <?php echo is_page('tagungsbuero') ? 'active' : ''; ?>">
-                <a href="<?php echo esc_url(home_url('/tagungsbuero/')); ?>" class="subnav-link">Tagungsbüro</a>
-            </li>
-            <li class="subnav-divider">|</li>
-            <li class="subnav-item <?php echo is_page('sozialgremium') ? 'active' : ''; ?>">
-                <a href="<?php echo esc_url(home_url('/sozialgremium/')); ?>" class="subnav-link">Sozialgremium</a>
-            </li>
-            <li class="subnav-divider">|</li>
-            <li class="subnav-item <?php echo is_page('shuttleservice') ? 'active' : ''; ?>">
-                <a href="<?php echo esc_url(home_url('/shuttleservice/')); ?>" class="subnav-link">Shuttleservice</a>
-            </li>
-            <li class="subnav-divider">|</li>
-            <li class="subnav-item <?php echo is_page('workshops') ? 'active' : ''; ?>">
-                <a href="<?php echo esc_url(home_url('/workshops/')); ?>" class="subnav-link">Workshops</a>
-            </li>
-            <li class="subnav-divider">|</li>
-            <li class="subnav-item <?php echo is_page('impressum') ? 'active' : ''; ?>">
-                <a href="<?php echo esc_url(home_url('/impressum/')); ?>" class="subnav-link">Impressum</a>
-            </li>
-            <li class="subnav-divider">|</li>
-            <li class="subnav-item <?php echo is_page('datenschutz') ? 'active' : ''; ?>">
-                <a href="<?php echo esc_url(home_url('/datenschutz/')); ?>" class="subnav-link">Datenschutz</a>
-            </li>
-        </ul>
+        <?php
+        if (has_nav_menu('primary-menu')) {
+            wp_nav_menu([
+                'theme_location' => 'primary-menu',
+                'container'      => false,
+                'menu_class'     => 'subnav-menu',
+                'depth'          => 2,
+            ]);
+        } else {
+            ?>
+            <ul class="subnav-menu">
+                <li class="subnav-item <?php echo is_page('verein') ? 'active' : ''; ?>"><a href="<?php echo esc_url(home_url('/verein/')); ?>" class="subnav-link">Verein</a></li>
+                <li class="subnav-item <?php echo is_page('augenblicke') ? 'active' : ''; ?>"><a href="<?php echo esc_url(home_url('/augenblicke/')); ?>" class="subnav-link">Augenblicke</a></li>
+                <li class="subnav-item <?php echo is_page('tagungsbuero') ? 'active' : ''; ?>"><a href="<?php echo esc_url(home_url('/tagungsbuero/')); ?>" class="subnav-link">Tagungsbüro</a></li>
+                <li class="subnav-item <?php echo is_page('sozialgremium') ? 'active' : ''; ?>"><a href="<?php echo esc_url(home_url('/sozialgremium/')); ?>" class="subnav-link">Sozialgremium</a></li>
+                <li class="subnav-item <?php echo is_page('shuttleservice') ? 'active' : ''; ?>"><a href="<?php echo esc_url(home_url('/shuttleservice/')); ?>" class="subnav-link">Shuttleservice</a></li>
+                <li class="subnav-item <?php echo is_page('workshops') ? 'active' : ''; ?>"><a href="<?php echo esc_url(home_url('/workshops/')); ?>" class="subnav-link">Workshops</a></li>
+                <li class="subnav-item <?php echo is_page('impressum') ? 'active' : ''; ?>"><a href="<?php echo esc_url(home_url('/impressum/')); ?>" class="subnav-link">Impressum</a></li>
+                <li class="subnav-item <?php echo is_page('datenschutz') ? 'active' : ''; ?>"><a href="<?php echo esc_url(home_url('/datenschutz/')); ?>" class="subnav-link">Datenschutz</a></li>
+            </ul>
+            <?php
+        }
+        ?>
     </div>
 </nav>

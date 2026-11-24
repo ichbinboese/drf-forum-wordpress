@@ -301,25 +301,79 @@ img {
   margin: 0;
 }
 
+.subnav-menu > li,
 .subnav-item {
+  position: relative;
   display: flex;
   align-items: center;
 }
 
+.subnav-menu > li + li:not(.subnav-divider)::before {
+  content: "|";
+  color: #d1d5db;
+  font-size: 0.85rem;
+  user-select: none;
+}
+
+.subnav-menu > li > a,
 .subnav-link {
   display: inline-block;
   padding: 12px 18px;
   font-size: 0.94rem;
   font-weight: 500;
   color: #374151;
+  text-decoration: none;
   transition: color 0.15s ease;
 }
 
+.subnav-menu > li > a:hover,
 .subnav-link:hover,
+.subnav-menu > li.current-menu-item > a,
+.subnav-menu > li.current_page_item > a,
+.subnav-menu > li.current-menu-ancestor > a,
 .subnav-item.current-menu-item .subnav-link,
 .subnav-item.active .subnav-link {
   color: #000000;
   font-weight: 700;
+}
+
+/* Desktop Dropdown Sub-Menu Support (WordPress Menüs) */
+.subnav-menu .sub-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 210px;
+  background: #ffffff;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  list-style: none;
+  padding: 6px 0;
+  margin: 0;
+  z-index: 150;
+}
+
+.subnav-menu > li:hover > .sub-menu,
+.subnav-menu > li:focus-within > .sub-menu {
+  display: block;
+}
+
+.subnav-menu .sub-menu li a {
+  display: block;
+  padding: 9px 16px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #374151;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.subnav-menu .sub-menu li a:hover,
+.subnav-menu .sub-menu li.current-menu-item > a {
+  background-color: #f9fafb;
+  color: #000000;
+  font-weight: 600;
 }
 
 .subnav-divider {
@@ -359,6 +413,7 @@ img {
   margin: 0;
 }
 
+.mobile-nav-list li a,
 .mobile-nav-item a {
   display: flex;
   align-items: center;
@@ -367,18 +422,35 @@ img {
   font-size: 0.92rem;
   font-weight: 500;
   color: #1f2937;
+  text-decoration: none;
   border-bottom: 1px solid #f3f4f6;
 }
 
+.mobile-nav-list > li:last-child > a,
 .mobile-nav-item:last-child a {
   border-bottom: none;
 }
 
+.mobile-nav-list li a:hover,
+.mobile-nav-list li.current-menu-item > a,
 .mobile-nav-item a:hover {
   background-color: #f9fafb;
   color: var(--color-primary-active);
 }
 
+.mobile-nav-list .sub-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background: #f9fafb;
+}
+
+.mobile-nav-list .sub-menu li a {
+  padding-left: 32px;
+  font-size: 0.88rem;
+}
+
+.mobile-nav-list svg,
 .mobile-nav-item svg {
   width: 18px;
   height: 18px;
