@@ -46,8 +46,8 @@ get_header();
                     </div>
                 </div>
 
-                <div style="background: #f8fafc; border-left: 4px solid #0284c7; padding: 18px 24px; border-radius: 6px;">
-                    <span style="background: #0284c7; color: #ffffff; font-weight: 700; font-size: 0.75rem; padding: 2px 8px; border-radius: 4px; text-transform: uppercase;">Vorausschau</span>
+                <div style="background: #ffffff; border: 1px solid #e2e8f0; border-left: 4px solid #141518; padding: 18px 24px; border-radius: 8px;">
+                    <span style="background: #141518; color: #f5b301; font-weight: 700; font-size: 0.75rem; padding: 3px 8px; border-radius: 4px; text-transform: uppercase;">Vorausschau</span>
                     <h3 style="margin-top: 8px;">AUGENBLICKE XXVII &ndash; 2027</h3>
                     <p><strong>Datum:</strong> 06. bis 09. Mai 2027 (Christi Himmelfahrt)</p>
                     <p><strong>Ort:</strong> Haus Lutherrose, Neuendettelsau</p>

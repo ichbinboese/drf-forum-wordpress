@@ -101,14 +101,14 @@ class DRF_Workshops_Widget extends Widget_Base {
             ],
             [
                 'cat'   => 'Fine Art Print',
-                'bg'    => '#0284c7',
-                'color' => '#ffffff',
+                'bg'    => '#141518',
+                'color' => '#f5b301',
                 'title' => 'Farbmanagement & Fine-Art-Druck',
                 'desc'  => 'Vom kalibrierten Monitor zum Papier: ICC-Profile, Softproof in Lightroom/Photoshop und Papierauswahl (Hahnemühle Photo Rag, Baryta, Matt).',
             ],
             [
                 'cat'   => 'Wettbewerb',
-                'bg'    => '#dc2626',
+                'bg'    => '#1f2937',
                 'color' => '#ffffff',
                 'title' => 'Schnellfotowettbewerb [SFW]',
                 'desc'  => 'Der legendäre Samstagnachmittag: 3 Stunden Zeit, 1 Thema im Umkreis von Neuendettelsau, genau 1 Bild OOC. Projektion und Punktevergabe am Abend!',

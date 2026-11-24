@@ -86,17 +86,17 @@ class DRF_Shuttle_Route_Widget extends Widget_Base {
                 </div>
 
                 <!-- Route 2: Ansbach -->
-                <div style="background: #f8fafc; border-left: 4px solid #0284c7; border-radius: 8px; padding: 20px;">
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-left: 4px solid #141518; border-radius: 8px; padding: 20px;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                        <h4 style="margin: 0; font-size: 1.15rem; color: #1e293b;">Option 2: Hauptbahnhof Ansbach</h4>
-                        <span style="background: #e0f2fe; color: #0369a1; font-weight: 700; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px;">Fernverkehr / ICE</span>
+                        <h4 style="margin: 0; font-size: 1.15rem; color: #141518; font-weight: 700;">Option 2: Hauptbahnhof Ansbach</h4>
+                        <span style="background: #141518; color: #f5b301; font-weight: 700; font-size: 0.75rem; padding: 3px 8px; border-radius: 4px;">Fernverkehr / ICE</span>
                     </div>
                     <ul style="margin: 10px 0 16px 18px; color: #475569; font-size: 0.92rem; line-height: 1.6;">
                         <li><strong>Anbindung:</strong> IC- und ICE-Fernverkehr (Strecke Stuttgart &ndash; Nürnberg).</li>
                         <li><strong>Shuttle-Fahrzeit:</strong> ca. 20 Minuten bis zum Tagungshaus.</li>
                         <li><strong>Abholungen:</strong> Feste Slots um 14:30, 16:30 und 18:30 Uhr nach Vereinbarung.</li>
                     </ul>
-                    <a href="/shuttleservice/" class="btn" style="background: #0284c7; color: #ffffff; font-size: 0.88rem; padding: 8px 16px; border-radius: 6px; font-weight: 700;">
+                    <a href="/shuttleservice/" class="btn btn-secondary" style="font-size: 0.88rem; padding: 8px 16px;">
                         <span>Shuttle ab Ansbach anfragen &rarr;</span>
                     </a>
                 </div>

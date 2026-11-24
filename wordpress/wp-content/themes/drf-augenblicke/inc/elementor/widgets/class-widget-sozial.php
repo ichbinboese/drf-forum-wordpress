@@ -50,7 +50,7 @@ class DRF_Sozial_Widget extends Widget_Base {
             [
                 'label'   => __('Titel', 'drf-augenblicke'),
                 'type'    => Controls_Manager::TEXT,
-                'default' => 'Das Sozialgremium: Solidarität & Vertraulichkeit',
+                'default' => 'Über das Sozialgremium & Solidarfonds',
             ]
         );
 
@@ -71,33 +71,50 @@ class DRF_Sozial_Widget extends Widget_Base {
         ?>
         <div class="container drf-elementor-sozial-wrap">
             <div class="drf-elementor-sozial" style="margin: 28px 0;">
-            <h2><?php echo esc_html($settings['title']); ?></h2>
-            <p>
-                Seit den Anf&auml;ngen von de.rec.fotografie und den ersten Treffen 1999 gilt ein fester Grundsatz: <strong>Wir halten als Gemeinschaft zusammen.</strong> Niemand soll aus finanziellen Gr&uuml;nden auf die Teilnahme an &raquo;Augenblicke&laquo; verzichten m&uuml;ssen.
-            </p>
-
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin: 18px 0 24px 0;">
-                <div style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: 8px; padding: 14px 18px;">
-                    <div style="font-weight: 700; color: #1e293b; font-size: 1.05rem;">Wolfgang Exler</div>
-                    <div style="font-size: 0.85rem; color: #64748b;">Vertrauensperson &bull; Sozialgremium</div>
-                </div>
-                <div style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: 8px; padding: 14px 18px;">
-                    <div style="font-weight: 700; color: #1e293b; font-size: 1.05rem;">Dietmar Belloff</div>
-                    <div style="font-size: 0.85rem; color: #64748b;">Vertrauensperson &bull; Sozialgremium</div>
-                </div>
-            </div>
-
-            <div style="background: #fff8e1; border-left: 4px solid #f5b301; padding: 18px 24px; border-radius: 6px;">
-                <p style="margin: 0; font-weight: 600; font-size: 1rem; color: #1e293b;">
-                    Vertrauliche Anfrage per E-Mail:
-                    <a href="mailto:<?php echo esc_attr($settings['email']); ?>" style="color: #b78103; font-weight: 700;">
-                        <?php echo esc_html($settings['email']); ?>
-                    </a>
+                <h2><?php echo esc_html($settings['title']); ?></h2>
+                <p>
+                    Seit den Anf&auml;ngen von <code>de.rec.fotografie</code> und den ersten Treffen 1999 gilt ein unumst&ouml;&szlig;licher Grundsatz: <strong>Wir halten als Gemeinschaft zusammen.</strong> Wenn Teilnehmer durch Ausbildung, Studium, Rentenengp&auml;sse oder pers&ouml;nliche Lebensumst&auml;nde in finanzielle H&uuml;rden geraten, soll niemand auf die Teilnahme an &raquo;Augenblicke&laquo; verzichten m&uuml;ssen.
                 </p>
-                <small style="color: #64748b;">Alle Anfragen werden streng vertraulich behandelt &ndash; weder Tagungsbüro noch Vorstand erfahren Namen.</small>
+
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 24px; margin: 24px 0;">
+                    <h3 style="margin-top: 0; color: #141518; font-size: 1.2rem; font-weight: 700;">
+                        Vertrauenspersonen des Sozialgremiums
+                    </h3>
+                    <p style="color: #64748b; font-size: 0.95rem;">Unabhängig und zur absoluten Verschwiegenheit verpflichtet:</p>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; margin-top: 14px;">
+                        <div style="background:#ffffff; padding:12px 16px; border-radius:8px; border:1px solid #cbd5e1;">
+                            <div style="font-weight: 700; color: #141518; font-size: 1.05rem;">Wolfgang Exler</div>
+                            <div style="font-size: 0.85rem; color: #64748b; margin-top: 2px;">Vertrauensperson &bull; Sozialgremium</div>
+                        </div>
+                        <div style="background:#ffffff; padding:12px 16px; border-radius:8px; border:1px solid #cbd5e1;">
+                            <div style="font-weight: 700; color: #141518; font-size: 1.05rem;">Dietmar Belloff</div>
+                            <div style="font-size: 0.85rem; color: #64748b; margin-top: 2px;">Vertrauensperson &bull; Sozialgremium</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 24px;">
+                    <div style="background: #141518; color: #ffffff; padding: 22px; border-radius: 12px; border-left: 4px solid #f5b301;">
+                        <h4 style="color: #f5b301; margin-top: 0; font-weight: 700;">Vertraulicher Kontakt</h4>
+                        <p style="color: #e2e8f0; font-size: 0.95rem; line-height: 1.5;">
+                            Fragen zu unb&uuml;rokratischen Zusch&uuml;ssen f&uuml;r Tagungsbeitrag, Fahrtkosten oder Unterkunft bitte diskret an:
+                        </p>
+                        <p style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0;">
+                            <a href="mailto:<?php echo esc_attr($settings['email']); ?>" style="color: #f5b301; text-decoration: none;">
+                                <?php echo esc_html($settings['email']); ?>
+                            </a>
+                        </p>
+                    </div>
+
+                    <div style="background: #ffffff; padding: 22px; border-radius: 12px; border: 1px solid #e2e8f0; border-left: 4px solid #141518;">
+                        <h4 style="color: #141518; margin-top: 0; font-weight: 700;">Absolute Vertraulichkeit garantiert</h4>
+                        <p style="color: #475569; font-size: 0.95rem; line-height: 1.5; margin-bottom: 0;">
+                            Alle Anfragen werden streng diskret und pers&ouml;nlich behandelt &ndash; weder das Tagungsb&uuml;ro noch der Vorstand erfahren Namen oder Details. Der Solidarfonds wird vollst&auml;ndig aus freiwilligen Spenden der Gemeinschaft getragen.
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    <?php
-}
+        <?php
+    }
 }

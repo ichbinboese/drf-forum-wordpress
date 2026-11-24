@@ -86,10 +86,10 @@
   height: 4px;
 }
 
-.drf-stat-card.card-blue::before { background: #3b82f6; }
+.drf-stat-card.card-blue::before { background: #141518; }
 .drf-stat-card.card-gold::before { background: #f5b301; }
-.drf-stat-card.card-green::before { background: #10b981; }
-.drf-stat-card.card-purple::before { background: #8b5cf6; }
+.drf-stat-card.card-green::before { background: #475569; }
+.drf-stat-card.card-purple::before { background: #94a3b8; }
 
 .drf-stat-header {
   display: flex;
@@ -252,6 +252,8 @@
   display: flex;
   gap: 6px;
   align-items: center;
+  flex-wrap: wrap;
+  margin: 2px 0;
 }
 
 .drf-btn-action {
@@ -265,34 +267,56 @@
   gap: 4px;
   transition: all 0.15s ease;
   border: 1px solid transparent;
+  margin: 2px 0;
+  white-space: nowrap;
+}
+
+.drf-btn-edit {
+  background: #f1f5f9;
+  color: #1e293b;
+  border-color: #cbd5e1;
+}
+.drf-btn-edit:hover {
+  background: #1e293b;
+  color: #ffffff;
 }
 
 .drf-btn-confirm {
-  background: #eff6ff;
-  color: #1d4ed8;
-  border-color: #bfdbfe;
+  background: #f8fafc;
+  color: #0f172a;
+  border-color: #cbd5e1;
 }
 .drf-btn-confirm:hover {
-  background: #1d4ed8;
+  background: #0f172a;
   color: #ffffff;
 }
 
 .drf-btn-paid {
-  background: #ecfdf5;
-  color: #047857;
-  border-color: #a7f3d0;
+  background: #fef9c3;
+  color: #854d0e;
+  border-color: #fde047;
 }
 .drf-btn-paid:hover {
-  background: #047857;
-  color: #ffffff;
+  background: #f5b301;
+  color: #141518;
 }
 
 .drf-btn-cancel {
-  background: #fef2f2;
-  color: #b91c1c;
-  border-color: #fecaca;
+  background: #f1f5f9;
+  color: #64748b;
+  border-color: #e2e8f0;
 }
 .drf-btn-cancel:hover {
-  background: #b91c1c;
+  background: #475569;
+  color: #ffffff;
+}
+
+.drf-btn-delete {
+  background: #fee2e2;
+  color: #991b1b;
+  border-color: #fca5a5;
+}
+.drf-btn-delete:hover {
+  background: #dc2626;
   color: #ffffff;
 }

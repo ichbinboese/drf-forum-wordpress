@@ -110,6 +110,56 @@ class DRF_Admin_Dashboard {
             wp_redirect(add_query_arg(['page' => 'drf-meetings-manage', 'status' => 'deleted'], admin_url('admin.php')));
             exit;
         }
+
+        // 5. Delete Registration / Participant
+        if (isset($_GET['action']) && $_GET['action'] === 'drf_delete_registration') {
+            check_admin_referer('drf_delete_reg_nonce');
+            $reg_id = absint($_GET['reg_id'] ?? 0);
+            global $wpdb;
+            $wpdb->delete($wpdb->prefix . 'drf_registrations', ['id' => $reg_id]);
+            wp_redirect(add_query_arg(['page' => 'drf-anmeldungen', 'status' => 'reg_deleted'], admin_url('admin.php')));
+            exit;
+        }
+
+        // 6. Save/Edit Registration / Participant
+        if (isset($_POST['drf_save_registration'])) {
+            check_admin_referer('drf_save_reg_nonce');
+            global $wpdb;
+            $reg_id = absint($_POST['reg_id'] ?? 0);
+
+            $data = [
+                'meeting_id'             => absint($_POST['meeting_id'] ?? 0),
+                'firstname'              => sanitize_text_field($_POST['firstname'] ?? ''),
+                'lastname'               => sanitize_text_field($_POST['lastname'] ?? ''),
+                'nickname'               => sanitize_text_field($_POST['nickname'] ?? ''),
+                'email'                  => sanitize_email($_POST['email'] ?? ''),
+                'phone'                  => sanitize_text_field($_POST['phone'] ?? ''),
+                'street'                 => sanitize_text_field($_POST['street'] ?? ''),
+                'zip_city'               => sanitize_text_field($_POST['zip_city'] ?? ''),
+                'participation_type'     => sanitize_text_field($_POST['participation_type'] ?? 'full'),
+                'room_category'          => sanitize_text_field($_POST['room_category'] ?? 'ez'),
+                'room_partner'           => sanitize_text_field($_POST['room_partner'] ?? ''),
+                'diet'                   => sanitize_text_field($_POST['diet'] ?? 'omnivore'),
+                'diet_allergies'         => sanitize_textarea_field($_POST['diet_allergies'] ?? ''),
+                'shuttle_needed'         => !empty($_POST['shuttle_needed']) ? 1 : 0,
+                'shuttle_station'        => sanitize_text_field($_POST['shuttle_station'] ?? ''),
+                'shuttle_arrival'        => sanitize_text_field($_POST['shuttle_arrival'] ?? ''),
+                'social_donation'        => floatval(str_replace(',', '.', $_POST['social_donation'] ?? 0)),
+                'total_amount'           => floatval(str_replace(',', '.', $_POST['total_amount'] ?? 0)),
+                'notes'                  => sanitize_textarea_field($_POST['notes'] ?? ''),
+                'status'                 => sanitize_text_field($_POST['status'] ?? 'new'),
+            ];
+
+            if ($reg_id > 0) {
+                $wpdb->update($wpdb->prefix . 'drf_registrations', $data, ['id' => $reg_id]);
+                $msg = 'reg_saved';
+            } else {
+                $wpdb->insert($wpdb->prefix . 'drf_registrations', $data);
+                $msg = 'reg_created';
+            }
+            wp_redirect(add_query_arg(['page' => 'drf-anmeldungen', 'status' => $msg], admin_url('admin.php')));
+            exit;
+        }
     }
 
     /**
@@ -214,6 +264,39 @@ class DRF_Admin_Dashboard {
         $registrations = $wpdb->get_results($query);
         $all_meetings = DRF_Meeting_Manager::get_all_meetings();
 
+        // Check if editing or creating a registration
+        $edit_reg_id = isset($_GET['edit_reg']) ? sanitize_text_field($_GET['edit_reg']) : null;
+        $edit_reg = null;
+        if ($edit_reg_id !== null) {
+            if ($edit_reg_id === 'new') {
+                $edit_reg = (object) [
+                    'id'                     => 0,
+                    'meeting_id'             => $all_meetings[0]->id ?? 0,
+                    'firstname'              => '',
+                    'lastname'               => '',
+                    'nickname'               => '',
+                    'email'                  => '',
+                    'phone'                  => '',
+                    'street'                 => '',
+                    'zip_city'               => '',
+                    'participation_type'     => 'full',
+                    'room_category'          => 'ez',
+                    'room_partner'           => '',
+                    'diet'                   => 'omnivore',
+                    'diet_allergies'         => '',
+                    'shuttle_needed'         => 0,
+                    'shuttle_station'        => 'wicklesgreuth',
+                    'shuttle_arrival'        => '',
+                    'social_donation'        => 0,
+                    'total_amount'           => 0,
+                    'notes'                  => '',
+                    'status'                 => 'new',
+                ];
+            } else {
+                $edit_reg = $wpdb->get_row($wpdb->prepare("SELECT * FROM $table_reg WHERE id = %d", absint($edit_reg_id)));
+            }
+        }
+
         // Calculate KPI stats
         $total_count = count($registrations);
         $total_amount_sum = 0;
@@ -235,12 +318,178 @@ class DRF_Admin_Dashboard {
                         <p class="drf-admin-subtitle">Teilnehmerverwaltung, Zimmerkontingente, Bahnhofs-Shuttle &amp; Solidarfonds</p>
                     </div>
                 </div>
-                <div class="drf-admin-header-actions">
-                    <a href="<?php echo esc_url(wp_nonce_url(add_query_arg(['action' => 'drf_export_csv', 'meeting_id' => $filter_meeting]), 'drf_export_csv_nonce')); ?>" class="button button-primary" style="background:#f5b301; color:#141518; border-color:#f5b301; font-weight:700; padding:4px 14px; height:auto; line-height:2;">
-                        <span class="dashicons dashicons-download" style="margin-top:4px;"></span> CSV-Export für Tagungsbüro
+                <div class="drf-admin-header-actions" style="display:flex; align-items:center; gap:10px;">
+                    <a href="<?php echo esc_url(admin_url('admin.php?page=drf-anmeldungen&edit_reg=new')); ?>" class="button" style="background:#ffffff; color:#141518; border-color:#e2e8f0; font-weight:700; padding:6px 16px; height:auto; line-height:1.8;">
+                        <span class="dashicons dashicons-plus-alt2" style="margin-top:4px;"></span> Neuer Teilnehmer
+                    </a>
+                    <a href="<?php echo esc_url(wp_nonce_url(add_query_arg(['action' => 'drf_export_csv', 'meeting_id' => $filter_meeting]), 'drf_export_csv_nonce')); ?>" class="button button-primary" style="background:#f5b301; color:#141518; border-color:#f5b301; font-weight:700; padding:6px 16px; height:auto; line-height:1.8;">
+                        <span class="dashicons dashicons-download" style="margin-top:4px;"></span> CSV-Export
                     </a>
                 </div>
             </header>
+
+            <?php if (isset($_GET['status']) && $_GET['status'] === 'reg_saved') : ?>
+                <div class="notice notice-success is-dismissible" style="margin:16px 0;"><p><strong>Teilnehmeranmeldung erfolgreich gespeichert!</strong></p></div>
+            <?php elseif (isset($_GET['status']) && $_GET['status'] === 'reg_created') : ?>
+                <div class="notice notice-success is-dismissible" style="margin:16px 0;"><p><strong>Neuer Teilnehmer erfolgreich angelegt!</strong></p></div>
+            <?php elseif (isset($_GET['status']) && $_GET['status'] === 'reg_deleted') : ?>
+                <div class="notice notice-success is-dismissible" style="margin:16px 0;"><p><strong>Teilnehmeranmeldung wurde erfolgreich gelöscht.</strong></p></div>
+            <?php endif; ?>
+
+            <?php if ($edit_reg) : ?>
+                <!-- Edit / Create Participant Form Card -->
+                <div style="background:#ffffff; padding:28px 32px; border-radius:12px; border:1px solid #e2e8f0; box-shadow:0 4px 15px rgba(0,0,0,0.06); margin-bottom:28px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #f1f5f9; padding-bottom:14px; margin-bottom:20px;">
+                        <h2 style="margin:0; font-size:1.35rem; color:#0f172a; font-weight:800;">
+                            <?php echo $edit_reg->id ? ('Teilnehmer bearbeiten: #' . $edit_reg->id . ' – ' . esc_html($edit_reg->firstname . ' ' . $edit_reg->lastname)) : 'Neuen Teilnehmer manuell anlegen'; ?>
+                        </h2>
+                        <a href="<?php echo esc_url(admin_url('admin.php?page=drf-anmeldungen')); ?>" class="button button-secondary" style="font-size:0.85rem;">✕ Schließen</a>
+                    </div>
+
+                    <form method="post" action="<?php echo esc_url(admin_url('admin.php?page=drf-anmeldungen')); ?>">
+                        <?php wp_nonce_field('drf_save_reg_nonce'); ?>
+                        <input type="hidden" name="drf_save_registration" value="1">
+                        <input type="hidden" name="reg_id" value="<?php echo esc_attr($edit_reg->id ?? 0); ?>">
+
+                        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:24px;">
+                            <!-- Group 1: Persönliche Daten -->
+                            <div style="background:#f8fafc; padding:20px; border-radius:10px; border:1px solid #e2e8f0;">
+                                <h3 style="margin-top:0; font-size:1.05rem; color:#141518; border-bottom:1px solid #e2e8f0; padding-bottom:8px;">1. Personendaten</h3>
+                                <p>
+                                    <label><strong>Vorname:</strong></label><br>
+                                    <input type="text" name="firstname" value="<?php echo esc_attr($edit_reg->firstname); ?>" class="regular-text" style="width:100%;" required>
+                                </p>
+                                <p>
+                                    <label><strong>Nachname:</strong></label><br>
+                                    <input type="text" name="lastname" value="<?php echo esc_attr($edit_reg->lastname); ?>" class="regular-text" style="width:100%;" required>
+                                </p>
+                                <p>
+                                    <label><strong>Usenet / Foren-Nickname:</strong></label><br>
+                                    <input type="text" name="nickname" value="<?php echo esc_attr($edit_reg->nickname); ?>" class="regular-text" style="width:100%;">
+                                </p>
+                                <p>
+                                    <label><strong>E-Mail-Adresse:</strong></label><br>
+                                    <input type="email" name="email" value="<?php echo esc_attr($edit_reg->email); ?>" class="regular-text" style="width:100%;" required>
+                                </p>
+                                <p>
+                                    <label><strong>Telefon / Mobil:</strong></label><br>
+                                    <input type="text" name="phone" value="<?php echo esc_attr($edit_reg->phone); ?>" class="regular-text" style="width:100%;">
+                                </p>
+                                <p>
+                                    <label><strong>Straße &amp; Hausnummer:</strong></label><br>
+                                    <input type="text" name="street" value="<?php echo esc_attr($edit_reg->street); ?>" class="regular-text" style="width:100%;">
+                                </p>
+                                <p>
+                                    <label><strong>PLZ &amp; Ort:</strong></label><br>
+                                    <input type="text" name="zip_city" value="<?php echo esc_attr($edit_reg->zip_city); ?>" class="regular-text" style="width:100%;">
+                                </p>
+                            </div>
+
+                            <!-- Group 2: Treffen & Zimmer -->
+                            <div style="background:#f8fafc; padding:20px; border-radius:10px; border:1px solid #e2e8f0;">
+                                <h3 style="margin-top:0; font-size:1.05rem; color:#141518; border-bottom:1px solid #e2e8f0; padding-bottom:8px;">2. Treffen &amp; Unterkunft</h3>
+                                <p>
+                                    <label><strong>Treffen:</strong></label><br>
+                                    <select name="meeting_id" style="width:100%;">
+                                        <?php foreach ($all_meetings as $m) : ?>
+                                            <option value="<?php echo esc_attr($m->id); ?>" <?php selected($edit_reg->meeting_id, $m->id); ?>>
+                                                <?php echo esc_html($m->title . ' (' . $m->year . ' - ' . $m->location . ')'); ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </p>
+                                <p>
+                                    <label><strong>Zimmerkategorie:</strong></label><br>
+                                    <select name="room_category" style="width:100%;">
+                                        <option value="ez" <?php selected($edit_reg->room_category, 'ez'); ?>>Einzelzimmer (EZ)</option>
+                                        <option value="dz" <?php selected($edit_reg->room_category, 'dz'); ?>>Doppelzimmer (DZ)</option>
+                                        <option value="mbz" <?php selected($edit_reg->room_category, 'mbz'); ?>>Mehrbettzimmer (MBZ)</option>
+                                        <option value="external" <?php selected($edit_reg->room_category, 'external'); ?>>Tagesgast (Externe Unterkunft)</option>
+                                    </select>
+                                </p>
+                                <p>
+                                    <label><strong>Zimmerpartner (bei DZ / MBZ):</strong></label><br>
+                                    <input type="text" name="room_partner" value="<?php echo esc_attr($edit_reg->room_partner); ?>" class="regular-text" style="width:100%;">
+                                </p>
+                                <p>
+                                    <label><strong>Teilnahme-Art:</strong></label><br>
+                                    <select name="participation_type" style="width:100%;">
+                                        <option value="full" <?php selected($edit_reg->participation_type, 'full'); ?>>Gesamtes Treffen (Donnerstag bis Sonntag)</option>
+                                        <option value="partial" <?php selected($edit_reg->participation_type, 'partial'); ?>>Teilzeit / Einzelne Tage</option>
+                                    </select>
+                                </p>
+                            </div>
+
+                            <!-- Group 3: Verpflegung & Shuttle -->
+                            <div style="background:#f8fafc; padding:20px; border-radius:10px; border:1px solid #e2e8f0;">
+                                <h3 style="margin-top:0; font-size:1.05rem; color:#141518; border-bottom:1px solid #e2e8f0; padding-bottom:8px;">3. Verpflegung &amp; Shuttle</h3>
+                                <p>
+                                    <label><strong>Ernährung:</strong></label><br>
+                                    <select name="diet" style="width:100%;">
+                                        <option value="omnivore" <?php selected($edit_reg->diet, 'omnivore'); ?>>Omnivor (Normale Kost)</option>
+                                        <option value="vegetarian" <?php selected($edit_reg->diet, 'vegetarian'); ?>>Vegetarisch</option>
+                                        <option value="vegan" <?php selected($edit_reg->diet, 'vegan'); ?>>Vegan</option>
+                                    </select>
+                                </p>
+                                <p>
+                                    <label><strong>Allergien &amp; Unverträglichkeiten:</strong></label><br>
+                                    <textarea name="diet_allergies" rows="2" style="width:100%;"><?php echo esc_textarea($edit_reg->diet_allergies); ?></textarea>
+                                </p>
+                                <div style="margin-top:14px; padding-top:10px; border-top:1px dashed #cbd5e1;">
+                                    <label style="font-weight:700;">
+                                        <input type="checkbox" name="shuttle_needed" value="1" <?php checked($edit_reg->shuttle_needed, 1); ?>>
+                                        Bahnhofs-Shuttle gewünscht
+                                    </label>
+                                </div>
+                                <p style="margin-top:10px;">
+                                    <label><strong>Shuttle-Bahnhof:</strong></label><br>
+                                    <select name="shuttle_station" style="width:100%;">
+                                        <option value="wicklesgreuth" <?php selected($edit_reg->shuttle_station, 'wicklesgreuth'); ?>>Wicklesgreuth (S-Bahn ab Nürnberg / Ansbach)</option>
+                                        <option value="ansbach" <?php selected($edit_reg->shuttle_station, 'ansbach'); ?>>Ansbach Hbf (Fernverkehr IC/ICE)</option>
+                                    </select>
+                                </p>
+                                <p>
+                                    <label><strong>Geplante Ankunftszeit / Zug-Nr:</strong></label><br>
+                                    <input type="text" name="shuttle_arrival" value="<?php echo esc_attr($edit_reg->shuttle_arrival); ?>" class="regular-text" style="width:100%;">
+                                </p>
+                            </div>
+
+                            <!-- Group 4: Status, Beträge & Notizen -->
+                            <div style="background:#f8fafc; padding:20px; border-radius:10px; border:1px solid #e2e8f0;">
+                                <h3 style="margin-top:0; font-size:1.05rem; color:#141518; border-bottom:1px solid #e2e8f0; padding-bottom:8px;">4. Status &amp; Finanzen</h3>
+                                <p>
+                                    <label><strong>Anmeldestatus:</strong></label><br>
+                                    <select name="status" style="width:100%; font-weight:700;">
+                                        <option value="new" <?php selected($edit_reg->status, 'new'); ?>>Neu (Eingegangen)</option>
+                                        <option value="confirmed" <?php selected($edit_reg->status, 'confirmed'); ?>>Bestätigt</option>
+                                        <option value="paid" <?php selected($edit_reg->status, 'paid'); ?>>Bezahlt</option>
+                                        <option value="cancelled" <?php selected($edit_reg->status, 'cancelled'); ?>>Storniert</option>
+                                    </select>
+                                </p>
+                                <p>
+                                    <label><strong>Solidarfonds-Spende (&euro;):</strong></label><br>
+                                    <input type="text" name="social_donation" value="<?php echo esc_attr(number_format($edit_reg->social_donation, 2, ',', '')); ?>" class="regular-text" style="width:100%;">
+                                </p>
+                                <p>
+                                    <label><strong>Gesamtbetrag (&euro;):</strong></label><br>
+                                    <input type="text" name="total_amount" value="<?php echo esc_attr(number_format($edit_reg->total_amount, 2, ',', '')); ?>" class="regular-text" style="width:100%;">
+                                </p>
+                                <p>
+                                    <label><strong>Interne Tagungsbüro-Notizen:</strong></label><br>
+                                    <textarea name="notes" rows="3" style="width:100%;"><?php echo esc_textarea($edit_reg->notes); ?></textarea>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div style="margin-top:24px; padding-top:16px; border-top:1px solid #e2e8f0; display:flex; gap:12px; align-items:center;">
+                            <button type="submit" class="button button-primary button-large" style="background:#f5b301; color:#141518; border-color:#f5b301; font-weight:800; padding:6px 20px;">
+                                <?php echo $edit_reg->id ? 'Änderungen speichern' : 'Teilnehmer anlegen'; ?>
+                            </button>
+                            <a href="<?php echo esc_url(admin_url('admin.php?page=drf-anmeldungen')); ?>" class="button button-secondary button-large" style="padding:6px 16px;">Abbrechen</a>
+                        </div>
+                    </form>
+                </div>
+            <?php endif; ?>
 
             <!-- Modern KPI Stats Grid -->
             <div class="drf-stats-grid">
@@ -267,7 +516,7 @@ class DRF_Admin_Dashboard {
                         <span class="drf-stat-label">Solidarfonds („Sozialsowjet“)</span>
                         <span class="drf-stat-icon">🤝</span>
                     </div>
-                    <div class="drf-stat-value" style="color:#059669;"><?php echo number_format($total_donation_sum, 2, ',', '.'); ?> &euro;</div>
+                    <div class="drf-stat-value" style="color:#0f172a;"><?php echo number_format($total_donation_sum, 2, ',', '.'); ?> &euro;</div>
                     <div class="drf-stat-sub">Freiwillige Spenden</div>
                 </div>
 
@@ -276,7 +525,7 @@ class DRF_Admin_Dashboard {
                         <span class="drf-stat-label">Shuttle-Bedarf</span>
                         <span class="drf-stat-icon">🚐</span>
                     </div>
-                    <div class="drf-stat-value" style="color:#7c3aed;"><?php echo $shuttle_count; ?></div>
+                    <div class="drf-stat-value" style="color:#0f172a;"><?php echo $shuttle_count; ?></div>
                     <div class="drf-stat-sub">Wicklesgreuth &amp; Ansbach</div>
                 </div>
             </div>
@@ -325,7 +574,7 @@ class DRF_Admin_Dashboard {
                             <th width="90">Spende</th>
                             <th width="100">Gesamt</th>
                             <th width="110">Status</th>
-                            <th width="190">Aktionen</th>
+                            <th width="240">Aktionen</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -345,7 +594,7 @@ class DRF_Admin_Dashboard {
                                         <?php if (!empty($r->nickname)) : ?>
                                             <span style="color:#d97706; font-weight:700; font-size:0.85rem;">@<?php echo esc_html($r->nickname); ?></span><br>
                                         <?php endif; ?>
-                                        <small><a href="mailto:<?php echo esc_attr($r->email); ?>" style="color:#3b82f6; text-decoration:none;"><?php echo esc_html($r->email); ?></a></small>
+                                        <small><a href="mailto:<?php echo esc_attr($r->email); ?>" style="color:#141518; text-decoration:none; font-weight:600;"><?php echo esc_html($r->email); ?></a></small>
                                         <?php if (!empty($r->phone)) : ?>
                                             <br><small style="color:#64748b;"><?php echo esc_html($r->phone); ?></small>
                                         <?php endif; ?>
@@ -370,7 +619,7 @@ class DRF_Admin_Dashboard {
                                     </td>
                                     <td>
                                         <?php if ($r->shuttle_needed) : ?>
-                                            <span style="color:#2563eb; font-weight:700;">🚐 <?php echo esc_html(ucfirst($r->shuttle_station)); ?></span>
+                                            <span style="color:#141518; font-weight:700;">🚐 <?php echo esc_html(ucfirst($r->shuttle_station)); ?></span>
                                             <?php if (!empty($r->shuttle_arrival)) : ?>
                                                 <div style="font-size:0.78rem; color:#64748b;"><?php echo esc_html($r->shuttle_arrival); ?></div>
                                             <?php endif; ?>
@@ -380,7 +629,7 @@ class DRF_Admin_Dashboard {
                                     </td>
                                     <td>
                                         <?php if ($r->social_donation > 0) : ?>
-                                            <span style="color:#059669; font-weight:700;">+<?php echo number_format($r->social_donation, 2, ',', '.'); ?> &euro;</span>
+                                            <span style="color:#141518; font-weight:700;">+<?php echo number_format($r->social_donation, 2, ',', '.'); ?> &euro;</span>
                                         <?php else : ?>
                                             <span style="color:#94a3b8;">0 &euro;</span>
                                         <?php endif; ?>
@@ -393,14 +642,14 @@ class DRF_Admin_Dashboard {
                                         $status_class = 'drf-badge-status-new';
                                         $status_label = 'Neu';
                                         if ($r->status === 'confirmed') {
-                                            $status_class = 'drf-badge-status-confirmed';
-                                            $status_label = 'Bestätigt';
+                                             $status_class = 'drf-badge-status-confirmed';
+                                             $status_label = 'Bestätigt';
                                         } elseif ($r->status === 'paid') {
-                                            $status_class = 'drf-badge-status-paid';
-                                            $status_label = 'Bezahlt';
+                                             $status_class = 'drf-badge-status-paid';
+                                             $status_label = 'Bezahlt';
                                         } elseif ($r->status === 'cancelled') {
-                                            $status_class = 'drf-badge-status-cancelled';
-                                            $status_label = 'Storniert';
+                                             $status_class = 'drf-badge-status-cancelled';
+                                             $status_label = 'Storniert';
                                         }
                                         ?>
                                         <span class="drf-badge <?php echo $status_class; ?>">
@@ -409,6 +658,7 @@ class DRF_Admin_Dashboard {
                                     </td>
                                     <td>
                                         <div class="drf-action-group">
+                                            <a href="<?php echo esc_url(admin_url('admin.php?page=drf-anmeldungen&edit_reg=' . $r->id)); ?>" class="drf-btn-action drf-btn-edit" title="Teilnehmerdaten bearbeiten">Bearbeiten</a>
                                             <?php if ($r->status !== 'confirmed') : ?>
                                                 <a href="<?php echo esc_url(wp_nonce_url(add_query_arg(['action' => 'drf_change_status', 'reg_id' => $r->id, 'status' => 'confirmed']), 'drf_status_nonce')); ?>" class="drf-btn-action drf-btn-confirm" title="Als bestätigt markieren">Bestätigen</a>
                                             <?php endif; ?>
@@ -418,6 +668,7 @@ class DRF_Admin_Dashboard {
                                             <?php if ($r->status !== 'cancelled') : ?>
                                                 <a href="<?php echo esc_url(wp_nonce_url(add_query_arg(['action' => 'drf_change_status', 'reg_id' => $r->id, 'status' => 'cancelled']), 'drf_status_nonce')); ?>" class="drf-btn-action drf-btn-cancel" onclick="return confirm('Anmeldung wirklich stornieren?');">Storno</a>
                                             <?php endif; ?>
+                                            <a href="<?php echo esc_url(wp_nonce_url(admin_url('admin.php?page=drf-anmeldungen&action=drf_delete_registration&reg_id=' . $r->id), 'drf_delete_reg_nonce')); ?>" class="drf-btn-action drf-btn-delete" title="Teilnehmer löschen" onclick="return confirm('Möchten Sie diese Teilnehmeranmeldung von <?php echo esc_js($r->firstname . ' ' . $r->lastname); ?> wirklich unwiderruflich löschen?');">Löschen</a>
                                         </div>
                                     </td>
                                 </tr>

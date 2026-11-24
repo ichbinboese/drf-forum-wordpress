@@ -13,7 +13,7 @@ get_header();
     <div class="container">
         <h1 class="page-title">Das Sozialgremium</h1>
         <p class="page-lead">
-            Solidarit&auml;t und Vertraulichkeit: Niemand aus unserer Fotogemeinschaft soll aus finanziellen Gr&uuml;nden auf die Teilnahme an »Augenblicke« verzichten m&uuml;ssen.
+            Solidarit&auml;t und Vertraulichkeit: Niemand aus unserer Fotogemeinschaft soll aus finanziellen Gr&uuml;nden auf die Teilnahme an &raquo;Augenblicke&laquo; verzichten m&uuml;ssen.
         </p>
     </div>
 </div>
@@ -21,45 +21,47 @@ get_header();
 <div class="page-content-area">
     <div class="container">
         <div class="page-card-container">
-            <h2>Unser Grundsatz</h2>
+            <h2>Über das Sozialgremium &amp; Solidarfonds</h2>
             <p>
-                Seit den Anf&auml;ngen von de.rec.fotografie und den ersten Treffen gilt ein unumst&ouml;&szlig;licher Grundsatz: <strong>Wir halten als Gemeinschaft zusammen.</strong> Wenn ein Teilnehmer oder eine Teilnehmerin durch Arbeitslosigkeit, Studium, Ausbildungszeit oder unvorhergesehene Lebensumst&auml;nde in finanzielle Engp&auml;sse ger&auml;t, soll das kein Hinderungsgrund sein, am Jahrestreffen teilzunehmen.
+                Seit den Anf&auml;ngen von <code>de.rec.fotografie</code> und den ersten Treffen 1999 gilt ein unumst&ouml;&szlig;licher Grundsatz: <strong>Wir halten als Gemeinschaft zusammen.</strong> Wenn Teilnehmer durch Ausbildung, Studium, Rentenengp&auml;sse oder pers&ouml;nliche Lebensumst&auml;nde in finanzielle H&uuml;rden geraten, soll niemand auf die Teilnahme am Jahrestreffen verzichten m&uuml;ssen.
             </p>
 
-            <h2>Wie funktioniert die Unterst&uuml;tzung?</h2>
-            <p>
-                Der Verein unterh&auml;lt einen zweckgebundenen Solidarfonds, der aus freiwilligen Spenden von Vereinsmitgliedern und Tagungsteilnehmern (traditionell &uuml;ber das Anmeldeformular der Augenblicke-Treffen) gespeist wird. Aus diesem Fonds k&ouml;nnen unb&uuml;rokratisch Zusch&uuml;sse zu den &Uuml;bernachtungskosten im Tagungshaus, Fahrtkosten oder zum Tagungsbeitrag gew&auml;hrt werden.
-            </p>
-
-            <h2>Absolute Vertraulichkeit garantiert</h2>
-            <p>
-                Das Sozialgremium (oft liebevoll nach Usenet-Tradition &raquo;Sozialsowjet&laquo; genannt) besteht aus unabh&auml;ngigen Vertrauenspersonen unserer Gemeinschaft:
-            </p>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin: 18px 0 24px 0;">
-                <div style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: 8px; padding: 14px 18px;">
-                    <div style="font-weight: 700; color: #1e293b; font-size: 1.05rem;">Wolfgang Exler</div>
-                    <div style="font-size: 0.85rem; color: #64748b;">Vertrauensperson &bull; Sozialgremium</div>
-                </div>
-                <div style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: 8px; padding: 14px 18px;">
-                    <div style="font-weight: 700; color: #1e293b; font-size: 1.05rem;">Dietmar Belloff</div>
-                    <div style="font-size: 0.85rem; color: #64748b;">Vertrauensperson &bull; Sozialgremium</div>
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 24px; margin: 24px 0;">
+                <h3 style="margin-top: 0; color: #141518; font-size: 1.2rem; font-weight: 700;">
+                    Vertrauenspersonen des Sozialgremiums
+                </h3>
+                <p style="color: #64748b; font-size: 0.95rem;">Unabhängig und zur absoluten Verschwiegenheit verpflichtet:</p>
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; margin-top: 14px;">
+                    <div style="background:#ffffff; padding:12px 16px; border-radius:8px; border:1px solid #cbd5e1;">
+                        <div style="font-weight: 700; color: #141518; font-size: 1.05rem;">Wolfgang Exler</div>
+                        <div style="font-size: 0.85rem; color: #64748b; margin-top: 2px;">Vertrauensperson &bull; Sozialgremium</div>
+                    </div>
+                    <div style="background:#ffffff; padding:12px 16px; border-radius:8px; border:1px solid #cbd5e1;">
+                        <div style="font-weight: 700; color: #141518; font-size: 1.05rem;">Dietmar Belloff</div>
+                        <div style="font-size: 0.85rem; color: #64748b; margin-top: 2px;">Vertrauensperson &bull; Sozialgremium</div>
+                    </div>
                 </div>
             </div>
-            <p>
-                Alle Anfragen werden streng vertraulich behandelt &ndash; weder das Tagungsb&uuml;ro noch der Vereinsvorstand oder andere Tagungsteilnehmer erfahren jemals, wer Unterst&uuml;tzung beantragt oder in Anspruch genommen hat.
-            </p>
 
-            <h2>Kontakt aufnehmen</h2>
-            <p>
-                Wenn du Unterst&uuml;tzung ben&ouml;tigst oder Fragen zum Ablauf hast, wende dich bitte formlos und unkompliziert per E-Mail an das Gremium:
-            </p>
-            <div style="background: #fff8e1; border-left: 4px solid var(--color-primary); padding: 18px 24px; border-radius: 4px; margin-top: 18px;">
-                <p style="margin: 0; font-weight: 600; font-size: 1.05rem;">
-                    E-Mail: <a href="mailto:sozialgremium@d-r-f.de" style="color: #b78103;">sozialgremium@d-r-f.de</a>
-                </p>
-                <p style="margin: 6px 0 0 0; font-size: 0.88rem; color: #5a606b;">
-                    Verschl&uuml;sselte Kommunikation per PGP/GPG ist auf Wunsch m&ouml;glich.
-                </p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 24px;">
+                <div style="background: #141518; color: #ffffff; padding: 22px; border-radius: 12px; border-left: 4px solid #f5b301;">
+                    <h4 style="color: #f5b301; margin-top: 0; font-weight: 700;">Vertraulicher Kontakt</h4>
+                    <p style="color: #e2e8f0; font-size: 0.95rem; line-height: 1.5;">
+                        Fragen zu unb&uuml;rokratischen Zusch&uuml;ssen f&uuml;r Tagungsbeitrag, Fahrtkosten oder Unterkunft bitte diskret an:
+                    </p>
+                    <p style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0;">
+                        <a href="mailto:sozialgremium@d-r-f.de" style="color: #f5b301; text-decoration: none;">
+                            sozialgremium@d-r-f.de
+                        </a>
+                    </p>
+                </div>
+
+                <div style="background: #ffffff; padding: 22px; border-radius: 12px; border: 1px solid #e2e8f0; border-left: 4px solid #141518;">
+                    <h4 style="color: #141518; margin-top: 0; font-weight: 700;">Absolute Vertraulichkeit garantiert</h4>
+                    <p style="color: #475569; font-size: 0.95rem; line-height: 1.5; margin-bottom: 0;">
+                        Alle Anfragen werden streng diskret und pers&ouml;nlich behandelt &ndash; weder das Tagungsb&uuml;ro noch der Vorstand erfahren Namen oder Details. Der Solidarfonds wird vollst&auml;ndig aus freiwilligen Spenden der Gemeinschaft getragen.
+                    </p>
+                </div>
             </div>
         </div>
     </div>
