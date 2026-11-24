@@ -174,13 +174,18 @@
   border-radius: 12px;
   border: 1px solid #e2e8f0;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: visible;
+  -webkit-overflow-scrolling: touch;
 }
 
 .drf-table-container table.widefat {
   border: none;
   border-collapse: separate;
   border-spacing: 0;
+  width: 100%;
+  min-width: 1050px;
+  table-layout: auto !important;
 }
 
 .drf-table-container thead th {
@@ -190,20 +195,23 @@
   font-size: 0.82rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  padding: 14px 16px;
+  padding: 12px 14px;
   border-bottom: 1.5px solid #e2e8f0;
+  overflow: visible !important;
+  white-space: nowrap;
 }
 
 .drf-table-container tbody td {
-  padding: 14px 16px;
-  font-size: 0.92rem;
+  padding: 12px 14px;
+  font-size: 0.9rem;
   color: #334155;
   border-bottom: 1px solid #f1f5f9;
   vertical-align: middle;
+  overflow: visible !important;
 }
 
 .drf-table-container tbody tr:hover td {
-  background-color: #fcfcfc;
+  background-color: #fbfbfc;
 }
 
 /* Badges */
@@ -215,6 +223,7 @@
   font-weight: 700;
   letter-spacing: 0.03em;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .drf-badge-room {
@@ -247,28 +256,72 @@
   border: 1px solid #fecaca;
 }
 
-/* Action Buttons */
-.drf-action-group {
+/* Actions Column & Layout */
+.drf-col-actions {
+  width: 250px;
+  min-width: 250px;
+  vertical-align: middle;
+}
+
+.drf-actions-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+.drf-action-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.drf-action-primary {
   display: flex;
   gap: 6px;
-  align-items: center;
-  flex-wrap: wrap;
-  margin: 2px 0;
+  width: 100%;
+}
+
+.drf-action-primary .drf-btn-edit {
+  flex: 1;
+  justify-content: center;
+}
+
+.drf-action-primary .drf-btn-delete {
+  flex: 0 0 auto;
+  justify-content: center;
 }
 
 .drf-btn-action {
-  padding: 5px 10px;
-  font-size: 0.82rem;
+  padding: 4px 9px;
+  font-size: 0.8rem;
   font-weight: 600;
   border-radius: 6px;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 4px;
   transition: all 0.15s ease;
   border: 1px solid transparent;
-  margin: 2px 0;
   white-space: nowrap;
+  line-height: 1.4;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.drf-btn-action .dashicons {
+  font-size: 14px;
+  width: 14px;
+  height: 14px;
+  line-height: 14px;
+  margin-right: 2px;
+}
+
+.drf-action-status .drf-btn-action {
+  font-size: 0.74rem;
+  padding: 3px 7px;
 }
 
 .drf-btn-edit {
@@ -279,16 +332,18 @@
 .drf-btn-edit:hover {
   background: #1e293b;
   color: #ffffff;
+  border-color: #1e293b;
 }
 
 .drf-btn-confirm {
-  background: #f8fafc;
+  background: #ffffff;
   color: #0f172a;
   border-color: #cbd5e1;
 }
 .drf-btn-confirm:hover {
   background: #0f172a;
   color: #ffffff;
+  border-color: #0f172a;
 }
 
 .drf-btn-paid {
@@ -299,24 +354,27 @@
 .drf-btn-paid:hover {
   background: #f5b301;
   color: #141518;
+  border-color: #d97706;
 }
 
 .drf-btn-cancel {
-  background: #f1f5f9;
+  background: #ffffff;
   color: #64748b;
   border-color: #e2e8f0;
 }
 .drf-btn-cancel:hover {
   background: #475569;
   color: #ffffff;
+  border-color: #475569;
 }
 
 .drf-btn-delete {
-  background: #fee2e2;
-  color: #991b1b;
+  background: #fef2f2;
+  color: #b91c1c;
   border-color: #fca5a5;
 }
 .drf-btn-delete:hover {
   background: #dc2626;
   color: #ffffff;
+  border-color: #dc2626;
 }

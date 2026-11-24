@@ -507,26 +507,26 @@ class DRF_Admin_Dashboard {
     public function render_participants_table($registrations, $from_page = 'drf-anmeldungen') {
         ?>
         <div class="drf-table-container">
-            <table class="wp-list-table widefat fixed striped">
+            <table class="wp-list-table widefat striped drf-participants-table">
                 <thead>
                     <tr>
-                        <th width="45">#</th>
-                        <th width="190">Teilnehmer</th>
-                        <th width="140">Zimmer</th>
-                        <th width="130">Verpflegung</th>
-                        <th width="140">Shuttle</th>
-                        <th width="90">Spende</th>
-                        <th width="95">Gesamt</th>
-                        <th width="105">Status</th>
-                        <th width="240">Aktionen</th>
+                        <th style="width:40px; text-align:center;">#</th>
+                        <th style="min-width:170px;">Teilnehmer</th>
+                        <th style="width:90px;">Zimmer</th>
+                        <th style="width:115px;">Verpflegung</th>
+                        <th style="width:125px;">Shuttle</th>
+                        <th style="width:80px; text-align:right;">Spende</th>
+                        <th style="width:85px; text-align:right;">Gesamt</th>
+                        <th style="width:95px; text-align:center;">Status</th>
+                        <th class="drf-col-actions">Aktionen</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($registrations as $r) : ?>
                         <tr>
-                            <td><strong>#<?php echo esc_html($r->id); ?></strong></td>
+                            <td style="text-align:center;"><strong>#<?php echo esc_html($r->id); ?></strong></td>
                             <td>
-                                <div style="font-weight:700; color:#0f172a;"><?php echo esc_html($r->firstname . ' ' . $r->lastname); ?></div>
+                                <div style="font-weight:700; color:#0f172a; font-size:0.95rem;"><?php echo esc_html($r->firstname . ' ' . $r->lastname); ?></div>
                                 <?php if (!empty($r->nickname)) : ?>
                                     <span style="color:#d97706; font-weight:700; font-size:0.85rem;">@<?php echo esc_html($r->nickname); ?></span><br>
                                 <?php endif; ?>
@@ -559,17 +559,17 @@ class DRF_Admin_Dashboard {
                                     <span style="color:#94a3b8;">Eigene Anreise</span>
                                 <?php endif; ?>
                             </td>
-                            <td>
+                            <td style="text-align:right;">
                                 <?php if ($r->social_donation > 0) : ?>
                                     <span style="color:#141518; font-weight:700;">+<?php echo number_format($r->social_donation, 2, ',', '.'); ?> &euro;</span>
                                 <?php else : ?>
                                     <span style="color:#94a3b8;">0 &euro;</span>
                                 <?php endif; ?>
                             </td>
-                            <td>
+                            <td style="text-align:right;">
                                 <strong style="font-size:1rem; color:#0f172a;"><?php echo number_format($r->total_amount, 2, ',', '.'); ?> &euro;</strong>
                             </td>
-                            <td>
+                            <td style="text-align:center;">
                                 <?php
                                 $status_class = 'drf-badge-status-new';
                                 $status_label = 'Neu';
@@ -588,19 +588,27 @@ class DRF_Admin_Dashboard {
                                     <?php echo $status_label; ?>
                                 </span>
                             </td>
-                            <td>
-                                <div class="drf-action-group">
-                                    <a href="<?php echo esc_url(admin_url('admin.php?page=' . $from_page . '&edit_reg=' . $r->id . '#drf-reg-edit-form')); ?>" class="drf-btn-action drf-btn-edit" title="Teilnehmerdaten bearbeiten">Bearbeiten</a>
-                                    <?php if ($r->status !== 'confirmed') : ?>
-                                        <a href="<?php echo esc_url(wp_nonce_url(admin_url('admin.php?page=' . $from_page . '&action=drf_change_status&reg_id=' . $r->id . '&status=confirmed&from_page=' . $from_page), 'drf_status_nonce')); ?>" class="drf-btn-action drf-btn-confirm" title="Als bestätigt markieren">Bestätigen</a>
-                                    <?php endif; ?>
-                                    <?php if ($r->status !== 'paid') : ?>
-                                        <a href="<?php echo esc_url(wp_nonce_url(admin_url('admin.php?page=' . $from_page . '&action=drf_change_status&reg_id=' . $r->id . '&status=paid&from_page=' . $from_page), 'drf_status_nonce')); ?>" class="drf-btn-action drf-btn-paid" title="Als bezahlt markieren">Bezahlt</a>
-                                    <?php endif; ?>
-                                    <?php if ($r->status !== 'cancelled') : ?>
-                                        <a href="<?php echo esc_url(wp_nonce_url(admin_url('admin.php?page=' . $from_page . '&action=drf_change_status&reg_id=' . $r->id . '&status=cancelled&from_page=' . $from_page), 'drf_status_nonce')); ?>" class="drf-btn-action drf-btn-cancel" onclick="return confirm('Anmeldung wirklich stornieren?');">Storno</a>
-                                    <?php endif; ?>
-                                    <a href="<?php echo esc_url(wp_nonce_url(admin_url('admin.php?page=' . $from_page . '&action=drf_delete_registration&reg_id=' . $r->id . '&from_page=' . $from_page), 'drf_delete_reg_nonce')); ?>" class="drf-btn-action drf-btn-delete" title="Teilnehmer löschen" onclick="return confirm('Möchten Sie diese Teilnehmeranmeldung von <?php echo esc_js($r->firstname . ' ' . $r->lastname); ?> wirklich unwiderruflich löschen?');">Löschen</a>
+                            <td class="drf-col-actions">
+                                <div class="drf-actions-cell">
+                                    <div class="drf-action-row drf-action-primary">
+                                        <a href="<?php echo esc_url(admin_url('admin.php?page=' . $from_page . '&edit_reg=' . $r->id . '#drf-reg-edit-form')); ?>" class="drf-btn-action drf-btn-edit" title="Teilnehmerdaten bearbeiten">
+                                            <span class="dashicons dashicons-edit"></span> Bearbeiten
+                                        </a>
+                                        <a href="<?php echo esc_url(wp_nonce_url(admin_url('admin.php?page=' . $from_page . '&action=drf_delete_registration&reg_id=' . $r->id . '&from_page=' . $from_page), 'drf_delete_reg_nonce')); ?>" class="drf-btn-action drf-btn-delete" title="Teilnehmer löschen" onclick="return confirm('Möchten Sie diese Teilnehmeranmeldung von <?php echo esc_js($r->firstname . ' ' . $r->lastname); ?> wirklich unwiderruflich löschen?');">
+                                            <span class="dashicons dashicons-trash"></span> Löschen
+                                        </a>
+                                    </div>
+                                    <div class="drf-action-row drf-action-status">
+                                        <?php if ($r->status !== 'confirmed') : ?>
+                                            <a href="<?php echo esc_url(wp_nonce_url(admin_url('admin.php?page=' . $from_page . '&action=drf_change_status&reg_id=' . $r->id . '&status=confirmed&from_page=' . $from_page), 'drf_status_nonce')); ?>" class="drf-btn-action drf-btn-confirm" title="Als bestätigt markieren">Bestätigen</a>
+                                        <?php endif; ?>
+                                        <?php if ($r->status !== 'paid') : ?>
+                                            <a href="<?php echo esc_url(wp_nonce_url(admin_url('admin.php?page=' . $from_page . '&action=drf_change_status&reg_id=' . $r->id . '&status=paid&from_page=' . $from_page), 'drf_status_nonce')); ?>" class="drf-btn-action drf-btn-paid" title="Als bezahlt markieren">Bezahlt</a>
+                                        <?php endif; ?>
+                                        <?php if ($r->status !== 'cancelled') : ?>
+                                            <a href="<?php echo esc_url(wp_nonce_url(admin_url('admin.php?page=' . $from_page . '&action=drf_change_status&reg_id=' . $r->id . '&status=cancelled&from_page=' . $from_page), 'drf_status_nonce')); ?>" class="drf-btn-action drf-btn-cancel" title="Als storniert markieren" onclick="return confirm('Anmeldung wirklich stornieren?');">Storno</a>
+                                        <?php endif; ?>
+                                    </div>
                                 </div>
                             </td>
                         </tr>
