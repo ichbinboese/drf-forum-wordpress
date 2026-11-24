@@ -11,8 +11,12 @@ get_header();
 
 <div class="page-hero">
     <div class="container">
+        <div class="hero-tag">
+            <span class="hero-tag-bar"></span>
+            <span>de.rec.fotografie e.V.</span>
+        </div>
         <h1 class="page-title">Impressum</h1>
-        <p class="page-lead">Angaben gem&auml;&szlig; &sect; 5 TMG</p>
+        <h2 class="page-lead">Gesetzliche Anbieterkennzeichnung und Angaben gem&auml;&szlig; &sect; 5 TMG des de.rec.fotografie e.V.</h2>
     </div>
 </div>
 

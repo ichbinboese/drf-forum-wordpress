@@ -13,12 +13,12 @@ get_header();
     <div class="container">
         <div class="hero-tag">
             <span class="hero-tag-bar"></span>
-            <span>de.rec.fotografie e.V. &bull; Tagungsb&uuml;ro</span>
+            <span>de.rec.fotografie e.V.</span>
         </div>
-        <h1 class="page-title">Tagungsb&uuml;ro &amp; Anmeldung</h1>
-        <p class="page-lead">
-            Dein Ansprechpartner vor Ort und online &ndash; f&uuml;r Vorbereitung, Zimmerreservierungen, Anmeldung und den organisatorischen Ablauf der Treffen.
-        </p>
+        <h1 class="page-title">Tagungsb&uuml;ro</h1>
+        <h2 class="page-lead">
+            Organisation, Betreuung und Zimmerverwaltung für das Jahrestreffen in Neuendettelsau.
+        </h2>
     </div>
 </div>
 

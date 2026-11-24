@@ -11,10 +11,14 @@ get_header();
 
 <div class="page-hero">
     <div class="container">
+        <div class="hero-tag">
+            <span class="hero-tag-bar"></span>
+            <span>de.rec.fotografie e.V.</span>
+        </div>
         <h1 class="page-title">Das Sozialgremium</h1>
-        <p class="page-lead">
-            Solidarit&auml;t und Vertraulichkeit: Niemand aus unserer Fotogemeinschaft soll aus finanziellen Gr&uuml;nden auf die Teilnahme an &raquo;Augenblicke&laquo; verzichten m&uuml;ssen.
-        </p>
+        <h2 class="page-lead">
+            Solidarit&auml;t und Vertraulichkeit: Niemand soll aus finanziellen Gr&uuml;nden auf die Teilnahme verzichten m&uuml;ssen.
+        </h2>
     </div>
 </div>
 

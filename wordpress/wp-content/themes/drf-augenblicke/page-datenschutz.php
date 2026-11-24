@@ -11,8 +11,12 @@ get_header();
 
 <div class="page-hero">
     <div class="container">
+        <div class="hero-tag">
+            <span class="hero-tag-bar"></span>
+            <span>de.rec.fotografie e.V.</span>
+        </div>
         <h1 class="page-title">Datenschutzerkl&auml;rung</h1>
-        <p class="page-lead">Informationen &uuml;ber die Verarbeitung personenbezogener Daten gem&auml;&szlig; DSGVO.</p>
+        <h2 class="page-lead">Transparente Informationen &uuml;ber die Erhebung und Verarbeitung personenbezogener Daten gem&auml;&szlig; DSGVO.</h2>
     </div>
 </div>
 

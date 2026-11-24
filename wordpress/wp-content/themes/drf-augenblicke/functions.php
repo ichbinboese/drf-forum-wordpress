@@ -9,7 +9,7 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-define('DRF_THEME_VERSION', '1.1.0');
+define('DRF_THEME_VERSION', '1.3.0');
 define('DRF_THEME_DIR', get_template_directory());
 define('DRF_THEME_URI', get_template_directory_uri());
 
@@ -252,4 +252,39 @@ function drf_add_favicons() {
 add_action('wp_head', 'drf_add_favicons', 1);
 add_action('admin_head', 'drf_add_favicons', 1);
 add_action('login_head', 'drf_add_favicons', 1);
+
+/**
+ * Unified Page Subheading Helper (H2 Lead Text)
+ */
+function drf_get_page_subheading($post_id = null) {
+    if (!$post_id) {
+        $post_id = get_the_ID();
+    }
+    if (!$post_id) return '';
+
+    $custom = get_post_meta($post_id, '_drf_page_subheading', true);
+    if (!empty($custom)) {
+        return $custom;
+    }
+
+    $post = get_post($post_id);
+    if (!$post) return '';
+
+    $slug = $post->post_name;
+    $map = [
+        'startseite'     => 'Das alljährliche Treffen von de.rec.fotografie – Fotografie, Workshops und kollegialer Austausch seit 1999.',
+        'tagungsbuero-2' => 'Organisation, Betreuung und Zimmerverwaltung für das Jahrestreffen in Neuendettelsau.',
+        'tagungsbuero'   => 'Verbindliche Buchung der Zimmerkontingente im Haus Lutherrose für 2026 und 2027.',
+        'sozialgremium'  => 'Solidarität und Vertraulichkeit: Niemand soll aus finanziellen Gründen auf die Teilnahme verzichten müssen.',
+        'augenblicke'    => 'Vier Tage Fotografie, intensive Workshops, Studioaufbauten und legendäre Abende unter Gleichgesinnten.',
+        'workshops'      => 'Praxisnah, inspirierend und vielfältig: Workshops von Mitgliedern für Mitglieder in entspannter Atmosphäre.',
+        'shuttleservice' => 'Bequem und unkompliziert: Kostenlose Abholung vom Bahnhof direkt zum Haus Lutherrose.',
+        'verein'         => 'Wer wir sind, wofür wir stehen und was uns seit über zwei Jahrzehnten als lebendige Fotogemeinschaft ausmacht.',
+        'impressum'      => 'Gesetzliche Anbieterkennzeichnung und Angaben gemäß § 5 TMG des de.rec.fotografie e.V.',
+        'datenschutz'    => 'Transparente Informationen über die Erhebung und Verarbeitung personenbezogener Daten gemäß DSGVO.',
+    ];
+
+    return $map[$slug] ?? '';
+}
+
 

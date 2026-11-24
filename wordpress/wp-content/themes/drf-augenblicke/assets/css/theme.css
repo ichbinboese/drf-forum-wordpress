@@ -1152,22 +1152,49 @@ button.btn-outline:hover {
    7. Page Content (Subpages / Details)
    ========================================================================== */
 .page-hero {
-  background-color: var(--color-bg-dark);
+  background-color: #141518;
   color: #ffffff;
   padding: 44px 0 40px;
-  border-bottom: 1px solid var(--color-border-dark);
+  border-bottom: 1px solid #1e293b;
 }
 
-.page-title {
+.page-title,
+h1.page-title {
   font-size: 2.4rem;
   font-weight: 800;
-  margin-bottom: 8px;
+  margin: 0 0 8px 0;
+  color: #ffffff;
+  line-height: 1.2;
 }
 
+h2.page-lead,
 .page-lead {
-  font-size: 1.1rem;
-  color: #d1d5db;
-  max-width: 720px;
+  font-size: 1.15rem !important;
+  font-weight: 400 !important;
+  color: #94a3b8 !important;
+  max-width: 760px !important;
+  line-height: 1.6 !important;
+  margin: 0 !important;
+}
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #f5b301;
+  margin-bottom: 10px;
+}
+
+.hero-tag-bar {
+  display: inline-block;
+  width: 14px;
+  height: 3px;
+  background-color: #f5b301;
+  border-radius: 2px;
 }
 
 .page-content-area {
