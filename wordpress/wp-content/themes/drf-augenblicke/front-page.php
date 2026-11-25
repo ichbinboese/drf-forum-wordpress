@@ -58,7 +58,7 @@ $card_3_image      = drf_get_theme_option('card_3_image', DRF_THEME_URI . '/asse
 
 $card_4_title      = drf_get_theme_option('card_4_title', 'Tagungsbüro');
 $card_4_desc       = drf_get_theme_option('card_4_desc', 'Dein Ansprechpartner vor Ort – für Anmeldung, Infos und alles rund um das Treffen.');
-$card_4_link       = drf_get_theme_option('card_4_link', '/tagungsbuero-2/');
+$card_4_link       = drf_get_theme_option('card_4_link', '/tagungsbuero/');
 $card_4_image      = drf_get_theme_option('card_4_image', DRF_THEME_URI . '/assets/images/card-tagungsbuero.jpg');
 
 $flarum_box_title  = drf_get_theme_option('flarum_box_title', 'Flarum Single Sign-On');

@@ -147,7 +147,7 @@ class DRF_Feature_Cards_Widget extends Widget_Base {
                     [
                         'card_title' => 'Tagungsbüro',
                         'card_desc'  => 'Dein Ansprechpartner vor Ort – für Anmeldung, Infos und alles rund um das Treffen.',
-                        'card_url'   => '/tagungsbuero-2/',
+                        'card_url'   => '/tagungsbuero/',
                         'card_image' => ['url' => DRF_THEME_URI . '/assets/images/card-tagungsbuero.jpg'],
                         'card_icon'  => 'calendar',
                         'card_badge' => '',

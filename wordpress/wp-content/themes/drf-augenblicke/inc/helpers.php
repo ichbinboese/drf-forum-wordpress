@@ -41,7 +41,7 @@ function drf_get_default_theme_options() {
         'event_sub'          => 'Fronleichnam-Wochenende • Workshops, Fotowalks, Studio & Grillabend',
         'event_target_date'  => '2026-05-28T09:00',
         'event_btn_text'     => 'Zur Anmeldung',
-        'event_btn_link'     => '/tagungsbuero/',
+        'event_btn_link'     => '/anmeldung/',
 
         // 4. Feature Cards
         'card_1_title'       => 'Verein',
@@ -101,3 +101,94 @@ function drf_get_theme_option($key, $default = null) {
 
     return $default;
 }
+
+/**
+ * Ensure all WordPress emails originate from the configured Admin email address
+ */
+add_filter('wp_mail_from', function($original_email) {
+    $admin_email = drf_get_theme_option('contact_email');
+    if (!empty($admin_email) && is_email($admin_email)) {
+        return $admin_email;
+    }
+    $wp_admin = get_option('admin_email');
+    if (!empty($wp_admin) && is_email($wp_admin)) {
+        return $wp_admin;
+    }
+    return $original_email;
+}, 999);
+
+add_filter('wp_mail_from_name', function($original_name) {
+    $sender_name = drf_get_theme_option('logo_sub', 'de.rec.fotografie e.V.');
+    return !empty($sender_name) ? $sender_name : $original_name;
+}, 999);
+
+/**
+ * Handle Shuttle Service Reservation Form Submission
+ */
+function drf_handle_shuttle_submission() {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['drf_shuttle_nonce'])) {
+        if (!wp_verify_nonce($_POST['drf_shuttle_nonce'], 'drf_shuttle_action')) {
+            wp_die(__('Sicherheitsprüfung fehlgeschlagen.', 'drf-augenblicke'));
+        }
+
+        $name    = sanitize_text_field($_POST['shuttle_name'] ?? '');
+        $email   = sanitize_email($_POST['shuttle_email'] ?? '');
+        $station = sanitize_text_field($_POST['station'] ?? 'wicklesgreuth');
+        $time    = sanitize_text_field($_POST['arrival_time'] ?? '');
+        $luggage = sanitize_text_field($_POST['luggage_note'] ?? '');
+
+        $redirect_base = wp_get_referer() ?: home_url('/shuttleservice/');
+
+        if (empty($name) || empty($email) || !is_email($email)) {
+            wp_safe_redirect(add_query_arg('shuttle_status', 'error', $redirect_base));
+            exit;
+        }
+
+        // Save booking to option
+        $bookings = get_option('drf_shuttle_bookings', []);
+        if (!is_array($bookings)) {
+            $bookings = [];
+        }
+        $station_label = ($station === 'ansbach') ? 'Hauptbahnhof Ansbach' : 'Bahnhof Wicklesgreuth';
+        $bookings[] = [
+            'name'       => $name,
+            'email'      => $email,
+            'station'    => $station_label,
+            'time'       => $time,
+            'luggage'    => $luggage,
+            'date'       => current_time('mysql'),
+        ];
+        update_option('drf_shuttle_bookings', $bookings);
+
+        // Send Email Confirmation to User
+        $admin_email   = function_exists('drf_get_theme_option') ? drf_get_theme_option('contact_email', get_option('admin_email')) : get_option('admin_email');
+        $headers       = ['From: de.rec.fotografie e.V. <' . $admin_email . '>'];
+
+        $user_subject  = '[d.r.f] Bestätigung deiner Shuttle-Anfrage (AUGENBLICKE 2026)';
+        $user_msg      = "Hallo {$name},\n\nvielen Dank für deine Shuttle-Reservierung für das Jahrestreffen AUGENBLICKE 2026!\n\n";
+        $user_msg     .= "Deine Angaben:\n";
+        $user_msg     .= "- Name: {$name}\n";
+        $user_msg     .= "- E-Mail: {$email}\n";
+        $user_msg     .= "- Abholstation: {$station_label}\n";
+        if (!empty($time)) $user_msg .= "- Geplante Ankunftszeit: {$time}\n";
+        if (!empty($luggage)) $user_msg .= "- Besonderes Gepäck: {$luggage}\n";
+        $user_msg     .= "\nUnser ehrenamtlicher Shuttle-Fahrer meldet sich wenige Tage vor dem Treffen mit der Telefonnummer des Fahrers und den exakten Details.\n\nHerzliche Grüße,\nDein d.r.f Tagungsbüro";
+
+        @wp_mail($email, $user_subject, $user_msg, $headers);
+
+        // Admin notification
+        $admin_subj = sprintf('[d.r.f] Neue Shuttle-Reservierung: %s (%s)', $name, $station_label);
+        $admin_msg  = "Hallo Admin,\n\nes ist eine neue Shuttle-Reservierung eingegangen:\n\n";
+        $admin_msg .= "- Name: {$name} ({$email})\n";
+        $admin_msg .= "- Bahnhof: {$station_label}\n";
+        if (!empty($time)) $admin_msg .= "- Zeit: {$time}\n";
+        if (!empty($luggage)) $admin_msg .= "- Gepäck: {$luggage}\n";
+        $admin_msg .= "\nGesamte Shuttle-Reservierungen: " . count($bookings);
+
+        @wp_mail($admin_email, $admin_subj, $admin_msg, $headers);
+
+        wp_safe_redirect(add_query_arg('shuttle_status', 'success', $redirect_base));
+        exit;
+    }
+}
+add_action('template_redirect', 'drf_handle_shuttle_submission');

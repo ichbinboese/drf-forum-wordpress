@@ -103,12 +103,24 @@ class DRF_Shuttle_Widget extends Widget_Base {
 
             <?php if ($settings['show_form'] === 'yes') : ?>
                 <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 24px; margin-top: 24px; max-width: 600px;">
+                    <?php if (isset($_GET['shuttle_status']) && $_GET['shuttle_status'] === 'success') : ?>
+                        <div style="background: #dcfce7; border-left: 4px solid #16a34a; color: #166534; padding: 14px 18px; border-radius: 6px; margin-bottom: 20px; font-size: 0.95rem;">
+                            <strong>✅ Shuttle-Anfrage erhalten!</strong><br>
+                            Vielen Dank! Deine Reservierung wurde erfasst und eine Bestätigungs-E-Mail wurde an deine Adresse gesendet.
+                        </div>
+                    <?php elseif (isset($_GET['shuttle_status']) && $_GET['shuttle_status'] === 'error') : ?>
+                        <div style="background: #fef2f2; border-left: 4px solid #dc2626; color: #991b1b; padding: 14px 18px; border-radius: 6px; margin-bottom: 20px; font-size: 0.95rem;">
+                            <strong>⚠️ Bitte überprüfe deine Angaben!</strong><br>
+                            Name und eine gültige E-Mail-Adresse sind Pflichtfelder.
+                        </div>
+                    <?php endif; ?>
+
                     <h3 style="margin-top: 0; color: #1e293b;">Shuttle-Platz vorab reservieren</h3>
                     <form method="post" action="/shuttleservice/">
                         <?php wp_nonce_field('drf_shuttle_action', 'drf_shuttle_nonce'); ?>
                         <div class="drf-form-group" style="margin-bottom: 12px;">
                             <label class="drf-label">Name *</label>
-                            <input type="text" name="shuttle_name" class="drf-input" required placeholder="Dein Name" style="width: 100%;">
+                            <input type="text" name="shuttle_name" class="drf-input" required placeholder="Vor- und Nachname" style="width: 100%;">
                         </div>
                         <div class="drf-form-group" style="margin-bottom: 12px;">
                             <label class="drf-label">E-Mail-Adresse *</label>
@@ -117,11 +129,19 @@ class DRF_Shuttle_Widget extends Widget_Base {
                         <div class="drf-form-group" style="margin-bottom: 12px;">
                             <label class="drf-label">Bahnhof *</label>
                             <select name="station" class="drf-select" style="width: 100%;">
-                                <option value="wicklesgreuth">Bahnhof Wicklesgreuth (Empfohlen)</option>
-                                <option value="ansbach">Hauptbahnhof Ansbach</option>
+                                <option value="wicklesgreuth">Bahnhof Wicklesgreuth (Empfohlen – 8 Min.)</option>
+                                <option value="ansbach">Hauptbahnhof Ansbach (ca. 20 Min.)</option>
                             </select>
                         </div>
-                        <button type="submit" class="btn btn-primary" style="margin-top: 10px;">
+                        <div class="drf-form-group" style="margin-bottom: 12px;">
+                            <label class="drf-label">Voraussichtliche Ankunftszeit</label>
+                            <input type="text" name="arrival_time" class="drf-input" placeholder="z.B. 14:45 Uhr (S-Bahn S4)" style="width: 100%;">
+                        </div>
+                        <div class="drf-form-group" style="margin-bottom: 16px;">
+                            <label class="drf-label">Besonderes Gepäck / Stative (Optional)</label>
+                            <input type="text" name="luggage_note" class="drf-input" placeholder="z.B. Großformatkoffer, Lichtstative" style="width: 100%;">
+                        </div>
+                        <button type="submit" class="btn btn-primary">
                             <span>Shuttleplatz anfragen &rarr;</span>
                         </button>
                     </form>

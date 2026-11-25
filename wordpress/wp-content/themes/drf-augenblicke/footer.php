@@ -34,8 +34,11 @@
         </div>
 
         <div class="footer-bottom">
-            <div>&copy; <?php echo date('Y'); ?> <?php echo esc_html(drf_get_theme_option('footer_copyright', 'de.rec.fotografie e.V. – Jahrestreffen »AUGENBLICKE«')); ?></div>
-            <div><?php echo esc_html(drf_get_theme_option('footer_subline', 'WordPress & Flarum Community Platform')); ?></div>
+            <div class="footer-bottom-left">&copy; <?php echo date('Y'); ?> <?php echo esc_html(drf_get_theme_option('footer_copyright', 'de.rec.fotografie e.V. – Jahrestreffen »AUGENBLICKE«')); ?></div>
+            <div class="footer-bottom-right">
+                <span class="footer-subline"><?php echo esc_html(drf_get_theme_option('footer_subline', 'WordPress & Flarum Community Platform')); ?></span>
+                <span class="footer-camera-icon" title="de.rec.fotografie e.V."><?php echo drf_get_icon('camera'); ?></span>
+            </div>
         </div>
     </div>
 </footer>

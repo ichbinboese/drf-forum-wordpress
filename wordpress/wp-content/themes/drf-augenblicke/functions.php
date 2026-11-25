@@ -9,13 +9,14 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-define('DRF_THEME_VERSION', '1.3.3');
+define('DRF_THEME_VERSION', '1.4.0');
 define('DRF_THEME_DIR', get_template_directory());
 define('DRF_THEME_URI', get_template_directory_uri());
 
 // Include Theme Helpers & Administration
 require_once DRF_THEME_DIR . '/inc/helpers.php';
 require_once DRF_THEME_DIR . '/inc/admin-options.php';
+require_once DRF_THEME_DIR . '/inc/workshops.php';
 
 // Include Elementor Integration & Custom Widgets
 if (file_exists(DRF_THEME_DIR . '/inc/elementor/class-drf-elementor.php')) {
@@ -181,12 +182,12 @@ function drf_create_default_pages() {
             'template' => 'page-augenblicke.php',
             'content'  => 'Das jährliche Treffen der traditionsreichen Fotografie-Community.',
         ],
-        'tagungsbuero' => [
+        'anmeldung' => [
             'title'    => 'Anmeldung',
             'template' => 'template-elementor-fullwidth.php',
             'content'  => 'Verbindliche Anmeldung und Zimmerbuchung für das Augenblicke-Treffen.',
         ],
-        'tagungsbuero-2' => [
+        'tagungsbuero' => [
             'title'    => 'Tagungsbüro',
             'template' => 'template-elementor-fullwidth.php',
             'content'  => 'Organisation, Betreuung und Zimmerverwaltung für das Jahrestreffen.',
@@ -278,8 +279,8 @@ function drf_get_page_subheading($post_id = null) {
     $slug = $post->post_name;
     $map = [
         'startseite'     => 'Das alljährliche Treffen von de.rec.fotografie – Fotografie, Workshops und kollegialer Austausch seit 1999.',
-        'tagungsbuero'   => 'Verbindliche Anmeldung und Zimmerreservierung für das AUGENBLICKE-Jahrestreffen.',
-        'tagungsbuero-2' => 'Organisation, Betreuung und Zimmerverwaltung für das Jahrestreffen.',
+        'anmeldung'      => 'Verbindliche Anmeldung und Zimmerreservierung für das AUGENBLICKE-Jahrestreffen.',
+        'tagungsbuero'   => 'Organisation, Betreuung, Zimmerverwaltung und zentrale Anlaufstelle für das Jahrestreffen.',
         'sozialgremium'  => 'Solidarität und Vertraulichkeit: Niemand soll aus finanziellen Gründen auf die Teilnahme verzichten müssen.',
         'augenblicke'    => 'Vier Tage Fotografie, intensive Workshops, Studioaufbauten und legendäre Abende unter Gleichgesinnten.',
         'workshops'      => 'Praxisnah, inspirierend und vielfältig: Workshops von Mitgliedern für Mitglieder in entspannter Atmosphäre.',
