@@ -188,7 +188,6 @@ class DRF_Hero_Widget extends Widget_Base {
         $hero_bg = !empty($settings['hero_bg_image']['url']) ? $settings['hero_bg_image']['url'] : DRF_THEME_URI . '/assets/images/hero-bg.jpg';
         $p1 = !empty($settings['polaroid_1']['url']) ? $settings['polaroid_1']['url'] : DRF_THEME_URI . '/assets/images/polaroid-dock.jpg';
         $p2 = !empty($settings['polaroid_2']['url']) ? $settings['polaroid_2']['url'] : DRF_THEME_URI . '/assets/images/polaroid-camera.jpg';
-        $badge = !empty($settings['badge_sticker']['url']) ? $settings['badge_sticker']['url'] : DRF_THEME_URI . '/assets/images/badge-treffen.png';
         $bg_style = sprintf(
             "background-image: linear-gradient(90deg, rgba(15, 17, 21, 0.92) 0%%, rgba(15, 17, 21, 0.78) 45%%, rgba(15, 17, 21, 0.45) 80%%, rgba(15, 17, 21, 0.65) 100%%), url('%s');",
             esc_url($hero_bg)
@@ -240,10 +239,6 @@ class DRF_Hero_Widget extends Widget_Base {
 
                         <div class="polaroid-item polaroid-camera polaroid-front">
                             <img src="<?php echo esc_url($p2); ?>" alt="Kamera und Technik" loading="eager">
-                        </div>
-
-                        <div class="badge-sticker">
-                            <img src="<?php echo esc_url($badge); ?>" alt="Das jährliche Augenblicke-Treffen">
                         </div>
                     </div>
                 </div>

@@ -99,18 +99,15 @@ $contact_email     = drf_get_theme_option('contact_email', 'tagungsbuero2026@d-r
             </div>
         </div>
 
-        <!-- Hero Visual: Polaroids & Badge -->
+        <!-- Hero Visual: Polaroids (Large) -->
         <div class="hero-visual">
             <div class="polaroid-wrapper">
                 <div class="polaroid-item polaroid-dock">
                     <img src="<?php echo esc_url($hero_polaroid_1); ?>" alt="Steg am See bei Sonnenuntergang" loading="lazy">
                 </div>
                 <div class="polaroid-item polaroid-camera">
-                    <img src="<?php echo esc_url($hero_polaroid_2); ?>" alt="Kamera im Gras" loading="lazy">
+                    <img src="<?php echo esc_url($hero_polaroid_2); ?>" alt="Kamera und Technik" loading="lazy">
                 </div>
-                <?php if (!empty($hero_badge_image)) : ?>
-                    <img src="<?php echo esc_url($hero_badge_image); ?>" alt="Das jährliche Augenblicke-Treffen der d.r.f." class="badge-sticker" loading="lazy">
-                <?php endif; ?>
             </div>
         </div>
     </div>
