@@ -59,7 +59,7 @@ class DRF_Event_Banner_Widget extends Widget_Base {
             [
                 'label'       => __('Event Titel / Zeitraum & Ort', 'drf-augenblicke'),
                 'type'        => Controls_Manager::TEXT,
-                'default'     => '28. – 31. Mai 2026 • Haus Lutherrose, Neuendettelsau',
+                'default'     => '14. – 17. Mai 2027 • Haus Lutherrose, Neuendettelsau',
                 'label_block' => true,
             ]
         );

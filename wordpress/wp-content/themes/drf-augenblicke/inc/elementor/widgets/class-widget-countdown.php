@@ -91,7 +91,7 @@ class DRF_Countdown_Widget extends Widget_Base {
             [
                 'label'   => __('Zeitraum Text', 'drf-augenblicke'),
                 'type'    => Controls_Manager::TEXT,
-                'default' => '28. Mai bis 31. Mai 2026 (Fronleichnam)',
+                'default' => '14. Mai bis 17. Mai 2026',
             ]
         );
 

@@ -172,7 +172,7 @@ drf-forum-wordpress/
 ## 📅 Nächstes Treffen
 
 - **Veranstaltung:** AUGENBLICKE XXVI
-- **Datum:** 28. – 31. Mai 2026 (Fronleichnam)
+- **Datum:** 14. – 17. Mai 2027 (Fronleichnam)
 - **Ort:** Haus Lutherrose, Neuendettelsau
 - **Kontakt Tagungsbüro:** [tagungsbuero2026@d-r-f.de](mailto:tagungsbuero2026@d-r-f.de)
 

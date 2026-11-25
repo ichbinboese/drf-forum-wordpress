@@ -7,6 +7,7 @@
  */
 
 get_header();
+$subheading = function_exists('drf_get_page_subheading') ? drf_get_page_subheading() : '';
 ?>
 
 <div class="page-hero">
@@ -15,10 +16,10 @@ get_header();
             <span class="hero-tag-bar"></span>
             <span>de.rec.fotografie e.V.</span>
         </div>
-        <h1 class="page-title">Tagungsb&uuml;ro</h1>
-        <h2 class="page-lead">
-            Organisation, Betreuung und Zimmerverwaltung für das Jahrestreffen in Neuendettelsau.
-        </h2>
+        <h1 class="page-title"><?php the_title(); ?></h1>
+        <?php if (!empty($subheading)) : ?>
+            <h2 class="page-lead"><?php echo esc_html($subheading); ?></h2>
+        <?php endif; ?>
     </div>
 </div>
 

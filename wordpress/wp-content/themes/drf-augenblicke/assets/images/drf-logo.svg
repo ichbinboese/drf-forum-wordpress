@@ -31,7 +31,7 @@
   </g>
 
   <!-- Großes d.r.f -->
-  <g fill="#FFD000" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="700">
+  <g fill="#f5b301" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="700">
     <text x="3" y="62" font-size="63">d</text>
     <rect x="46" y="53.5" width="8.5" height="8.5"/>
     <text x="60" y="62" font-size="63">r</text>
@@ -40,5 +40,5 @@
   </g>
 
   <!-- Unterzeile de.rec.fotografie -->
-  <text x="66.5" y="80.5" fill="#F8CD18" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14.5" font-weight="600" text-anchor="middle" textLength="117" lengthAdjust="spacingAndGlyphs">de.rec.fotografie</text>
+  <text x="66.5" y="80.5" fill="#f5b301" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14.5" font-weight="600" text-anchor="middle" textLength="117" lengthAdjust="spacingAndGlyphs">de.rec.fotografie</text>
 </svg>

@@ -37,7 +37,7 @@ function drf_get_default_theme_options() {
 
         // 3. Event & Countdown
         'event_badge'        => 'AUGENBLICKE XXVI',
-        'event_title'        => '28. – 31. Mai 2026 • Haus Lutherrose, Neuendettelsau',
+        'event_title'        => '14. – 17. Mai 2027 • Haus Lutherrose, Neuendettelsau',
         'event_sub'          => 'Fronleichnam-Wochenende • Workshops, Fotowalks, Studio & Grillabend',
         'event_target_date'  => '2026-05-28T09:00',
         'event_btn_text'     => 'Zur Anmeldung',

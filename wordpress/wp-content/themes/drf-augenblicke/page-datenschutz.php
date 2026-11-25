@@ -7,6 +7,7 @@
  */
 
 get_header();
+$subheading = function_exists('drf_get_page_subheading') ? drf_get_page_subheading() : '';
 ?>
 
 <div class="page-hero">
@@ -15,8 +16,10 @@ get_header();
             <span class="hero-tag-bar"></span>
             <span>de.rec.fotografie e.V.</span>
         </div>
-        <h1 class="page-title">Datenschutzerkl&auml;rung</h1>
-        <h2 class="page-lead">Transparente Informationen &uuml;ber die Erhebung und Verarbeitung personenbezogener Daten gem&auml;&szlig; DSGVO.</h2>
+        <h1 class="page-title"><?php the_title(); ?></h1>
+        <?php if (!empty($subheading)) : ?>
+            <h2 class="page-lead"><?php echo esc_html($subheading); ?></h2>
+        <?php endif; ?>
     </div>
 </div>
 

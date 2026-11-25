@@ -36,7 +36,7 @@ $hero_polaroid_2   = drf_get_theme_option('hero_polaroid_2', DRF_THEME_URI . '/a
 $hero_badge_image  = drf_get_theme_option('hero_badge_image', DRF_THEME_URI . '/assets/images/badge-treffen.png');
 
 $event_badge       = drf_get_theme_option('event_badge', 'AUGENBLICKE XXVI');
-$event_title       = drf_get_theme_option('event_title', '28. – 31. Mai 2026 • Haus Lutherrose, Neuendettelsau');
+$event_title       = drf_get_theme_option('event_title', '14. – 17. Mai 2026 • Haus Lutherrose, Neuendettelsau');
 $event_sub         = drf_get_theme_option('event_sub', 'Fronleichnam-Wochenende • Workshops, Fotowalks, Studio & Grillabend');
 $event_btn_text    = drf_get_theme_option('event_btn_text', 'Zur Anmeldung');
 $event_btn_link    = drf_get_theme_option('event_btn_link', '/tagungsbuero/');
@@ -58,7 +58,7 @@ $card_3_image      = drf_get_theme_option('card_3_image', DRF_THEME_URI . '/asse
 
 $card_4_title      = drf_get_theme_option('card_4_title', 'Tagungsbüro');
 $card_4_desc       = drf_get_theme_option('card_4_desc', 'Dein Ansprechpartner vor Ort – für Anmeldung, Infos und alles rund um das Treffen.');
-$card_4_link       = drf_get_theme_option('card_4_link', '/tagungsbuero/');
+$card_4_link       = drf_get_theme_option('card_4_link', '/tagungsbuero-2/');
 $card_4_image      = drf_get_theme_option('card_4_image', DRF_THEME_URI . '/assets/images/card-tagungsbuero.jpg');
 
 $flarum_box_title  = drf_get_theme_option('flarum_box_title', 'Flarum Single Sign-On');

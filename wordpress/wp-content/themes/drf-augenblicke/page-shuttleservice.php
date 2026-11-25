@@ -14,14 +14,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['drf_shuttle_nonce']))
         $shuttle_booked = true;
     }
 }
+$subheading = function_exists('drf_get_page_subheading') ? drf_get_page_subheading() : '';
 ?>
 
 <div class="page-hero">
     <div class="container">
-        <h1 class="page-title">Shuttleservice &ndash; Bequem zum Treffen</h1>
-        <p class="page-lead">
-            Bequem und unkompliziert: Unser Shuttleservice bringt dich und deine Fotoausr&uuml;stung zuverl&auml;ssig vom Bahnhof direkt zum Haus Lutherrose.
-        </p>
+        <div class="hero-tag">
+            <span class="hero-tag-bar"></span>
+            <span>de.rec.fotografie e.V.</span>
+        </div>
+        <h1 class="page-title"><?php the_title(); ?></h1>
+        <?php if (!empty($subheading)) : ?>
+            <h2 class="page-lead"><?php echo esc_html($subheading); ?></h2>
+        <?php endif; ?>
     </div>
 </div>
 

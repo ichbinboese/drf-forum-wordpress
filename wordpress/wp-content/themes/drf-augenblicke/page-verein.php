@@ -7,14 +7,19 @@
  */
 
 get_header();
+$subheading = function_exists('drf_get_page_subheading') ? drf_get_page_subheading() : '';
 ?>
 
 <div class="page-hero">
     <div class="container">
-        <h1 class="page-title">Verein &ndash; de.rec.fotografie e.V.</h1>
-        <p class="page-lead">
-            Wer wir sind, wof&uuml;r wir stehen und was uns seit &uuml;ber zwei Jahrzehnten als lebendige Fotografie-Gemeinschaft ausmacht.
-        </p>
+        <div class="hero-tag">
+            <span class="hero-tag-bar"></span>
+            <span>de.rec.fotografie e.V.</span>
+        </div>
+        <h1 class="page-title"><?php the_title(); ?></h1>
+        <?php if (!empty($subheading)) : ?>
+            <h2 class="page-lead"><?php echo esc_html($subheading); ?></h2>
+        <?php endif; ?>
     </div>
 </div>
 
