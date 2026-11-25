@@ -70,7 +70,7 @@ class DRF_Sozial_Widget extends Widget_Base {
         $settings = $this->get_settings_for_display();
         ?>
         <div class="container drf-elementor-sozial-wrap">
-            <div class="drf-elementor-sozial" style="margin: 28px 0;">
+            <div class="drf-elementor-sozial">
                 <div class="drf-section-header">
                     <span class="drf-section-badge">SOLIDARITÄT &amp; HILFE</span>
                     <h2 class="drf-section-title"><?php echo esc_html($settings['title']); ?></h2>

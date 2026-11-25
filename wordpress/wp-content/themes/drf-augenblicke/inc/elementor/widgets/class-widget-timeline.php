@@ -296,7 +296,7 @@ class DRF_Timeline_Widget extends Widget_Base {
         ];
         ?>
         <div class="container drf-elementor-timeline-wrap">
-            <div class="drf-timeline-section" style="margin: 40px 0;">
+            <div class="drf-timeline-section">
             <?php if (!empty($settings['title'])) : ?>
                 <div class="drf-section-header">
                     <span class="drf-section-badge">CHRONIK &amp; GESCHICHTE</span>
@@ -307,31 +307,31 @@ class DRF_Timeline_Widget extends Widget_Base {
                 </div>
             <?php endif; ?>
 
-            <div class="drf-timeline-wrap" style="position: relative; padding-left: 36px; border-left: 3px solid #e2e8f0; margin-left: 14px;">
+            <div class="drf-timeline-wrap">
                 <?php foreach ($milestones as $m) :
                     $dot_color = $m['active'] ? '#f5b301' : '#94a3b8';
                     ?>
-                    <div class="drf-timeline-item" style="position: relative; margin-bottom: 32px;">
+                    <div class="drf-timeline-item">
                         <!-- Timeline Dot -->
-                        <div style="position: absolute; left: -46px; top: 4px; width: 22px; height: 22px; border-radius: 50%; background: #ffffff; border: 4px solid <?php echo esc_attr($dot_color); ?>; box-shadow: 0 0 0 4px rgba(245, 179, 1, 0.15);"></div>
+                        <div class="drf-timeline-dot" style="border-color: <?php echo esc_attr($dot_color); ?>;"></div>
 
-                        <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 20px 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); transition: transform 0.2s ease;">
-                            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; margin-bottom: 8px;">
+                        <div class="drf-timeline-card">
+                            <div class="drf-timeline-card-header">
                                 <div>
-                                    <span style="font-size: 1.3rem; font-weight: 800; color: #1e293b;"><?php echo esc_html($m['year']); ?></span>
-                                    <span style="background: #141518; color: #ffffff; font-weight: 700; font-size: 0.75rem; padding: 2px 8px; border-radius: 4px; margin-left: 8px;"><?php echo esc_html($m['tag']); ?></span>
-                                    <code style="background: #f1f5f9; color: #0f172a; padding: 2px 6px; border-radius: 4px; font-size: 0.82rem; margin-left: 6px;"><?php echo esc_html($m['code']); ?></code>
+                                    <span class="drf-timeline-year"><?php echo esc_html($m['year']); ?></span>
+                                    <span class="drf-timeline-tag"><?php echo esc_html($m['tag']); ?></span>
+                                    <code class="drf-timeline-code"><?php echo esc_html($m['code']); ?></code>
                                 </div>
-                                <span style="background: <?php echo $m['active'] ? '#f5b301' : '#f1f5f9'; ?>; color: <?php echo $m['active'] ? '#141518' : '#64748b'; ?>; font-weight: 700; font-size: 0.75rem; padding: 2px 8px; border-radius: 4px; text-transform: uppercase;">
+                                <span class="drf-timeline-badge <?php echo $m['active'] ? 'is-active' : ''; ?>">
                                     <?php echo esc_html($m['badge']); ?>
                                 </span>
                             </div>
 
-                            <div style="font-weight: 600; color: #b78103; font-size: 0.95rem; margin-bottom: 6px;">
+                            <div class="drf-timeline-venue">
                                 📍 <?php echo esc_html($m['venue']); ?>
                             </div>
 
-                            <p style="color: #475569; font-size: 0.92rem; margin: 0; line-height: 1.5;">
+                            <p class="drf-timeline-desc">
                                 <?php echo esc_html($m['desc']); ?>
                             </p>
                         </div>

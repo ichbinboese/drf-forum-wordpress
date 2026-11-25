@@ -149,7 +149,7 @@ class DRF_Chronik_Widget extends Widget_Base {
         ];
         ?>
         <div class="container drf-elementor-chronik-wrap">
-            <div class="drf-elementor-chronik" style="margin: 28px 0;">
+            <div class="drf-elementor-chronik">
             <?php if (!empty($settings['title'])) : ?>
                 <div class="drf-section-header">
                     <span class="drf-section-badge">TREFFEN-ARCHIV</span>

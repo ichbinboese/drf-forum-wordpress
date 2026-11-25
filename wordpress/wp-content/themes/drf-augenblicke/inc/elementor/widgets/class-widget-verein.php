@@ -61,7 +61,7 @@ class DRF_Verein_Widget extends Widget_Base {
         $settings = $this->get_settings_for_display();
         ?>
         <div class="container drf-elementor-verein-wrap">
-            <div class="drf-elementor-verein" style="margin: 28px 0;">
+            <div class="drf-elementor-verein">
             <div class="drf-section-header">
                 <span class="drf-section-badge">VEREIN &amp; VORSTAND</span>
                 <h2 class="drf-section-title"><?php echo esc_html($settings['title']); ?></h2>

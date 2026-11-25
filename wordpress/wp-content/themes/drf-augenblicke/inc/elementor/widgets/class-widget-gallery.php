@@ -252,7 +252,7 @@ class DRF_Gallery_Widget extends Widget_Base {
         }
         ?>
         <div class="container drf-elementor-gallery-wrap">
-            <div class="drf-gallery-section" style="margin: 40px 0;">
+            <div class="drf-gallery-section">
             <?php if (!empty($settings['title'])) : ?>
                 <div class="drf-section-header">
                     <span class="drf-section-badge">IMPRESSIONEN &amp; GALERIE</span>

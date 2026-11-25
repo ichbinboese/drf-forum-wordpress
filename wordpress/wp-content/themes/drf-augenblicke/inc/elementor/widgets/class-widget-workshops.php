@@ -147,7 +147,7 @@ class DRF_Workshops_Widget extends Widget_Base {
         }
         ?>
         <div class="container drf-elementor-workshops-wrap">
-            <div class="drf-elementor-workshops" style="margin: 28px 0;">
+            <div class="drf-elementor-workshops">
                 <div class="drf-section-header" style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 16px;">
                     <div>
                         <span class="drf-section-badge">PROGRAMM &amp; SESSIONS</span>

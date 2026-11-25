@@ -86,7 +86,7 @@ class DRF_Tagungsbuero_Widget extends Widget_Base {
         ];
         ?>
         <div class="container drf-elementor-tagungsbuero-wrap">
-            <div class="drf-elementor-tagungsbuero" style="margin: 28px 0;">
+            <div class="drf-elementor-tagungsbuero">
             <div class="drf-section-header">
                 <span class="drf-section-badge">TAGUNGSBÜRO</span>
                 <h2 class="drf-section-title"><?php echo esc_html($settings['title']); ?></h2>
