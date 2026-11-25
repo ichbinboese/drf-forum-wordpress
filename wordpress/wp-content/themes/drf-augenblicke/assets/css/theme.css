@@ -156,7 +156,7 @@ img {
 
 .elementor-widget-container > section > .container:not(.hero-grid),
 .elementor-widget-container > div > .container:not(.hero-grid),
-.elementor-widget .container {
+.elementor-widget .container:not(.hero-grid) {
   padding-left: 0 !important;
   padding-right: 0 !important;
   max-width: 100% !important;
@@ -628,7 +628,8 @@ button.btn-outline:hover {
 /* ==========================================================================
    4. Hero Section
    ========================================================================== */
-.hero-augenblicke {
+.hero-augenblicke,
+.drf-elementor-hero {
   position: relative;
   background-color: #1a1c20;
   background-image: linear-gradient(
@@ -642,8 +643,10 @@ button.btn-outline:hover {
   background-size: cover;
   background-position: center top;
   color: #ffffff;
-  padding: 56px 0 68px;
+  padding: 52px 44px 64px 44px !important;
+  border-radius: 14px !important;
   overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
 }
 
 .hero-grid {
@@ -651,6 +654,7 @@ button.btn-outline:hover {
   grid-template-columns: 1.15fr 0.85fr;
   align-items: center;
   gap: 40px;
+  width: 100%;
 }
 
 /* Left Hero Content */
@@ -1468,8 +1472,9 @@ h2.page-lead,
     font-size: 1.1rem;
   }
 
-  .hero-augenblicke {
-    padding: 36px 0 44px;
+  .hero-augenblicke,
+  .drf-elementor-hero {
+    padding: 38px 24px 44px 24px !important;
   }
 
   .hero-title {
@@ -1876,6 +1881,11 @@ h2.drf-section-title {
 }
 
 @media (max-width: 640px) {
+  .hero-augenblicke,
+  .drf-elementor-hero {
+    padding: 30px 18px 36px 18px !important;
+    border-radius: 10px !important;
+  }
   .cards-grid,
   .drf-workshops-grid,
   .drf-polaroid-grid {
