@@ -80,7 +80,7 @@ class DRF_Shuttle_Route_Widget extends Widget_Base {
                         <li><strong>Shuttle-Fahrzeit:</strong> Nur ca. 8 Minuten bis zum Haus Lutherrose.</li>
                         <li><strong>Taktung:</strong> Stündlich ab 13:00 bis 19:30 Uhr am Anreisetag.</li>
                     </ul>
-                    <a href="/shuttleservice/" class="btn btn-primary" style="font-size: 0.88rem; padding: 8px 16px;">
+                    <a href="#shuttleForm" class="btn btn-primary" style="font-size: 0.88rem; padding: 8px 16px;">
                         <span>Shuttle ab Wicklesgreuth wählen &rarr;</span>
                     </a>
                 </div>
@@ -96,7 +96,7 @@ class DRF_Shuttle_Route_Widget extends Widget_Base {
                         <li><strong>Shuttle-Fahrzeit:</strong> ca. 20 Minuten bis zum Tagungshaus.</li>
                         <li><strong>Abholungen:</strong> Feste Slots um 14:30, 16:30 und 18:30 Uhr nach Vereinbarung.</li>
                     </ul>
-                    <a href="/shuttleservice/" class="btn btn-secondary" style="font-size: 0.88rem; padding: 8px 16px;">
+                    <a href="#shuttleForm" class="btn btn-primary" style="font-size: 0.88rem; padding: 8px 16px;">
                         <span>Shuttle ab Ansbach anfragen &rarr;</span>
                     </a>
                 </div>

@@ -69,40 +69,10 @@ class DRF_Shuttle_Widget extends Widget_Base {
     protected function render() {
         $settings = $this->get_settings_for_display();
         ?>
-        <div class="container drf-elementor-shuttle-wrap">
+        <div class="container drf-elementor-shuttle-wrap" id="shuttleForm">
             <div class="drf-elementor-shuttle">
-            <h2><?php echo esc_html($settings['title']); ?></h2>
-            <p>
-                Damit alle Bahnreisenden auch mit schwerem Fotogepäck, Stativen und Studioequipment entspannt im <strong>Haus Lutherrose</strong> ankommen, bieten wir einen kostenlosen ehrenamtlichen Shuttleservice an.
-            </p>
-
-            <table class="drf-table" style="margin: 20px 0;">
-                <thead>
-                    <tr>
-                        <th>Bahnhof</th>
-                        <th>Strecke / Anbindung</th>
-                        <th>Fahrzeit zum Tagungshaus</th>
-                        <th>Abholzeiten am Anreisetag</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Bahnhof Wicklesgreuth</strong></td>
-                        <td>S-Bahn S4 (Nürnberg – Ansbach) &amp; Regionalzüge</td>
-                        <td>ca. 8 Minuten</td>
-                        <td>Stündlich von 13:00 bis 19:30 Uhr</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Hauptbahnhof Ansbach</strong></td>
-                        <td>IC / ICE &amp; Fernverkehr</td>
-                        <td>ca. 20 Minuten</td>
-                        <td>Nach Vereinbarung (14:30, 16:30, 18:30 Uhr)</td>
-                    </tr>
-                </tbody>
-            </table>
-
             <?php if ($settings['show_form'] === 'yes') : ?>
-                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 24px; margin-top: 24px; max-width: 600px;">
+                <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 28px; box-shadow: 0 4px 16px rgba(0,0,0,0.05); max-width: 680px; margin: 0 auto;">
                     <?php if (isset($_GET['shuttle_status']) && $_GET['shuttle_status'] === 'success') : ?>
                         <div style="background: #dcfce7; border-left: 4px solid #16a34a; color: #166534; padding: 14px 18px; border-radius: 6px; margin-bottom: 20px; font-size: 0.95rem;">
                             <strong>✅ Shuttle-Anfrage erhalten!</strong><br>
@@ -115,8 +85,13 @@ class DRF_Shuttle_Widget extends Widget_Base {
                         </div>
                     <?php endif; ?>
 
-                    <h3 style="margin-top: 0; color: #1e293b;">Shuttle-Platz vorab reservieren</h3>
-                    <form method="post" action="/shuttleservice/">
+                    <div class="drf-section-header" style="margin-bottom: 20px;">
+                        <span class="drf-section-badge">RESERVIERUNG</span>
+                        <h3 class="drf-section-title" style="margin: 0 0 6px 0; font-size: 1.45rem !important;">Shuttle-Platz vorab reservieren</h3>
+                        <p class="drf-section-lead" style="font-size: 0.95rem;">Gib uns deine voraussichtliche Ankunftszeit bekannt, damit wir deinen Transfer verlässlich einplanen können.</p>
+                    </div>
+
+                    <form method="post" action="/shuttleservice/#shuttleForm">
                         <?php wp_nonce_field('drf_shuttle_action', 'drf_shuttle_nonce'); ?>
                         <div class="drf-form-group" style="margin-bottom: 12px;">
                             <label class="drf-label">Name *</label>
@@ -134,14 +109,14 @@ class DRF_Shuttle_Widget extends Widget_Base {
                             </select>
                         </div>
                         <div class="drf-form-group" style="margin-bottom: 12px;">
-                            <label class="drf-label">Voraussichtliche Ankunftszeit</label>
-                            <input type="text" name="arrival_time" class="drf-input" placeholder="z.B. 14:45 Uhr (S-Bahn S4)" style="width: 100%;">
+                            <label class="drf-label">Voraussichtliche Ankunftszeit *</label>
+                            <input type="text" name="arrival_time" class="drf-input" required placeholder="z.B. 14:45 Uhr (S-Bahn S4)" style="width: 100%;">
                         </div>
                         <div class="drf-form-group" style="margin-bottom: 16px;">
                             <label class="drf-label">Besonderes Gepäck / Stative (Optional)</label>
                             <input type="text" name="luggage_note" class="drf-input" placeholder="z.B. Großformatkoffer, Lichtstative" style="width: 100%;">
                         </div>
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
                             <span>Shuttleplatz anfragen &rarr;</span>
                         </button>
                     </form>
