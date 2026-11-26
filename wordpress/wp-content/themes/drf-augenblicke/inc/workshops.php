@@ -441,7 +441,7 @@ class DRF_Workshops_Manager {
 
         wp_send_json_success([
             'message' => sprintf(
-                __('Vielen Dank, %s! Dein Workshop-Vorschlag »%s« wurde erfolgreich eingereicht. Ein Administrator prüft ihn und schaltet ihn zeitnah frei.', 'drf-augenblicke'),
+                __('Vielen Dank, %s! Dein Workshop-Vorschlag »%s« wurde erfolgreich eingereicht. Er wird von den Administratoren geprüft und freigegeben, bevor er auf der Webseite veröffentlicht wird.', 'drf-augenblicke'),
                 esc_html($speaker),
                 esc_html($title)
             ),
@@ -557,7 +557,7 @@ class DRF_Workshops_Manager {
      */
     public function render_workshop_modals() {
         ?>
-        <!-- MODAL 1: Eigenen Workshop vorschlagen -->
+        <!-- MODAL: Eigenen Workshop vorschlagen -->
         <div id="modalWorkshopPropose" class="drf-modal" role="dialog" aria-modal="true" aria-labelledby="modalProposeTitle" style="display: none;">
             <div class="drf-modal-backdrop" onclick="drfCloseModal('modalWorkshopPropose')"></div>
             <div class="drf-modal-dialog">
@@ -568,7 +568,7 @@ class DRF_Workshops_Manager {
                         <button type="button" class="drf-modal-close" onclick="drfCloseModal('modalWorkshopPropose')" aria-label="Schließen">&times;</button>
                     </div>
                     <div class="drf-modal-body">
-                        <p class="drf-modal-lead">Unser Programm lebt vom Praxiseinsatz unserer Mitglieder. Reiche deine Session oder deinen Fotowalk ein – wir unterstützen dich bei Räumen und Material!</p>
+                        <p class="drf-modal-lead">Unser Programm lebt vom Praxiseinsatz unserer Mitglieder. Reiche deine Session oder deinen Fotowalk ein &ndash; nach redaktioneller Prüfung und Freigabe durch die Tagungsleitung erscheint dein Workshop im offiziellen Programm!</p>
                         
                         <div id="drfProposeAlert" class="drf-alert" style="display: none;"></div>
 
@@ -621,64 +621,7 @@ class DRF_Workshops_Manager {
                             <div class="drf-modal-actions">
                                 <button type="button" class="btn btn-outline" onclick="drfCloseModal('modalWorkshopPropose')">Abbrechen</button>
                                 <button type="submit" id="btnSubmitPropose" class="btn btn-primary">
-                                    <span>Vorschlag verbindlich einreichen &rarr;</span>
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- MODAL 2: Für Einzelworkshop anmelden -->
-        <div id="modalWorkshopSignup" class="drf-modal" role="dialog" aria-modal="true" aria-labelledby="modalSignupTitle" style="display: none;">
-            <div class="drf-modal-backdrop" onclick="drfCloseModal('modalWorkshopSignup')"></div>
-            <div class="drf-modal-dialog">
-                <div class="drf-modal-content">
-                    <div class="drf-modal-header">
-                        <div class="drf-modal-tag">TEILNAHME-ANMELDUNG</div>
-                        <h3 id="modalSignupTitle" class="drf-modal-title">Für Workshop anmelden</h3>
-                        <button type="button" class="drf-modal-close" onclick="drfCloseModal('modalWorkshopSignup')" aria-label="Schließen">&times;</button>
-                    </div>
-                    <div class="drf-modal-body">
-                        <div class="drf-selected-workshop-box">
-                            <span id="signupWsBadge" class="drf-ws-badge">STUDIO</span>
-                            <h4 id="signupWsTitle" class="drf-selected-title">Studioblitz &amp; Lichtführung</h4>
-                            <p id="signupWsMeta" class="drf-selected-meta">Referent: Frank Schliffke</p>
-                        </div>
-
-                        <div id="drfSignupAlert" class="drf-alert" style="display: none;"></div>
-
-                        <form id="drfWorkshopSignupForm" onsubmit="drfSubmitWorkshopSignup(event)">
-                            <input type="hidden" id="signup_ws_id" name="workshop_id" value="0">
-
-                            <div class="drf-form-row drf-modal-cols-2">
-                                <div class="drf-form-group">
-                                    <label class="drf-label" for="signup_name">Dein Name *</label>
-                                    <input type="text" id="signup_name" name="signup_name" class="drf-input" required placeholder="Vor- und Nachname">
-                                </div>
-                                <div class="drf-form-group">
-                                    <label class="drf-label" for="signup_email">E-Mail-Adresse *</label>
-                                    <input type="email" id="signup_email" name="signup_email" class="drf-input" required placeholder="name@beispiel.de">
-                                </div>
-                            </div>
-
-                            <div class="drf-form-group" style="margin: 16px 0;">
-                                <label style="display: flex; align-items: flex-start; gap: 10px; cursor: pointer; font-size: 0.92rem; color: #374151;">
-                                    <input type="checkbox" id="signup_registered" name="signup_registered" value="1" checked style="margin-top: 3px;">
-                                    <span>Ich habe mich bereits für das Haupttreffen AUGENBLICKE 2026 angemeldet (bzw. plane dies in Kürze).</span>
-                                </label>
-                            </div>
-
-                            <div class="drf-form-group">
-                                <label class="drf-label" for="signup_notes">Anmerkung / Vorkenntnisse / Equipment (Optional)</label>
-                                <textarea id="signup_notes" name="signup_notes" class="drf-textarea" rows="2" placeholder="z.B. Eigene analoge Mittelformatkamera vorhanden, keine Vorkenntnisse"></textarea>
-                            </div>
-
-                            <div class="drf-modal-actions">
-                                <button type="button" class="btn btn-outline" onclick="drfCloseModal('modalWorkshopSignup')">Abbrechen</button>
-                                <button type="submit" id="btnSubmitSignup" class="btn btn-primary">
-                                    <span>Platz verbindlich sichern &rarr;</span>
+                                    <span>Vorschlag einreichen &rarr;</span>
                                 </button>
                             </div>
                         </form>
@@ -704,24 +647,9 @@ class DRF_Workshops_Manager {
             }
         }
 
-        function drfOpenWorkshopSignup(id, title, speaker, category, color) {
-            document.getElementById('signup_ws_id').value = id;
-            document.getElementById('signupWsTitle').textContent = title;
-            document.getElementById('signupWsMeta').textContent = speaker ? ('Referent: ' + speaker) : '';
-            var badge = document.getElementById('signupWsBadge');
-            badge.textContent = category || 'Workshop';
-            if (color) {
-                badge.style.background = color;
-                badge.style.color = (color === '#f5b301') ? '#141518' : '#ffffff';
-            }
-            document.getElementById('drfSignupAlert').style.display = 'none';
-            drfOpenModal('modalWorkshopSignup');
-        }
-
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 drfCloseModal('modalWorkshopPropose');
-                drfCloseModal('modalWorkshopSignup');
             }
         });
 
@@ -743,13 +671,13 @@ class DRF_Workshops_Manager {
             .then(function(res) { return res.json(); })
             .then(function(data) {
                 btn.disabled = false;
-                btn.innerHTML = '<span>Vorschlag verbindlich einreichen &rarr;</span>';
+                btn.innerHTML = '<span>Vorschlag einreichen &rarr;</span>';
                 alertBox.style.display = 'block';
                 if (data.success) {
                     alertBox.className = 'drf-alert drf-alert-success';
                     alertBox.textContent = data.data.message;
                     document.getElementById('drfWorkshopProposeForm').reset();
-                    setTimeout(function() { drfCloseModal('modalWorkshopPropose'); }, 3500);
+                    setTimeout(function() { drfCloseModal('modalWorkshopPropose'); }, 4000);
                 } else {
                     alertBox.className = 'drf-alert drf-alert-error';
                     alertBox.textContent = data.data.message || 'Ein Fehler ist aufgetreten.';
@@ -757,46 +685,7 @@ class DRF_Workshops_Manager {
             })
             .catch(function(err) {
                 btn.disabled = false;
-                btn.innerHTML = '<span>Vorschlag verbindlich einreichen &rarr;</span>';
-                alertBox.style.display = 'block';
-                alertBox.className = 'drf-alert drf-alert-error';
-                alertBox.textContent = 'Netzwerkfehler beim Absenden.';
-            });
-        }
-
-        function drfSubmitWorkshopSignup(e) {
-            e.preventDefault();
-            var btn = document.getElementById('btnSubmitSignup');
-            var alertBox = document.getElementById('drfSignupAlert');
-            btn.disabled = true;
-            btn.innerHTML = '<span>Wird gespeichert...</span>';
-
-            var formData = new FormData(document.getElementById('drfWorkshopSignupForm'));
-            formData.append('action', 'drf_signup_workshop');
-            formData.append('security', '<?php echo wp_create_nonce('drf_workshop_nonce'); ?>');
-
-            fetch('<?php echo admin_url('admin-ajax.php'); ?>', {
-                method: 'POST',
-                body: formData
-            })
-            .then(function(res) { return res.json(); })
-            .then(function(data) {
-                btn.disabled = false;
-                btn.innerHTML = '<span>Platz verbindlich sichern &rarr;</span>';
-                alertBox.style.display = 'block';
-                if (data.success) {
-                    alertBox.className = 'drf-alert drf-alert-success';
-                    alertBox.textContent = data.data.message;
-                    document.getElementById('drfWorkshopSignupForm').reset();
-                    setTimeout(function() { drfCloseModal('modalWorkshopSignup'); }, 3000);
-                } else {
-                    alertBox.className = 'drf-alert drf-alert-error';
-                    alertBox.textContent = data.data.message || 'Ein Fehler ist aufgetreten.';
-                }
-            })
-            .catch(function(err) {
-                btn.disabled = false;
-                btn.innerHTML = '<span>Platz verbindlich sichern &rarr;</span>';
+                btn.innerHTML = '<span>Vorschlag einreichen &rarr;</span>';
                 alertBox.style.display = 'block';
                 alertBox.className = 'drf-alert drf-alert-error';
                 alertBox.textContent = 'Netzwerkfehler beim Absenden.';

@@ -163,17 +163,12 @@ class DRF_Workshops_Widget extends Widget_Base {
 
                 <div class="drf-workshops-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; margin: 32px 0;">
                     <?php foreach ($workshops_data as $ws) : ?>
-                        <div class="drf-workshop-card" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 24px; box-shadow: 0 4px 14px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between; height: 100%; transition: transform 0.2s ease, box-shadow 0.2s ease;">
+                        <div class="drf-workshop-card" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 24px; box-shadow: 0 4px 14px rgba(0,0,0,0.05); display: flex; flex-direction: column; height: 100%; transition: transform 0.2s ease, box-shadow 0.2s ease;">
                             <div>
-                                <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 12px; flex-wrap: wrap;">
+                                <div style="display: flex; justify-content: flex-start; align-items: center; gap: 8px; margin-bottom: 12px;">
                                     <span style="background: <?php echo esc_attr($ws['bg']); ?>; color: <?php echo esc_attr($ws['color']); ?>; font-weight: 700; font-size: 0.75rem; padding: 3px 9px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px;">
                                         <?php echo esc_html($ws['cat']); ?>
                                     </span>
-                                    <?php if (!empty($ws['max_p'])) : ?>
-                                        <span style="font-size: 0.78rem; font-weight: 600; color: <?php echo ($ws['spots_left'] > 0) ? '#16a34a' : '#dc2626'; ?>; background: <?php echo ($ws['spots_left'] > 0) ? '#f0fdf4' : '#fef2f2'; ?>; padding: 2px 7px; border-radius: 4px; border: 1px solid <?php echo ($ws['spots_left'] > 0) ? '#bbf7d0' : '#fecaca'; ?>;">
-                                            <?php echo ($ws['spots_left'] > 0) ? sprintf(__('%d Plätze frei', 'drf-augenblicke'), $ws['spots_left']) : __('Ausgebucht (Warteliste)', 'drf-augenblicke'); ?>
-                                        </span>
-                                    <?php endif; ?>
                                 </div>
 
                                 <h3 style="margin: 0 0 10px 0; font-size: 1.25rem; font-weight: 700; color: #1e293b; line-height: 1.3;"><?php echo esc_html($ws['title']); ?></h3>
@@ -195,13 +190,7 @@ class DRF_Workshops_Widget extends Widget_Base {
                                     </div>
                                 <?php endif; ?>
 
-                                <p style="font-size: 0.92rem; color: #475569; margin: 0 0 16px 0; line-height: 1.55;"><?php echo esc_html($ws['desc']); ?></p>
-                            </div>
-
-                            <div style="padding-top: 16px; border-top: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center; gap: 10px;">
-                                <button type="button" class="btn btn-outline btn-sm" onclick="drfOpenWorkshopSignup(<?php echo (int) $ws['id']; ?>, '<?php echo esc_js($ws['title']); ?>', '<?php echo esc_js($ws['speaker'] ?? ''); ?>', '<?php echo esc_js($ws['cat']); ?>', '<?php echo esc_js($ws['bg']); ?>')" style="width: 100%; justify-content: center;">
-                                    <span>Für diesen Workshop anmelden &rarr;</span>
-                                </button>
+                                <p style="font-size: 0.92rem; color: #475569; margin: 0; line-height: 1.55;"><?php echo esc_html($ws['desc']); ?></p>
                             </div>
                         </div>
                     <?php endforeach; ?>

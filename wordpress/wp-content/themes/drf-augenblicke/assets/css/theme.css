@@ -1979,7 +1979,7 @@ h2.drf-section-title {
 .drf-workshop-card {
   display: flex !important;
   flex-direction: column !important;
-  justify-content: space-between !important;
+  justify-content: flex-start !important;
   height: 100% !important;
   background: #ffffff !important;
   border: 1px solid #e2e8f0 !important;

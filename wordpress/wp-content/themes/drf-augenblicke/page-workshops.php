@@ -63,15 +63,12 @@ $workshops = get_posts([
                         $s_count = is_array($signups) ? count($signups) : 0;
                         $spots   = max(0, $max_p - $s_count);
                         ?>
-                        <div class="drf-workshop-card" style="background: #ffffff; border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); padding: 22px; display: flex; flex-direction: column; justify-content: space-between; height: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+                        <div class="drf-workshop-card" style="background: #ffffff; border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); padding: 22px; display: flex; flex-direction: column; height: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
                             <div>
-                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                <div style="display: flex; justify-content: flex-start; align-items: center; margin-bottom: 8px;">
                                     <div style="color: <?php echo esc_attr($tc); ?>; background: <?php echo esc_attr($color); ?>; font-weight: 700; font-size: 0.78rem; padding: 3px 8px; border-radius: 4px; display: inline-block;">
                                         <?php echo esc_html($cat); ?>
                                     </div>
-                                    <span style="font-size: 0.78rem; font-weight: 600; color: <?php echo ($spots > 0) ? '#16a34a' : '#dc2626'; ?>;">
-                                        <?php echo ($spots > 0) ? sprintf('%d Plätze frei', $spots) : 'Warteliste'; ?>
-                                    </span>
                                 </div>
                                 <h3 style="margin-top: 4px; font-size: 1.15rem; color: #1e293b;"><?php echo esc_html($p->post_title); ?></h3>
                                 <?php if ($speaker) : ?>
@@ -83,14 +80,9 @@ $workshops = get_posts([
                                         <?php if ($room) echo '<div>📍 ' . esc_html($room) . '</div>'; ?>
                                     </div>
                                 <?php endif; ?>
-                                <p style="font-size: 0.9rem; color: #4b5563; line-height: 1.5;">
+                                <p style="font-size: 0.9rem; color: #4b5563; line-height: 1.5; margin: 0;">
                                     <?php echo esc_html($p->post_content); ?>
                                 </p>
-                            </div>
-                            <div style="margin-top: 16px; padding-top: 14px; border-top: 1px solid #f1f5f9;">
-                                <button type="button" class="btn btn-outline btn-sm" onclick="drfOpenWorkshopSignup(<?php echo (int) $p->ID; ?>, '<?php echo esc_js($p->post_title); ?>', '<?php echo esc_js($speaker); ?>', '<?php echo esc_js($cat); ?>', '<?php echo esc_js($color); ?>')" style="width: 100%; justify-content: center;">
-                                    <span>Für diesen Workshop anmelden &rarr;</span>
-                                </button>
                             </div>
                         </div>
                     <?php endforeach; ?>
