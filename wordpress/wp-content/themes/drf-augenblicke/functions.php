@@ -89,6 +89,26 @@ function drf_enqueue_assets() {
         true
     );
 
+    // Apple-Style Parallax & Scroll Reveal Effects (Feature Branch)
+    if (file_exists(DRF_THEME_DIR . '/assets/css/parallax.css')) {
+        wp_enqueue_style(
+            'drf-parallax-styles',
+            DRF_THEME_URI . '/assets/css/parallax.css',
+            ['drf-theme-styles'],
+            DRF_THEME_VERSION
+        );
+    }
+
+    if (file_exists(DRF_THEME_DIR . '/assets/js/parallax.js')) {
+        wp_enqueue_script(
+            'drf-parallax-script',
+            DRF_THEME_URI . '/assets/js/parallax.js',
+            ['drf-theme-script'],
+            DRF_THEME_VERSION,
+            true
+        );
+    }
+
     // Pass countdown target date to JavaScript
     $target_date = drf_get_theme_option('event_target_date', '2026-05-28T09:00');
     wp_localize_script('drf-theme-script', 'drfThemeData', [

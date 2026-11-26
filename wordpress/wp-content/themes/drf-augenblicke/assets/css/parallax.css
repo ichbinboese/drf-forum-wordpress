@@ -1,0 +1,278 @@
+/**
+ * DRF Augenblicke - Apple-Style Parallax & Scroll Reveal Effects
+ *
+ * Inspired by Apple iPhone product showcases:
+ * - Ultra-smooth spring curve easing (cubic-bezier)
+ * - Staggered fly-in entrance for cards and grids
+ * - Multi-layer scroll parallax depth on Hero & Polaroids
+ * - Hardware accelerated (transform3d / will-change)
+ * - Instant toggle support via ?parallax=0 or live control pill
+ */
+
+/* ==========================================================================
+   1. Base Reveal Classes
+   ========================================================================== */
+.drf-reveal {
+  opacity: 0;
+  transform: translateY(38px) scale(0.97);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+
+.drf-reveal.is-revealed {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Horizontal slide variants */
+.drf-reveal-left {
+  opacity: 0;
+  transform: translateX(-40px) scale(0.98);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+
+.drf-reveal-left.is-revealed {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+}
+
+.drf-reveal-right {
+  opacity: 0;
+  transform: translateX(40px) scale(0.98);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+
+.drf-reveal-right.is-revealed {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+}
+
+/* ==========================================================================
+   2. Staggered Delays for Grid Elements
+   ========================================================================== */
+.cards-grid .feature-card:nth-child(1),
+.drf-workshops-grid .drf-workshop-card:nth-child(1),
+.drf-polaroid-grid .drf-polaroid-card:nth-child(1) {
+  transition-delay: 0.05s;
+}
+
+.cards-grid .feature-card:nth-child(2),
+.drf-workshops-grid .drf-workshop-card:nth-child(2),
+.drf-polaroid-grid .drf-polaroid-card:nth-child(2) {
+  transition-delay: 0.15s;
+}
+
+.cards-grid .feature-card:nth-child(3),
+.drf-workshops-grid .drf-workshop-card:nth-child(3),
+.drf-polaroid-grid .drf-polaroid-card:nth-child(3) {
+  transition-delay: 0.25s;
+}
+
+.cards-grid .feature-card:nth-child(4),
+.drf-workshops-grid .drf-workshop-card:nth-child(4),
+.drf-polaroid-grid .drf-polaroid-card:nth-child(4) {
+  transition-delay: 0.35s;
+}
+
+.cards-grid .feature-card:nth-child(5),
+.drf-workshops-grid .drf-workshop-card:nth-child(5),
+.drf-polaroid-grid .drf-polaroid-card:nth-child(5) {
+  transition-delay: 0.45s;
+}
+
+.cards-grid .feature-card:nth-child(6),
+.drf-workshops-grid .drf-workshop-card:nth-child(6),
+.drf-polaroid-grid .drf-polaroid-card:nth-child(6) {
+  transition-delay: 0.55s;
+}
+
+/* Timeline Staggering */
+.drf-timeline-item {
+  opacity: 0;
+  transform: translateX(32px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+
+.drf-timeline-item.is-revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ==========================================================================
+   3. Apple-Style Hero Parallax & Dynamic Depth
+   ========================================================================== */
+.hero-augenblicke,
+.drf-elementor-hero {
+  perspective: 1200px;
+}
+
+.hero-content {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-content.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hero-visual {
+  opacity: 0;
+  transform: translateY(32px) scale(0.96);
+  transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1) 0.15s,
+              transform 1s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+}
+
+.hero-visual.is-revealed {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Parallax floating layers for polaroids */
+.polaroid-item.parallax-dock {
+  will-change: transform;
+  transition: transform 0.12s cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+.polaroid-item.parallax-camera {
+  will-change: transform;
+  transition: transform 0.12s cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+/* Section Header Apple Float */
+.drf-section-header {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+
+.drf-section-header.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Banner / Countdown Apple Entrance */
+.drf-countdown-card,
+.drf-event-banner {
+  opacity: 0;
+  transform: translateY(30px) scale(0.98);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+
+.drf-countdown-card.is-revealed,
+.drf-event-banner.is-revealed {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Subtle Hover Elevation on Interactive Cards */
+.feature-card.is-revealed:hover,
+.drf-workshop-card.is-revealed:hover,
+.drf-polaroid-card.is-revealed:hover {
+  transform: translateY(-6px) scale(1.015) !important;
+}
+
+/* ==========================================================================
+   4. Parallax Control Switch (Floating Badge for Review & Demo)
+   ========================================================================== */
+.drf-parallax-switch {
+  position: fixed;
+  bottom: 22px;
+  left: 22px;
+  z-index: 9999;
+  background: rgba(20, 21, 24, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+  padding: 8px 14px;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #f1f5f9;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s ease;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.drf-parallax-switch:hover {
+  background: rgba(20, 21, 24, 0.96);
+  border-color: #f5b301;
+  transform: translateY(-2px);
+}
+
+.drf-parallax-switch .switch-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #16a34a;
+  box-shadow: 0 0 8px #22c55e;
+  transition: background 0.2s ease;
+}
+
+.drf-parallax-switch.is-disabled .switch-dot {
+  background: #64748b;
+  box-shadow: none;
+}
+
+.drf-parallax-switch .switch-label {
+  color: #e2e8f0;
+}
+
+.drf-parallax-switch.is-disabled .switch-label {
+  color: #94a3b8;
+}
+
+/* ==========================================================================
+   5. Instant Disable Mode (Falls der Kunde es nicht mag)
+   ========================================================================== */
+body.no-parallax .drf-reveal,
+body.no-parallax .drf-reveal-left,
+body.no-parallax .drf-reveal-right,
+body.no-parallax .hero-content,
+body.no-parallax .hero-visual,
+body.no-parallax .drf-section-header,
+body.no-parallax .drf-countdown-card,
+body.no-parallax .drf-event-banner,
+body.no-parallax .drf-timeline-item,
+body.no-parallax .feature-card,
+body.no-parallax .drf-workshop-card,
+body.no-parallax .drf-polaroid-card {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+  will-change: auto !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drf-reveal,
+  .drf-reveal-left,
+  .drf-reveal-right,
+  .hero-content,
+  .hero-visual,
+  .drf-section-header,
+  .drf-countdown-card,
+  .drf-event-banner,
+  .drf-timeline-item {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
